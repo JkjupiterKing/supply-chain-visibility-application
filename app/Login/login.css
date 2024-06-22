@@ -1,0 +1,36 @@
+body {
+    background-image:url(/resources/Images/login-background.jpg);
+    background-size: cover;
+  }
+  .login-form {
+    width: 30em;
+    margin: 10em auto;
+    font-size: 15px;
+  }
+  .login-form form {
+    margin-bottom: 15px;
+    background: white;
+    padding: 30px;
+    border-radius: 26px;
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,1);
+  }
+  .login-form h2 {
+    margin: 0 0 15px;
+    color: black;
+  }
+  .form-control, .btn {
+    min-height: 1em;
+    border-radius: 1px;
+  }
+  .btn {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-left: 8.5em;
+    background-color: #FF7D29;
+    border-color:white;
+  }
+  .btn:hover {
+    background-color: #95D2B3;
+    border-color:black;
+    color: black;
+  }
