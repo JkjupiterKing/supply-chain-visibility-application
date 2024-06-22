@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supply Chain Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <header>
+        <div class="sidenav">
+            <h1 style="color: white;margin-left: 1em;">Dashboard</h1>
+            <a href="#">Total orders</a>
+            <a href="#">Pending orders</a>
+            <a href="#">processed orders</a>
+            <a href="#">Shipped orders</a>
+            <a href="#">Delivered orders</a>
+            <a href="#">Returned orders</a>
+        </div>
+    </header>
+    <main>
+        <h1>Welcome!!</h1>
+        <section class="overview">
+            <h2>Overview</h2>
+            <div class="metrics">
+                <div class="metric">
+                    <h3>Orders Processed</h3>
+                    <p id="ordersProcessed">0</p>
+                    <img src="/resources/Images/order processed.png" alt="Orders Processed Image">
+                </div>
+                <div class="metric">
+                    <h3>Inventory Levels</h3>
+                    <p id="inventoryLevels">0</p>
+                    <img src="/resources/Images/inventory-levels.png" alt="Inventory Levels Image">
+                </div>
+                <div class="metric">
+                    <h3>Shipment Status</h3>
+                    <p id="shipmentStatus">No shipments</p>
+                    <img src="/resources/Images/shipment-status.png" alt="Shipment Status Image">
+                </div>
+            </div>
+        </section>
+        <section class="actions">
+            <h2>Actions</h2>
+            <button id="refreshData">Refresh Data</button>
+            <button id="viewReports">View Reports</button>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Supply Chain System</p>
+    </footer>
+    <script src="dashboard.js"></script>
+</body>
+</html>
