@@ -6,9 +6,41 @@ body {
     background-color: #2ecc71;
     background-repeat: no-repeat;
 }
-#search {
- width: 10em;
+h1{
+    margin-left: 1.3em;
+    padding: 1em;
+    color: whitesmoke;
 }
+#h2{
+    margin-left: 3.9em;
+    padding-top: 1em;
+    font-size: 1.5em;
+    color: #F7F9F2;
+}
+p {
+    font-size: 1.4em;
+    color: black;
+    font-weight: bold;
+}
+.form-inline {
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Optional: Align items vertically centered */
+  }
+  
+  .form-inline .form-control {
+    margin-right: 5px; /* Adjust spacing between input and button */
+  }
+  #search {
+  background-color: #FF7F3E;
+  color: white;
+  font-size: 1.1em;
+  font-weight: bold;
+  }
+  #search:hover {
+    background-color: #91DDCF;
+    color:black;
+  }
 /* Card styles */
 .card {
     z-index: 0;
@@ -104,13 +136,12 @@ body {
 
 /* Icon styles */
 .icon {
-    width: 8em;
-    height: 8em;
-    margin-right: 1em;
+    width: 6em;
+    margin: 0;
 }
 
 .icon-content {
-    padding-bottom: 20px;
+    padding-bottom: 1em;
 }
 
 @media screen and (max-width: 992px) {
