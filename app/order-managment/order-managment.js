@@ -31,7 +31,7 @@ function showPage(pageNumber) {
     });
     pagination[pageNumber].classList.add('active');
 
-    // Toggle disabled class for Previous and Next buttons
+    // Toggle disabled state for Previous and Next buttons
     toggleDisabledState(pageNumber);
 }
 
@@ -55,13 +55,6 @@ function showPreviousPage() {
     }
 }
 
-// Initialize: Show page 1 by default
-showPage(1);
-
-// Event listeners for Previous and Next buttons
-document.getElementById('previousPage').addEventListener('click', showPreviousPage);
-document.getElementById('nextPage').addEventListener('click', showNextPage);
-
 // Function to toggle disabled state of Previous and Next buttons
 function toggleDisabledState(pageNumber) {
     var previousPage = document.getElementById('previousPage');
@@ -78,3 +71,182 @@ function toggleDisabledState(pageNumber) {
         nextPage.classList.remove('disabled');
     }
 }
+
+// Initialize: Show page 1 by default
+showPage(1);
+
+// Event listeners for Previous and Next buttons
+document.getElementById('previousPage').addEventListener('click', showPreviousPage);
+document.getElementById('nextPage').addEventListener('click', showNextPage);
+
+// Event listener for table row clicks
+var tableRows = document.querySelectorAll('tbody tr');
+tableRows.forEach(function(row) {
+    row.addEventListener('click', function() {
+        // Get order details from the clicked row
+        var orderId = this.querySelector('td:nth-child(1)').innerText;
+        var customerName = this.querySelector('td:nth-child(2)').innerText;
+        var productName = this.querySelector('td:nth-child(3)').innerText;
+        var status = this.querySelector('td:nth-child(4)').innerText;
+
+        // Update the details in the bottom container
+        updateOrderDetails(orderId, customerName, productName, status);
+    });
+});
+
+function updateOrderDetails(orderId) {
+    var orderRow = document.getElementById('order' + orderId);
+    if (orderRow) {
+        var orderId = orderRow.querySelector('td:nth-child(1)').innerText;
+        var customerName = orderRow.querySelector('td:nth-child(2)').innerText;
+        var productName = orderRow.querySelector('td:nth-child(3)').innerText;
+        var status = orderRow.querySelector('td:nth-child(4)').innerText;
+
+        // Generate dynamic content for the order details container
+        var orderDetailsHtml = `
+            <div class="card">
+                <div class="row d-flex justify-content-between px-3 top">
+                    <div class="d-flex">
+                        <h5 style="font-weight: bold;">ORDERID <span class="text-primary font-weight-bold">#${orderId}</span></h5>
+                    </div>
+                    <div class="d-flex flex-column text-sm-right">
+                        <p class="mb-0">Expected Arrival <span>${generateExpectedDeliveryDate()}</span></p>
+                        <p>Grasshoppers <span class="font-weight-bold"><a href="#">${generateRandomProductCode()}</a></span></p>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-12">
+                        <ul id="progressbar" class="text-center">
+                            <li class="step0"></li>
+                            <li class="step0"></li>
+                            <li class="step0"></li>
+                            <li class="step0"></li>
+                            <li class="step0"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row justify-content-between top" id="icons">
+                    <div class="col-md-5 col-lg-2" id="icon-1"> 
+                        <div class="row d-flex icon-content">
+                            <img class="icon" src="/resources/Images/order-processed.png">
+                            <div class="d-flex flex-column">
+                                <p>Order<br>Processed</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-lg-2" id="icon-2"> 
+                        <div class="row d-flex icon-content">
+                            <img class="icon" src="/resources/Images/order-designing.png">
+                            <div class="d-flex flex-column">
+                                <p>Order<br>Designing</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-lg-2" id="icon-3"> 
+                        <div class="row d-flex icon-content">
+                            <img class="icon" src="/resources/Images/order-shipped.png">
+                            <div class="d-flex flex-column">
+                                <p>Order<br>Shipped</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-lg-2" id="icon-4"> 
+                        <div class="row d-flex icon-content">
+                            <img class="icon" src="/resources/Images/order-en-route.png">
+                            <div class="d-flex flex-column">
+                                <p>Order<br>En Route</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-lg-2" id="icon-5"> 
+                        <div class="row d-flex icon-content">
+                            <img class="icon" src="/resources/Images/order-arrived.png">
+                            <div class="d-flex flex-column">
+                                <p>Order<br>Arrived</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Update the order details container with generated HTML
+        var orderDetailsContainer = document.getElementById('orderDetailsContainer');
+        if (orderDetailsContainer) {
+            orderDetailsContainer.innerHTML = orderDetailsHtml;
+
+            // After updating the HTML, update the progress bar
+            updateProgressBar(status);
+        } else {
+            console.error('Order details container not found.');
+        }
+    } else {
+        console.error('Order row not found.');
+    }
+}
+
+function updateProgressBar(status) {
+    var progressBarItems = document.querySelectorAll('#orderDetailsContainer #progressbar li');
+    
+    // Check if progressBarItems is empty or null
+    if (!progressBarItems || progressBarItems.length === 0) {
+        console.error('Progress bar items not found.');
+        return; // Exit function if no progress bar items are found
+    }
+
+    // Reset all progress steps
+    progressBarItems.forEach(item => {
+        item.className = 'step0';
+    });
+
+    // Update progress steps based on status
+    switch (status.toLowerCase()) {
+        case 'shipped':
+            if (progressBarItems.length >= 3) {
+                progressBarItems[0].className = 'active step0';
+                progressBarItems[1].className = 'active step0';
+                progressBarItems[2].className = 'active step0';
+            }
+            break;
+        case 'processing':
+            if (progressBarItems.length >= 2) {
+                progressBarItems[0].className = 'active step0';
+                progressBarItems[1].className = 'active step0';
+            }
+            break;
+        case 'delivered':
+            if (progressBarItems.length >= 4) {
+                progressBarItems[0].className = 'active step0';
+                progressBarItems[1].className = 'active step0';
+                progressBarItems[2].className = 'active step0';
+                progressBarItems[3].className = 'active step0';
+            }
+            break;
+        case 'pending':
+            if (progressBarItems.length >= 1) {
+                progressBarItems[0].className = 'active step0';
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+// Example function to generate expected delivery date (for demonstration)
+function generateExpectedDeliveryDate() {
+    // Replace with your logic to generate the expected delivery date
+    var date = new Date();
+    date.setDate(date.getDate() + Math.floor(Math.random() * 10)); // Random date within next 10 days
+    var formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    return formattedDate;
+}
+
+// Example function to generate random product code (for demonstration)
+function generateRandomProductCode() {
+    return 'V' + Math.floor(Math.random() * 1000) + 'HB'; // Example format
+}
+
+
+
+
+
