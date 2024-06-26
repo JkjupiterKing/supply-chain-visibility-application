@@ -23,11 +23,74 @@
         </div>
     </div>
     <p id="h2">Track you orders here.</p>
+
+    <div class="container">
+        <h2>Total Orders</h2>
+        <br>
+        <!-- Table -->
+        <div class="table-responsive" id="table">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Product Name</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Sample data for page 1 -->
+                    <tr id="order1" class="page1">
+                        <td>1</td>
+                        <td>John Doe</td>
+                        <td>Product A</td>
+                        <td>Shipped</td>
+                    </tr>
+                    <tr id="order2" class="page1">
+                        <td>2</td>
+                        <td>Jane Smith</td>
+                        <td>Product B</td>
+                        <td>Processing</td>
+                    </tr>
+                    <!-- Additional rows for page 2 -->
+                    <tr id="order3" class="page2">
+                        <td>3</td>
+                        <td>Michael Brown</td>
+                        <td>Product C</td>
+                        <td>Delivered</td>
+                    </tr>
+                    <tr id="order4" class="page2">
+                        <td>4</td>
+                        <td>Emily Johnson</td>
+                        <td>Product D</td>
+                        <td>Pending</td>
+                    </tr>
+                    <!-- Repeat similar rows for additional pages -->
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <!-- Pagination -->
+        <nav aria-label="Page navigation">
+            <ul id="pagination" class="pagination justify-content-center">
+                <li class="page-item disabled" id="previousPage">
+                    <a class="page-link"  tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#" onclick="showPage(1)">1</a></li>
+                <li class="page-item"><a class="page-link" href="#" onclick="showPage(2)">2</a></li>
+                <li class="page-item"><a class="page-link" href="#" onclick="showPage(3)">3</a></li>
+                <li class="page-item" id="nextPage">
+                    <a class="page-link" onclick="showNextPage()">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
     <div class="container px-1 px-md-4 py-5 mx-auto">
         <div class="card">
             <div class="row d-flex justify-content-between px-3 top">
                 <div class="d-flex">
-                    <h5 style="font-weight: bold;">ORDER <span class="text-primary font-weight-bold">#6152</span></h5>
+                    <h5 style="font-weight: bold;">ORDERID <span class="text-primary font-weight-bold">#6152</span></h5>
                 </div>
                 <div class="d-flex flex-column text-sm-right">
                     <p class="mb-0">Expected Arrival <span>01/06/20</span></p>
@@ -88,7 +151,7 @@
                 </div>
             </div>
         </div>
-
+    <script src="order-managment.js"></script>
     <script src="../../resources/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
