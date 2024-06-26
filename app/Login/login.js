@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (username !== '' && password !== '') {
                 // Redirect to dashboard.html (replace with your actual dashboard page)
-                window.location.href = '/app/Dashboard/dashboard.html';
+                window.location.href = '../../app/dashboard/dashboard.html';
             } else {
                 // Display an alert if either username or password is empty
                 alert('Please enter both username and password.');
