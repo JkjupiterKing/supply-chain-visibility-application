@@ -49,6 +49,12 @@ main {
 img {
   width: 1.2em;
 }
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+  margin-left: 0;
+}
 section {
     margin-bottom: 1.5em;
     border: 1px solid white;
@@ -62,19 +68,21 @@ section {
   gap: 8em;
   justify-content: center;
 }
-
+.card {
+  width: 18em;
+}
 .card-title{
   text-align: center;
   font-size: 1.5em;
 }
 
 .card-text {
-  font-size: 2em;
+  font-size: 1.5em;
   font-weight: bold;
 }
 .overview {
     background-color: #f0f0f0;
-    padding: 20px;
+    padding: 1em;
 }
 
 .metrics {
