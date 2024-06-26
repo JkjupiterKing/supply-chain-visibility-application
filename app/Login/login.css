@@ -1,5 +1,5 @@
 body {
-    background-image:url(/resources/Images/login-background.jpg);
+    background-image:url(../../resources/Images/login-background.jpg);
     background-size: cover;
   }
   .login-form {
