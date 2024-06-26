@@ -6,14 +6,14 @@ body {
 /* The sidebar menu */
 .sidenav {
     height: 100%; /* Full-height: remove this if you want "auto" height */
-    width: 14em; /* Set the width of the sidebar */
+    width: 17em; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
     left: 0;
     background-color: #071952; /* Black */
     overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 20px;
+    padding-top: 1.2em;
   }
   
   /* The navigation menu links */
@@ -44,17 +44,17 @@ body {
   }
 main {
     padding: 20px;
-    margin-left: 15em;
+    margin-left: 17em;
 }
 img {
-  width: 3em;
+  width: 1.2em;
 }
 section {
     margin-bottom: 1.5em;
     border: 1px solid white;
-    border-radius: 26px;
+    border-radius: 10px;
     padding: 1.2em;
-    box-shadow: 0px 0px 20px 0px rgba(0,0,0,1);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,1);
 }
 .row {
   display: flex;
@@ -64,15 +64,13 @@ section {
 }
 
 .card-title{
-  margin-right: 1em;
+  text-align: center;
+  font-size: 1.5em;
 }
 
 .card-text {
   font-size: 2em;
   font-weight: bold;
-}
-.card-img-top {
-  width: 5em;
 }
 .overview {
     background-color: #f0f0f0;
@@ -104,13 +102,13 @@ section {
  #btn {
  background-color:#E2BBE9;
  border: 1px solid white;
- border-radius: 26px;
+ border-radius: 10px;
  margin-left: 2.2em;
- width: 10em;
+ width: 12em;
  height: 2em;
  font-size: 1em;
  font-weight: bold;
- margin-top: 14em;
+ margin-top: 13em;
  }
  #btn:hover {
   background-color: white;
