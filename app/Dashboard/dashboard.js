@@ -9,21 +9,42 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('inventoryLevels').textContent = inventoryLevels;
     document.getElementById('shipmentStatus').textContent = shipmentStatus;
 
-    // Event listeners for buttons (replace with actual functionality)
+    // Event listener for refresh button
     document.getElementById('refreshData').addEventListener('click', function() {
         // Simulated refresh action
         ordersProcessed += 10;
         inventoryLevels -= 5;
-        shipmentStatus = 'Delivered';
+
+        // Update shipment status with different statuses on each click
+        switch (shipmentStatus) {
+            case 'In transit':
+                shipmentStatus = 'Out for delivery';
+                break;
+            case 'Out for delivery':
+                shipmentStatus = 'Delivered';
+                break;
+            case 'Delivered':
+                shipmentStatus = 'In transit';
+                break;
+            default:
+                shipmentStatus = 'In transit'; // Default to 'In transit' if unknown status
+                break;
+        }
 
         // Update displayed data
         document.getElementById('ordersProcessed').textContent = ordersProcessed;
         document.getElementById('inventoryLevels').textContent = inventoryLevels;
         document.getElementById('shipmentStatus').textContent = shipmentStatus;
     });
+});
+     // JavaScript for handling logout button click
+     document.getElementById('btn').addEventListener('click', function() {
+        // Redirect to login page
+        window.location.href = '/app/Login/login.html'; // Replace with your actual login page URL
+    });
 
     document.getElementById('viewReports').addEventListener('click', function() {
         // Replace with code to navigate to reports page or display reports
         alert('Viewing reports...');
     });
-});
+

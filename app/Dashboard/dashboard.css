@@ -51,11 +51,29 @@ img {
 }
 section {
     margin-bottom: 1.5em;
-    border: 2px solid black;
-    padding: 1em;
+    border: 1px solid white;
+    border-radius: 26px;
+    padding: 1.2em;
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,1);
 }
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 8em;
+  justify-content: center;
+}
 
+.card-title{
+  margin-right: 1em;
+}
+
+.card-text {
+  font-size: 2em;
+  font-weight: bold;
+}
+.card-img-top {
+  width: 5em;
+}
 .overview {
     background-color: #f0f0f0;
     padding: 20px;
@@ -83,6 +101,20 @@ section {
 .actions button:hover {
     background-color: #0056b3;
 }
+ #btn {
+ background-color:#E2BBE9;
+ border: 1px solid white;
+ border-radius: 26px;
+ margin-left: 2.2em;
+ width: 10em;
+ height: 2em;
+ font-size: 1em;
+ font-weight: bold;
+ margin-top: 14em;
+ }
+ #btn:hover {
+  background-color: white;
+ }
 footer {
-    margin-left: 15em;
+    margin-left: 17em;
 }
