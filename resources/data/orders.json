@@ -1,0 +1,62 @@
+[
+    {
+        "orderId": 1,
+        "customerName": "John Doe",
+        "productName": "Smartphone",
+        "status": "Shipped"
+    },
+    {
+        "orderId": 2,
+        "customerName": "Jane Smith",
+        "productName": "Laptop",
+        "status": "Processing"
+    },
+    {
+        "orderId": 3,
+        "customerName": "Michael Brown",
+        "productName": "Tablet",
+        "status": "Delivered"
+    },
+    {
+        "orderId": 4,
+        "customerName": "Emily Johnson",
+        "productName": "Smartwatch",
+        "status": "Pending"
+    },
+    {
+        "orderId": 5,
+        "customerName": "Peter",
+        "productName": "Headphones",
+        "status": "Shipped"
+    },
+    {
+        "orderId": 6,
+        "customerName": "Neymar",
+        "productName": "Bluetooth Speaker",
+        "status": "Pending"
+    },
+    {
+        "orderId": 7,
+        "customerName": "Dwayne Johnson",
+        "productName": "Camera",
+        "status": "Processing"
+    },
+    {
+        "orderId": 8,
+        "customerName": "Rayn Reynolds",
+        "productName": "Fitness Tracker",
+        "status": "Delivered"
+    },
+    {
+        "orderId": 9,
+        "customerName": "Pearson",
+        "productName": "External Hard Drive",
+        "status": "Pending"
+    },
+    {
+        "orderId": 10,
+        "customerName": "Will Smith",
+        "productName": "Gaming Console",
+        "status": "Shipped"
+    }
+]

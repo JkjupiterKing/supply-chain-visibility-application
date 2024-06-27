@@ -1,27 +1,47 @@
-// JavaScript to handle pagination and row visibility
+document.addEventListener('DOMContentLoaded', function () {
+    const tableBody = document.getElementById('ordersTableBody');
+    // Fetch data from JSON file
+    fetch('../../resources/data/orders.json')
+        .then(response => response.json())
+        .then(data => {
+            // Iterate through each order object and create table rows
+            data.forEach(order => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${order.orderId}</td>
+                    <td>${order.customerName}</td>
+                    <td>${order.productName}</td>
+                    <td>${order.status}</td>
+                `;
+                tableBody.appendChild(row);
+
+                // Add click event listener to each row
+                row.addEventListener('click', function() {
+                    updateOrderDetails(order.orderId, order.customerName, order.productName, order.status);
+                });
+            });
+            // Initialize: Show page 1 by default
+            showPage(1);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+});
+
+// Function to show specific page of data
 function showPage(pageNumber) {
     // Hide all rows by default
-    var rows = document.querySelectorAll('.page1, .page2');
+    var rows = document.querySelectorAll('#ordersTableBody tr');
     rows.forEach(function(row) {
         row.style.display = 'none';
     });
 
     // Show rows based on the selected page number
-    if (pageNumber === 1) {
-        // Show rows for page 1
-        var order1 = document.getElementById('order1');
-        var order2 = document.getElementById('order2');
-        if (order1) order1.style.display = '';
-        if (order2) order2.style.display = '';
-    } else if (pageNumber === 2) {
-        // Show rows for page 2
-        var order3 = document.getElementById('order3');
-        var order4 = document.getElementById('order4');
-        if (order3) order3.style.display = '';
-        if (order4) order4.style.display = '';
-    } else if (pageNumber === 3) {
-        // Show rows for page 3 (if needed)
-        // Add logic here for additional pages
+    var rowsPerPage = 5; // Example number of rows per page
+    var startIndex = (pageNumber - 1) * rowsPerPage;
+    var endIndex = startIndex + rowsPerPage;
+    for (var i = startIndex; i < endIndex && i < rows.length; i++) {
+        rows[i].style.display = '';
     }
 
     // Update active class in pagination
@@ -63,7 +83,7 @@ function toggleDisabledState(pageNumber) {
     if (pageNumber === 1) {
         previousPage.classList.add('disabled');
         nextPage.classList.remove('disabled');
-    } else if (pageNumber === 3) {
+    } else if (pageNumber === 3) { // Example: Assuming 3 pages
         previousPage.classList.remove('disabled');
         nextPage.classList.add('disabled');
     } else {
@@ -72,61 +92,32 @@ function toggleDisabledState(pageNumber) {
     }
 }
 
-// Initialize: Show page 1 by default
-showPage(1);
-
-// Event listeners for Previous and Next buttons
-document.getElementById('previousPage').addEventListener('click', showPreviousPage);
-document.getElementById('nextPage').addEventListener('click', showNextPage);
-
-// Event listener for table row clicks
-var tableRows = document.querySelectorAll('tbody tr');
-tableRows.forEach(function(row) {
-    row.addEventListener('click', function() {
-        // Get order details from the clicked row
-        var orderId = this.querySelector('td:nth-child(1)').innerText;
-        var customerName = this.querySelector('td:nth-child(2)').innerText;
-        var productName = this.querySelector('td:nth-child(3)').innerText;
-        var status = this.querySelector('td:nth-child(4)').innerText;
-
-        // Update the details in the bottom container
-        updateOrderDetails(orderId, customerName, productName, status);
-    });
-});
-
-function updateOrderDetails(orderId) {
-    var orderRow = document.getElementById('order' + orderId);
-    if (orderRow) {
-        var orderId = orderRow.querySelector('td:nth-child(1)').innerText;
-        var customerName = orderRow.querySelector('td:nth-child(2)').innerText;
-        var productName = orderRow.querySelector('td:nth-child(3)').innerText;
-        var status = orderRow.querySelector('td:nth-child(4)').innerText;
-
-        // Generate dynamic content for the order details container
-        var orderDetailsHtml = `
-            <div class="card">
-                <div class="row d-flex justify-content-between px-3 top">
-                    <div class="d-flex">
-                        <h5 style="font-weight: bold;">ORDERID <span class="text-primary font-weight-bold">#${orderId}</span></h5>
-                    </div>
-                    <div class="d-flex flex-column text-sm-right">
-                        <p class="mb-0">Expected Arrival <span>${generateExpectedDeliveryDate()}</span></p>
-                        <p>Grasshoppers <span class="font-weight-bold"><a href="#">${generateRandomProductCode()}</a></span></p>
-                    </div>
+// Function to update order details container
+function updateOrderDetails(orderId, customerName, productName, status) {
+    var orderDetailsHtml = `
+        <div class="card">
+            <div class="row d-flex justify-content-between px-3 top">
+                <div class="d-flex">
+                    <h5 style="font-weight: bold;">ORDERID <span class="text-primary font-weight-bold">#${orderId}</span></h5>
                 </div>
-                <div class="row d-flex justify-content-center">
-                    <div class="col-12">
-                        <ul id="progressbar" class="text-center">
-                            <li class="step0"></li>
-                            <li class="step0"></li>
-                            <li class="step0"></li>
-                            <li class="step0"></li>
-                            <li class="step0"></li>
-                        </ul>
-                    </div>
+                <div class="d-flex flex-column text-sm-right">
+                    <p class="mb-0">Expected Arrival <span>${generateExpectedDeliveryDate()}</span></p>
+                    <p>Grasshoppers <span class="font-weight-bold"><a href="#">${generateRandomProductCode()}</a></span></p>
                 </div>
-                <div class="row justify-content-between top" id="icons">
-                    <div class="col-md-5 col-lg-2" id="icon-1"> 
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-12">
+                    <ul id="progressbar" class="text-center">
+                        <li class="step0"></li>
+                        <li class="step0"></li>
+                        <li class="step0"></li>
+                        <li class="step0"></li>
+                        <li class="step0"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row justify-content-between top" id="icons">
+                <div class="col-md-5 col-lg-2" id="icon-1"> 
                         <div class="row d-flex icon-content">
                             <img class="icon" src="/resources/Images/order-processed.png">
                             <div class="d-flex flex-column">
@@ -168,30 +159,26 @@ function updateOrderDetails(orderId) {
                     </div>
                 </div>
             </div>
-        `;
+            </div>
+        </div>
+    `;
 
-        // Update the order details container with generated HTML
-        var orderDetailsContainer = document.getElementById('orderDetailsContainer');
-        if (orderDetailsContainer) {
-            orderDetailsContainer.innerHTML = orderDetailsHtml;
-
-            // After updating the HTML, update the progress bar
-            updateProgressBar(status);
-        } else {
-            console.error('Order details container not found.');
-        }
+    var orderDetailsContainer = document.getElementById('orderDetailsContainer');
+    if (orderDetailsContainer) {
+        orderDetailsContainer.innerHTML = orderDetailsHtml;
+        updateProgressBar(status);
     } else {
-        console.error('Order row not found.');
+        console.error('Order details container not found.');
     }
 }
 
+// Function to update progress bar based on order status
 function updateProgressBar(status) {
-    var progressBarItems = document.querySelectorAll('#orderDetailsContainer #progressbar li');
+    var progressBarItems = document.querySelectorAll('#progressbar li');
     
-    // Check if progressBarItems is empty or null
     if (!progressBarItems || progressBarItems.length === 0) {
         console.error('Progress bar items not found.');
-        return; // Exit function if no progress bar items are found
+        return;
     }
 
     // Reset all progress steps
@@ -234,7 +221,6 @@ function updateProgressBar(status) {
 
 // Example function to generate expected delivery date (for demonstration)
 function generateExpectedDeliveryDate() {
-    // Replace with your logic to generate the expected delivery date
     var date = new Date();
     date.setDate(date.getDate() + Math.floor(Math.random() * 10)); // Random date within next 10 days
     var formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
@@ -245,8 +231,3 @@ function generateExpectedDeliveryDate() {
 function generateRandomProductCode() {
     return 'V' + Math.floor(Math.random() * 1000) + 'HB'; // Example format
 }
-
-
-
-
-
