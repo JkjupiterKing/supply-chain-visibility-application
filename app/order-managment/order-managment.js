@@ -1,21 +1,28 @@
-// Function to handle form submission
+//search functionality
 document.getElementById('searchButton').addEventListener('click', function(event) {
     event.preventDefault(); // Prevent form submission
     const searchQuery = document.getElementById('searchInput').value.trim().toLowerCase();
 
-    fetch('../../resources/data/orders.json')
-        .then(response => response.json())
-        .then(data => {
-            const results = searchOrders(data, searchQuery);
-            displayResults(results);
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-        });
+    if (searchQuery === '') {
+        displayResults([]); // Display message if search query is empty
+    } else {
+        fetch('../../resources/data/orders.json')
+            .then(response => response.json())
+            .then(data => {
+                const results = searchOrders(data, searchQuery);
+                displayResults(results);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }
 });
 
 // Function to search orders based on orderId or customerName
 function searchOrders(data, query) {
+    if (query === '') {
+        return []; // Return empty array if query is empty
+    }
     return data.filter(order =>
         order.orderId.toString().includes(query) || order.customerName.toLowerCase().includes(query)
     );
