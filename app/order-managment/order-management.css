@@ -20,7 +20,7 @@ p {
     font-weight: bold;
 }
 .container {
-    margin-top:2em;
+    margin-top:2em 0 0 0;
 }
 
 .form-inline {
@@ -32,13 +32,13 @@ p {
   .form-inline .form-control {
     margin-right: 5px; /* Adjust spacing between input and button */
   }
-  #search {
+  #searchButton {
   background-color: #FF7F3E;
   color: white;
   font-size: 1.1em;
   font-weight: bold;
   }
-  #search:hover {
+  #searchButton:hover {
     background-color: #91DDCF;
     color:black;
   }
@@ -77,10 +77,11 @@ p {
 }
 
 #progressbar .step0:before {
-    font-family: FontAwesome;
+    font-family: FontAwesome; 
     content: "\f10c";
     color: white;
 }
+
 
 #progressbar li:before {
     width: 40px;
@@ -149,4 +150,7 @@ p {
     .icon-content {
         width: 50%;
     }
+}
+#result {
+  margin-left: 0;
 }

@@ -1,3 +1,46 @@
+// Function to handle form submission
+document.getElementById('searchButton').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent form submission
+    const searchQuery = document.getElementById('searchInput').value.trim().toLowerCase();
+
+    fetch('../../resources/data/orders.json')
+        .then(response => response.json())
+        .then(data => {
+            const results = searchOrders(data, searchQuery);
+            displayResults(results);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+});
+
+// Function to search orders based on orderId or customerName
+function searchOrders(data, query) {
+    return data.filter(order =>
+        order.orderId.toString().includes(query) || order.customerName.toLowerCase().includes(query)
+    );
+}
+
+// Function to display search results in the specified <div>
+function displayResults(results) {
+    const displayDiv = document.getElementById('display');
+    displayDiv.innerHTML = ''; // Clear previous results
+
+    if (results.length === 0) {
+        displayDiv.innerHTML = '<h1 id="result">Order not found!! Please provide a valid order ID or customer name.</h1>';
+    } else {
+        results.forEach(order => {
+            const resultDiv = document.createElement('div');
+            resultDiv.classList.add('result-item');
+            resultDiv.innerHTML = `<p><strong>Order ID:</strong> ${order.orderId}</p>
+                                   <p><strong>Customer Name:</strong> ${order.customerName}</p>
+                                   <p><strong>Product Name:</strong> ${order.productName}</p>
+                                   <p><strong>Status:</strong> ${order.status}</p>`;
+            displayDiv.appendChild(resultDiv);
+        });
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const tableBody = document.getElementById('ordersTableBody');
     // Fetch data from JSON file
@@ -222,12 +265,12 @@ function updateProgressBar(status) {
 // Example function to generate expected delivery date (for demonstration)
 function generateExpectedDeliveryDate() {
     var date = new Date();
-    date.setDate(date.getDate() + Math.floor(Math.random() * 10)); // Random date within next 10 days
+    date.setDate(date.getDate() + Math.floor(Math.random() * 30)); // Random date within next 10 days
     var formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
     return formattedDate;
 }
 
 // Example function to generate random product code (for demonstration)
 function generateRandomProductCode() {
-    return 'V' + Math.floor(Math.random() * 1000) + 'HB'; // Example format
+    return 'V' + Math.floor(Math.random() * 1000) + 'HB'; 
 }
