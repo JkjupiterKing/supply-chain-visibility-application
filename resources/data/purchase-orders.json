@@ -1,0 +1,75 @@
+[
+    {
+      "item": "Laptop",
+      "quantity": 2,
+      "supplier": "ABC Suppliers",
+      "price": 20000
+    },
+    {
+      "item": "Printer",
+      "quantity": 1,
+      "supplier": "XYZ Suppliers",
+      "price": 10000
+    },
+    {
+      "item": "Monitor",
+      "quantity": 3,
+      "supplier": "Tech Solutions",
+      "price": 15000
+    },
+    {
+      "item": "Keyboard",
+      "quantity": 5,
+      "supplier": "E-Commerce Supply",
+      "price": 5000
+    },
+    {
+      "item": "Mouse",
+      "quantity": 10,
+      "supplier": "Tech Hub",
+      "price": 2500
+    },
+    {
+      "item": "Desk",
+      "quantity": 1,
+      "supplier": "Office Furnishings Inc.",
+      "price": 12000
+    },
+    {
+      "item": "Chair",
+      "quantity": 2,
+      "supplier": "Comfort Seating",
+      "price": 8000
+    },
+    {
+      "item": "Projector",
+      "quantity": 1,
+      "supplier": "Audio Visual Tech",
+      "price": 30000
+    },
+    {
+      "item": "Scanner",
+      "quantity": 3,
+      "supplier": "Digitize IT",
+      "price": 7000
+    },
+    {
+      "item": "External Hard Drive",
+      "quantity": 4,
+      "supplier": "Storage Solutions Ltd.",
+      "price": 4000
+    },
+    {
+      "item": "Office Software Suite",
+      "quantity": 1,
+      "supplier": "Software Solutions Co.",
+      "price": 15000
+    },
+    {
+      "item": "Printer Ink Cartridges (Set)",
+      "quantity": 2,
+      "supplier": "Print Supplies Depot",
+      "price": 3000
+    }
+  ]
+  

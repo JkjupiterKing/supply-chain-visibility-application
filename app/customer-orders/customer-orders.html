@@ -3,14 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Management</title>
+    <title>customer-orders</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../../resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="customer-orders.css">
     <link rel="icon" href="../../resources/Images/supply-chain-management.png" type="image/x-icon">
 </head>
 <body>
-    <h1>Order-tracking</h1>
+    <header>
+        <div class="sidenav">
+            <h1 style="color:white;margin-left: 0.7em;">Dashboard</h1>
+            <a href="../../app/Dashboard/dashboard.html">Dashboard</a>
+            <a href="../../app/purchase-orders/purchase-orders.html">Purchase orders</a>
+            <a href="../../app/customer-orders/customer-orders.html">Customer orders</a>
+            <button id="btn">Logout</button>
+        </div>
+    </header>
+    <main>
+    <h1 style="margin-left: 0.5em;">Manage-customer orders</h1>
     <div class="container">
         <div class="row">
             <div class="col">
@@ -22,7 +32,7 @@
             </div>
         </div>
     </div>
-    <p id="h2">Track your orders here.</p>
+    <p style="margin-left: 0.6em;padding: 1em 0 0 0;">Track your orders here.</p>
     <br>
     <div class="container" id="display">
         <h2>Total Orders</h2>
@@ -63,6 +73,7 @@
     <div class="container px-1 px-md-4 py-5 mx-auto" id="orderDetailsContainer">
         <!-- Content will be generated dynamically -->
     </div>
+    </main>
     <script src="../../app/customer-orders/customer-orders.js"></script>
     <script src="../../resources/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>

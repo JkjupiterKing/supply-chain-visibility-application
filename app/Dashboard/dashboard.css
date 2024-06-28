@@ -1,10 +1,15 @@
+@font-face {
+  font-family: 'Rubik';
+  src: url('../../resources/fonts/Rubik-Regular.ttf') format('truetype');
+}
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Rubik", sans-serif;
     margin: 0;
     padding: 0;
 }
 /* The sidebar menu */
 .sidenav {
+    font-family: "Rubik", sans-serif;
     height: 100%; /* Full-height: remove this if you want "auto" height */
     width: 17em; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
@@ -33,6 +38,7 @@ body {
   
   /* Style page content */
   .main {
+    font-family: "Rubik", sans-serif;
     margin-left: 160px; /* Same as the width of the sidebar */
     padding: 0px 10px;
   }
@@ -43,6 +49,7 @@ body {
     .sidenav a {font-size: 18px;}
   }
 main {
+    font-family: "Rubik", sans-serif;
     padding: 20px;
     margin-left: 17em;
 }

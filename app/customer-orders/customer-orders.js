@@ -1,21 +1,36 @@
-//search functionality
-document.getElementById('searchButton').addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent form submission
-    const searchQuery = document.getElementById('searchInput').value.trim().toLowerCase();
+document.addEventListener('DOMContentLoaded', function () {
+    const tableBody = document.getElementById('ordersTableBody');
+    // Fetch data from JSON file
+    fetch('../../resources/data/customer-orders.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch data');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Iterate through each order object and create table rows
+            data.forEach(order => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${order.orderId}</td>
+                    <td>${order.customerName}</td>
+                    <td>${order.productName}</td>
+                    <td>${order.status}</td>
+                `;
+                tableBody.appendChild(row);
 
-    if (searchQuery === '') {
-        displayResults([]); // Display message if search query is empty
-    } else {
-        fetch('../../resources/data/orders.json')
-            .then(response => response.json())
-            .then(data => {
-                const results = searchOrders(data, searchQuery);
-                displayResults(results);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
+                // Add click event listener to each row
+                row.addEventListener('click', function() {
+                    updateOrderDetails(order.orderId, order.customerName, order.productName, order.status);
+                });
             });
-    }
+            // Initialize: Show page 1 by default
+            showPage(1);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
 });
 
 // Function to search orders based on orderId or customerName
@@ -281,3 +296,8 @@ function generateExpectedDeliveryDate() {
 function generateRandomProductCode() {
     return 'V' + Math.floor(Math.random() * 1000) + 'HB'; 
 }
+// JavaScript for handling logout button click
+document.getElementById('btn').addEventListener('click', function() {
+    // Redirect to login page
+    window.location.href = '/app/Login/login.html'; // Replace with your actual login page URL
+});
