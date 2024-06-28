@@ -37,6 +37,18 @@
     <div class="container" id="display">
         <h2>Total Orders</h2>
         <br>
+        <div class="row mb-3">
+            <div class="col">
+                <div class="btns" role="group" aria-label="Order Filters">
+                    <button type="button" class="btn filter-button" data-status="all">All Orders</button>
+                    <button type="button" class="btn filter-button" data-status="processing">Processed Orders</button>
+                    <button type="button" class="btn filter-button" data-status="shipped">Shipped Orders</button>
+                    <button type="button" class="btn filter-button" data-status="pending">Pending Orders</button>
+                    <button type="button" class="btn filter-button" data-status="delivered">Delivered Orders</button>
+                </div>
+            </div>
+            <br>
+            <br>
         <!-- Table -->
         <div class="table-responsive" id="table">
             <table class="table table-striped">

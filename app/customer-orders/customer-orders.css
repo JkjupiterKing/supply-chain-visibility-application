@@ -68,7 +68,7 @@ margin-top: 22em;
   background-color: white;
 }
 p {
-    font-size: 1.4em;
+    font-size: 1.1em;
     font-weight: bold;
 }
 .container {
@@ -205,4 +205,16 @@ p {
 }
 #result {
   margin-left: 0;
+}
+.btns {
+  gap: 1em;
+}
+.btn.filter-button {
+  background-color: #FF7F3E; 
+  color: #fff; 
+  font-weight: bold;
+}
+.btn.filter-button:hover {
+  background-color: #91DDCF;
+  color:black;
 }

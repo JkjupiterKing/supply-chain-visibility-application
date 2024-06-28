@@ -182,7 +182,7 @@ function updateOrderDetails(orderId, customerName, productName, status) {
                 </div>
             </div>
             <div class="row justify-content-between top" id="icons">
-                <div class="col-md-5 col-lg-2" id="icon-1"> 
+                <div class="col-md-8 col-lg-2" id="icon-1"> 
                         <div class="row d-flex icon-content">
                             <img class="icon" src="/resources/Images/order-processed.png">
                             <div class="d-flex flex-column">
@@ -190,7 +190,7 @@ function updateOrderDetails(orderId, customerName, productName, status) {
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-5 col-lg-2" id="icon-2"> 
+                    <div class="col-md-8 col-lg-2" id="icon-2"> 
                         <div class="row d-flex icon-content">
                             <img class="icon" src="/resources/Images/order-designing.png">
                             <div class="d-flex flex-column">
@@ -198,7 +198,7 @@ function updateOrderDetails(orderId, customerName, productName, status) {
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-5 col-lg-2" id="icon-3"> 
+                    <div class="col-md-8 col-lg-2" id="icon-3"> 
                         <div class="row d-flex icon-content">
                             <img class="icon" src="/resources/Images/order-shipped.png">
                             <div class="d-flex flex-column">
@@ -206,7 +206,7 @@ function updateOrderDetails(orderId, customerName, productName, status) {
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-5 col-lg-2" id="icon-4"> 
+                    <div class="col-md-8 col-lg-2" id="icon-4"> 
                         <div class="row d-flex icon-content">
                             <img class="icon" src="/resources/Images/order-en-route.png">
                             <div class="d-flex flex-column">
@@ -214,7 +214,7 @@ function updateOrderDetails(orderId, customerName, productName, status) {
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-5 col-lg-2" id="icon-5"> 
+                    <div class="col-md-8 col-lg-2" id="icon-5"> 
                         <div class="row d-flex icon-content">
                             <img class="icon" src="/resources/Images/order-arrived.png">
                             <div class="d-flex flex-column">
@@ -301,3 +301,80 @@ document.getElementById('btn').addEventListener('click', function() {
     // Redirect to login page
     window.location.href = '/app/Login/login.html'; // Replace with your actual login page URL
 });
+// Javascript for filtering the table.
+document.addEventListener('DOMContentLoaded', function () {
+    const tableBody = document.getElementById('ordersTableBody');
+
+    // Fetch data from JSON file
+    fetch('../../resources/data/customer-orders.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Store original data for filtering
+            const originalData = data;
+
+            // Function to populate table with filtered data
+            function populateTable(filteredData) {
+                // Clear existing table rows
+                tableBody.innerHTML = '';
+
+                // Iterate through filtered data and create table rows
+                filteredData.forEach(order => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${order.orderId}</td>
+                        <td>${order.customerName}</td>
+                        <td>${order.productName}</td>
+                        <td>${order.status}</td>
+                    `;
+                    tableBody.appendChild(row);
+
+                    // Add click event listener to each row
+                    row.addEventListener('click', function() {
+                        updateOrderDetails(order.orderId, order.customerName, order.productName, order.status);
+                    });
+                });
+
+                // Initialize: Show page 1 by default
+                showPage(1);
+            }
+
+            // Initial population of table with all orders
+            populateTable(data);
+
+            // Event listener for filter buttons
+            const filterButtons = document.querySelectorAll('.filter-button');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const status = this.getAttribute('data-status');
+                    let filteredData = [];
+
+                    switch (status) {
+                        case 'all':
+                            filteredData = originalData;
+                            break;
+                        case 'processing':
+                        case 'shipped':
+                        case 'pending':
+                        case 'delivered':
+                            filteredData = originalData.filter(order => order.status.toLowerCase() === status);
+                            break;
+                        default:
+                            filteredData = originalData;
+                            break;
+                    }
+
+                    // Update table with filtered data
+                    populateTable(filteredData);
+                });
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+});
+
