@@ -12,22 +12,29 @@
 <body>
     <header>
         <div class="sidenav">
-            <h1 style="color:white;margin-left: 0.7em;">Dashboard</h1>
+            <h1 style="color:white;margin-left: 1em;"><img src="../../resources/Images/Menu-icon.gif" alt="Menu-icon" style="width: 1em;">  Menu</h1>
             <a href="../../app/Dashboard/dashboard.html">Dashboard</a>
-            <a href="../../app/purchase-orders/purchase-orders.html">Purchase orders</a>
-            <a href="../../app/customer-orders/customer-orders.html">Customer orders</a>
+            <div class="dropdown">
+                <a class="dropbtn">Purchase Orders &#9662;</a>
+                <div class="dropdown-content">
+                    <a href="../../app/manage-purchase-orders/manage-purchase-orders.html">Manage Purchase Orders</a>
+                    <a href="../../app/create-purchase-order/create-purchase-order.html">Create Purchase Order</a>
+                </div>
+            </div>
+            <a href="../../app/customer-orders/customer-orders.html">Customer Orders</a>
             <button id="btn">Logout</button>
         </div>
-    </header>
+        </div>
+    </header>    
     <main>
     <h1 style="margin-left: 0.5em;">Manage-customer orders</h1>
     <div class="container">
         <div class="row">
             <div class="col">
                 <!-- Search bar -->
-                <form class="form-inline mt-3">
+                <form class="form-inline mt-3" onsubmit="event.preventDefault();">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
-                    <button class="btn btn-primary my-2 my-sm-0" type="submit" id="searchButton">Search</button>
+                    <button class="btn btn-primary my-2 my-sm-0" type="button" id="searchButton" onclick="performSearch()">Search</button>
                 </form>
             </div>
         </div>

@@ -33,13 +33,43 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 });
 
+// Function to perform search
+function performSearch() {
+    const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
+    
+    // Check if searchInput is empty
+    if (searchInput === '') {
+        alert('Please enter a search query.');
+        return;
+    }
+
+    const searchData = loadTableData(); // Replace with your function to fetch or load data
+    const searchResults = searchOrders(searchData, searchInput);
+    displayResults(searchResults);
+
+    // Preserve search input value after search
+    document.getElementById('searchInput').value = searchInput;
+}
+
+// Function to simulate loading or fetching data (replace with your actual data loading mechanism)
+function loadTableData() {
+    return Array.from(document.getElementById('ordersTableBody').querySelectorAll('tr')).map(row => {
+        return {
+            orderId: row.children[0].textContent.trim(),
+            customerName: row.children[1].textContent.trim(),
+            productName: row.children[2].textContent.trim(),
+            status: row.children[3].textContent.trim()
+        };
+    });
+}
+
 // Function to search orders based on orderId or customerName
 function searchOrders(data, query) {
     if (query === '') {
         return []; // Return empty array if query is empty
     }
     return data.filter(order =>
-        order.orderId.toString().includes(query) || order.customerName.toLowerCase().includes(query)
+        order.orderId.includes(query) || order.customerName.toLowerCase().includes(query)
     );
 }
 
@@ -66,7 +96,7 @@ function displayResults(results) {
 document.addEventListener('DOMContentLoaded', function () {
     const tableBody = document.getElementById('ordersTableBody');
     // Fetch data from JSON file
-    fetch('../../resources/data/orders.json')
+    fetch('../../resources/data/customer-orders.json')
         .then(response => response.json())
         .then(data => {
             // Iterate through each order object and create table rows
@@ -301,6 +331,7 @@ document.getElementById('btn').addEventListener('click', function() {
     // Redirect to login page
     window.location.href = '/app/Login/login.html'; // Replace with your actual login page URL
 });
+
 // Javascript for filtering the table.
 document.addEventListener('DOMContentLoaded', function () {
     const tableBody = document.getElementById('ordersTableBody');

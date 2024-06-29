@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>manage-purchase-orders</title>
+    <link rel="stylesheet" href="../../app/manage-purchase-orders/manage-purchase-orders.css">
+    <link rel="stylesheet" href="../../resources/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+    <header>
+        <div class="sidenav">
+          <h1 style="color:white;margin-left: 1em;"><img src="../../resources/Images/Menu-icon.gif" alt="Menu-icon" style="width: 1em;">  Menu</h1>
+            <a href="../../app/Dashboard/dashboard.html">Dashboard</a>
+            <div class="dropdown">
+                <a class="dropbtn">Purchase Orders &#9662;</a>
+                <div class="dropdown-content">
+                    <a href="../../app/manage-purchase-orders/manage-purchase-orders.html">Manage Purchase Orders</a>
+                    <a href="../../app/create-purchase-order/create-purchase-order.html">Create Purchase Order</a>
+                </div>
+            </div>
+            <a href="../../app/customer-orders/customer-orders.html">Customer Orders</a>
+            <button id="btn">Logout</button>
+        </div>
+        </div>
+    </header>
+    <main>
+        <div class="container-fluid">
+            <h2>Manage Purchase Orders</h2>
+            <br>
+                <div id="manage-orders">
+                  <!-- Table for displaying purchase orders (dynamic content will be loaded here) -->
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                        <th>Supplier</th>
+                        <th>Price</th>
+                      </tr>
+                    </thead>
+                    <tbody id="orders-table-body">
+                      <!-- Purchase orders will be dynamically inserted here -->
+                    </tbody>
+                </table>
+                <nav>
+                    <ul class="pagination" id="pagination">
+                      <!-- Pagination links will be dynamically inserted here -->
+                    </ul>
+                  </nav>
+                </div>
+    </main>
+</body>
+<script src="../../app/manage-purchase-orders/manage-purchase-orders.js"></script>
+</html>
