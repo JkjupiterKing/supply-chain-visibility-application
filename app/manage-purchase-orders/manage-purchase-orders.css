@@ -4,7 +4,7 @@
   }
   body {
     font-family: "Rubik", sans-serif;
-    background-color: #C6DCBA;
+    background-color: #f0f0f0; /* Change to your preferred background color */
     margin: 0;
     padding: 0;
   }
@@ -108,6 +108,24 @@ main {
     background-color: white;
 }
 .pagination {
-    justify-content: center;
-    font-weight: bold;
+  justify-content: center; /* Centers the pagination items */
+  font-weight: bold; /* Makes the font bold */
+}
+
+.pagination li {
+  display: inline-block; /* Displays pagination items horizontally */
+  font-size: 1.2em; /* Adjusts the font size */
+}
+
+.pagination a {
+  color: #071952; /* Sets the text color */
+  text-decoration: none; /* Removes underline */
+  padding: 8px 12px; /* Adds padding inside the pagination items */
+  border: 1px solid #071952; /* Adds a border around pagination items */
+  border-radius: 1px; /* Rounds the corners */
+}
+
+.pagination a:hover {
+  background-color: #C6DCBA; /* Changes background color on hover */
+  color: black; /* Changes text color on hover */
 }
