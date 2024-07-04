@@ -3,7 +3,7 @@ let purchaseOrders = []; // Global variable to hold purchase orders
 // Function to fetch purchase orders from JSON file
 async function fetchPurchaseOrders() {
   try {
-    const response = await fetch('../../resources/data/purchase-orders.json'); // Replace with your JSON file path
+    const response = await fetch('http://localhost:8080/getAllPurchaseOrders'); // Replace with your JSON file path
     if (!response.ok) {
       throw new Error('Failed to fetch data');
     }

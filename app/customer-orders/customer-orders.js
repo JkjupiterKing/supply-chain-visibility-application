@@ -1,38 +1,3 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const tableBody = document.getElementById('ordersTableBody');
-    // Fetch data from JSON file
-    fetch('../../resources/data/customer-orders.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to fetch data');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Iterate through each order object and create table rows
-            data.forEach(order => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${order.orderId}</td>
-                    <td>${order.customerName}</td>
-                    <td>${order.productName}</td>
-                    <td>${order.status}</td>
-                `;
-                tableBody.appendChild(row);
-
-                // Add click event listener to each row
-                row.addEventListener('click', function() {
-                    updateOrderDetails(order.orderId, order.customerName, order.productName, order.status);
-                });
-            });
-            // Initialize: Show page 1 by default
-            showPage(1);
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-        });
-});
-
 // Function to perform search
 function performSearch() {
     const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
@@ -96,7 +61,7 @@ function displayResults(results) {
 document.addEventListener('DOMContentLoaded', function () {
     const tableBody = document.getElementById('ordersTableBody');
     // Fetch data from JSON file
-    fetch('../../resources/data/customer-orders.json')
+    fetch('http://localhost:8080/getAllCustomerOrders')
         .then(response => response.json())
         .then(data => {
             // Iterate through each order object and create table rows
@@ -337,7 +302,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const tableBody = document.getElementById('ordersTableBody');
 
     // Fetch data from JSON file
-    fetch('../../resources/data/customer-orders.json')
+    fetch('http://localhost:8080/getAllCustomerOrders')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
