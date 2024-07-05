@@ -103,7 +103,12 @@ function updateDiv(data) {
       manageorders.appendChild(itemDiv); // Append item div to manage-orders div
   });
 }
-
+function openNav() {
+  document.getElementById("mySidenav").style.width = "16em";
+}
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
 // JavaScript for handling logout button click
 document.getElementById('btn').addEventListener('click', function() {
   // Redirect to login page

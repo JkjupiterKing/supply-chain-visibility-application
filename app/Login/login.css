@@ -1,10 +1,37 @@
+@font-face {
+  font-family: 'Rubik';
+  src: url('../../resources/fonts/Rubik-Regular.ttf') format('truetype');
+}
 body {
     background-image:url(../../resources/Images/login-background.jpg);
     background-size: cover;
+    font-family: "Rubik", sans-serif;
   }
+   /* Additional styles for the header */
+   header {
+    background-color: #ffffff; /* White background */
+    padding: 10px 20px; /* Adjust padding as needed */
+    display: flex; /* Use flexbox for layout */
+    align-items: left; /* Center align items vertically */
+    justify-content: left; /* Center align items horizontally */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow */
+}
+
+header h1 {
+    margin-top: 0.3em;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333333; /* Dark gray color */
+    margin-left: 10px; /* Adjust margin between image and text */
+}
+
+header img {
+    height: 50px; /* Adjust height as needed */
+}
   .login-form {
+    opacity: 65%;
     width: 30em;
-    margin: 10em auto;
+    margin: 7em auto;
     font-size: 15px;
   }
   .login-form form {

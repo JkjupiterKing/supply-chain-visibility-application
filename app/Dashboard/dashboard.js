@@ -37,6 +37,13 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('shipmentStatus').textContent = shipmentStatus;
     });
 });
+
+function openNav() {
+    document.getElementById("mySidenav").style.width = "16em";
+  }
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
      // JavaScript for handling logout button click
      document.getElementById('btn').addEventListener('click', function() {
         // Redirect to login page

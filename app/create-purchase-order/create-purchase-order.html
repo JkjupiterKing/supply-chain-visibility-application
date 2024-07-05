@@ -10,21 +10,15 @@
 </head>
 <body style="background-color: #C6DCBA;">
     <header>
-        <div class="sidenav">
-            <h1 style="color:white;margin-left: 1em;"><img src="../../resources/Images/Menu-icon.gif" alt="Menu-icon" style="width: 1em;">  Menu</h1>
-            <a href="../../app/Dashboard/dashboard.html">Dashboard</a>
-            <div class="dropdown">
-                <a class="dropbtn">Purchase Orders &#9662;</a>
-                <div class="dropdown-content">
-                    <a href="../../app/manage-purchase-orders/manage-purchase-orders.html">Manage Purchase Orders</a>
-                    <a href="../../app/create-purchase-order/create-purchase-order.html">Create Purchase Order</a>
-                </div>
-            </div>
-            <a href="../../app/customer-orders/customer-orders.html">Customer Orders</a>
-            <button id="btn">Logout</button>
-        </div>
-        </div>
+        <button class="openbtn btn btn-primary" onclick="openNav()">&#9776;</button>
     </header>
+    <div id="mySidenav" class="sidenav">
+        <h5 style="color: white;margin-left: 0.8em;">Menu</h5><a class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="../../app/Dashboard/dashboard.html">Dashboard</a>
+        <a href="../../app/manage-purchase-orders/manage-purchase-orders.html">manage-purchase-orders</a>
+        <a href="../../app/create-purchase-order/create-purchase-order.html">create-purchase-order</a>
+        <a href="../../app/customer-orders/customer-orders.html">customer-orders</a>
+    </div>
     <main>
     <div id="form-container">
         <h2>Create Purchase Order</h2>

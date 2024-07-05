@@ -11,103 +11,56 @@ body {
     background-color: #C6DCBA;
     background-repeat: no-repeat;
 }
+/* Add custom CSS styles here */
+header {
+  background-color: #333333;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
 .sidenav {
-  font-family: "Rubik", sans-serif;
   height: 100%;
-  width: 17em;
+  width: 0;
   position: fixed;
-  z-index: 1;
+  z-index: 1001;
   top: 0;
   left: 0;
-  background-color: #071952;
+  background-color: #333333;
   overflow-x: hidden;
-  padding-top: 1.2em;
+  transition: 0.3s;
+  padding-top: 60px;
 }
 
 .sidenav a {
-  padding: 6px 8px;
+  padding: 10px 15px;
   text-decoration: none;
-  margin: 0 0 0 1em;
-  font-size: 1.5em;
+  font-size: 18px;
   color: white;
   display: block;
+  transition: 0.3s;
 }
 
 .sidenav a:hover {
-  color: #C80036;
+  background-color: #555555;
 }
 
-/* Dropdown menu */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropbtn {
-  background-color: #071952;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
+.closebtn {
   position: absolute;
-  background-color: #071952;
-  min-width: 10em; /* Adjust width as needed */
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
+  top: 10px;
+  right: 10px;
+  font-size: 36px;
+  margin-left: 50px;
   color: white;
   text-decoration: none;
-  font-size: 1em;
-  display: block;
-  padding: 8px 16px;
-}
-
-.dropdown-content a:hover {
-  background-color: #f1f1f1;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.dropdown:hover .dropbtn {
-  background-color: #071952;
-}
- /* Button styles */
- #btn {
-  background-color: #E2BBE9;
-  border: 1px solid white;
-  border-radius: 10px;
-  margin-left: 2.2em;
-  width: 12em;
-  height: 2em;
-  font-size: 1em;
-  font-weight: bold;
-  margin-top: 20em;
-}
-
-#btn:hover {
-  background-color: #f1f1f1;
-  color:black; /* Change text color on hover */
-  cursor: pointer; /* Ensure pointer cursor on hover */
-}
- /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
- @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
 }
 main {
     padding: 20px;
-    margin-left: 17em;
 }
 p {
     font-size: 1.1em;
