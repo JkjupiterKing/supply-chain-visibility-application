@@ -43,8 +43,4 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = '/app/Login/login.html'; // Replace with your actual login page URL
     });
 
-    document.getElementById('viewReports').addEventListener('click', function() {
-        // Replace with code to navigate to reports page or display reports
-        alert('Viewing reports...');
-    });
 

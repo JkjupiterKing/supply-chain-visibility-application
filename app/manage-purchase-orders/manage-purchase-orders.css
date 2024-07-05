@@ -4,7 +4,7 @@
   }
   body {
     font-family: "Rubik", sans-serif;
-    background-color: #f0f0f0; /* Change to your preferred background color */
+    background-color: #C6DCBA; /* Change to your preferred background color */
     margin: 0;
     padding: 0;
   }
@@ -80,24 +80,24 @@
     background-color: #071952;
   }
   
-  /* Button styles */
-  #btn {
-    background-color: #E2BBE9;
-    border: 1px solid white;
-    border-radius: 10px;
-    margin-left: 2.2em;
-    width: 12em;
-    height: 2em;
-    font-size: 1em;
-    font-weight: bold;
-    margin-top: 20em;
-  }
-  
-  #btn:hover {
-    background-color: white;
-    color: #E2BBE9; /* Change text color on hover */
-    cursor: pointer; /* Ensure pointer cursor on hover */
-  }
+ /* Button styles */
+ #btn {
+  background-color: #E2BBE9;
+  border: 1px solid white;
+  border-radius: 10px;
+  margin-left: 2.2em;
+  width: 12em;
+  height: 2em;
+  font-size: 1em;
+  font-weight: bold;
+  margin-top: 20em;
+}
+
+#btn:hover {
+  background-color: #f1f1f1;
+  color:black; /* Change text color on hover */
+  cursor: pointer; /* Ensure pointer cursor on hover */
+}
    /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
    @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}

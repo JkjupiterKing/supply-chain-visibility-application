@@ -14,7 +14,7 @@ document.getElementById('create-order-form').addEventListener('submit', function
     this.reset();
 });
 
-// Function to add a new purchase order (example function)
+// Function to add a new purchase order
 function addPurchaseOrder(item, quantity, supplier, price) {
     // Prepare data object
     const newPurchaseOrder = {
@@ -36,10 +36,14 @@ function addPurchaseOrder(item, quantity, supplier, price) {
         if (!response.ok) {
             throw new Error('Failed to add purchase order');
         }
+        // Show success message
+        alert('Purchase order added successfully');
         console.log('Purchase order added successfully');
         // Optionally, handle response data here if needed
     })
     .catch(error => {
+        // Show error message
+        alert('Error adding purchase order: ' + error.message);
         console.error('Error adding purchase order:', error);
     });
 }

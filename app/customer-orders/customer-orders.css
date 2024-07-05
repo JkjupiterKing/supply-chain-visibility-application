@@ -82,9 +82,8 @@ body {
 .dropdown:hover .dropbtn {
   background-color: #071952;
 }
-
-/* Button styles */
-#btn {
+ /* Button styles */
+ #btn {
   background-color: #E2BBE9;
   border: 1px solid white;
   border-radius: 10px;
@@ -97,8 +96,8 @@ body {
 }
 
 #btn:hover {
-  background-color: white;
-  color: #E2BBE9; /* Change text color on hover */
+  background-color: #f1f1f1;
+  color:black; /* Change text color on hover */
   cursor: pointer; /* Ensure pointer cursor on hover */
 }
  /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
