@@ -108,7 +108,32 @@ main {
     padding: 20px;
     margin-left: 17em;
 }
+h2 {
+  margin-left: 0.4em;
+}
+.container {
+  margin-left: 0em;
+}
 
+.form-inline {
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Optional: Align items vertically centered */
+}
+
+.form-inline .form-control {
+  margin-right: 5px; /* Adjust spacing between input and button */
+}
+ #searchButton {
+  background-color: #FF7F3E;
+  color: white;
+  font-size: 1.1em;
+  font-weight: bold;
+  }
+  #searchButton:hover {
+    background-color: #91DDCF;
+    color:black;
+  }
 .pagination {
   justify-content: center; /* Centers the pagination items */
   font-weight: bold; /* Makes the font bold */
@@ -128,6 +153,6 @@ main {
 }
 
 .pagination a:hover {
-  background-color: #C6DCBA; /* Changes background color on hover */
-  color: black; /* Changes text color on hover */
+  background-color: #071952; /* Changes background color on hover */
+  color: white; /* Changes text color on hover */
 }

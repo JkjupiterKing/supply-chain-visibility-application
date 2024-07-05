@@ -29,9 +29,21 @@
         <div class="container-fluid">
             <h2>Manage Purchase Orders</h2>
             <br>
+            <div class="container">
+              <div class="row">
+                  <div class="col">
+                      <!-- Search bar -->
+                      <form class="form-inline mt-3" onsubmit="event.preventDefault();">
+                          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+                          <button class="btn btn-primary my-2 my-sm-0" type="button" id="searchButton" onclick="performSearch()">Search</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <br>
                 <div id="manage-orders">
                   <!-- Table for displaying purchase orders (dynamic content will be loaded here) -->
-                  <table class="table table-striped">
+                  <table class="table table-striped" style="width: 57em;margin-left: 1em;">
                     <thead>
                       <tr>
                         <th>Item</th>
@@ -49,7 +61,7 @@
                       <!-- Pagination links will be dynamically inserted here -->
                     </ul>
                   </nav>
-                </div>
+              </div>
     </main>
 </body>
 <script src="../../app/manage-purchase-orders/manage-purchase-orders.js"></script>

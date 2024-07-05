@@ -18,7 +18,9 @@ function performSearch() {
 
 // Function to simulate loading or fetching data (replace with your actual data loading mechanism)
 function loadTableData() {
-    return Array.from(document.getElementById('ordersTableBody').querySelectorAll('tr')).map(row => {
+    // Simulated data loading from existing table
+    const rows = Array.from(document.getElementById('ordersTableBody').querySelectorAll('tr'));
+    return rows.map(row => {
         return {
             orderId: row.children[0].textContent.trim(),
             customerName: row.children[1].textContent.trim(),
@@ -41,11 +43,9 @@ function searchOrders(data, query) {
 // Function to display search results in the specified <div>
 function displayResults(results) {
     const displayDiv = document.getElementById('display');
-    displayDiv.innerHTML = ''; // Clear previous results
-
-    if (results.length === 0) {
-        displayDiv.innerHTML = '<h1 id="result">Order not found!! Please provide a valid order ID or customer name.</h1>';
-    } else {
+    // Clear previous results only if there are new results to display
+    if (results.length > 0) {
+        displayDiv.innerHTML = ''; // Clear previous results
         results.forEach(order => {
             const resultDiv = document.createElement('div');
             resultDiv.classList.add('result-item');
@@ -55,6 +55,8 @@ function displayResults(results) {
                                    <p><strong>Status:</strong> ${order.status}</p>`;
             displayDiv.appendChild(resultDiv);
         });
+    } else {
+        displayDiv.innerHTML = '<h1 id="result">Order not found!! Please provide a valid order ID or customer name.</h1>';
     }
 }
 

@@ -45,6 +45,65 @@ function displayPurchaseOrders(pageNumber = 1, pageSize = 5) {
 // Call fetchPurchaseOrders to start fetching and displaying data
 fetchPurchaseOrders();
 
+// Function to perform search
+function performSearch() {
+  const searchInput = document.getElementById('searchInput').value.trim(); // Get input value
+
+  // Check if search input is empty
+  if (searchInput === '') {
+      alert('Please enter a search input.');
+      return;
+  }
+
+  // Perform API request here only if search input is not empty
+  fetch(`http://localhost:8080/getAllPurchaseOrders`)
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
+          }
+          return response.json(); // Parse JSON response
+      })
+      .then(data => {
+          // Filter data based on search input
+          const filteredData = data.filter(item => {
+              // Check if item name or supplier name contains the search input (case insensitive)
+              return item.item.toLowerCase().includes(searchInput.toLowerCase()) ||
+                     item.supplier.toLowerCase().includes(searchInput.toLowerCase());
+          });
+
+          if (filteredData.length === 0) {
+              alert('Order not found. Please enter valid item name or supplier name.');
+          } else {
+              // Handle received data and update the div
+              updateDiv(filteredData); // Update div with filtered search results
+          }
+      })
+      .catch(error => {
+          console.error('Error fetching data:', error);
+          // Optionally show an error message to the user
+      });
+}
+
+// Function to update the div with search results
+function updateDiv(data) {
+  const manageorders = document.getElementById('manage-orders');
+  manageorders.innerHTML = ''; // Clear existing content
+
+  // Iterate through data and create content for the div
+  data.forEach(item => {
+      const itemDiv = document.createElement('div');
+      itemDiv.classList.add('purchase-order'); // Optional: Add CSS class for styling
+      itemDiv.innerHTML = `
+          <h4>${item.item}</h4>
+          <p>Quantity: ${item.quantity}</p>
+          <p>Supplier: ${item.supplier}</p>
+          <p>Price: ${item.price}</p>
+          <br>
+      `;
+      manageorders.appendChild(itemDiv); // Append item div to manage-orders div
+  });
+}
+
 // JavaScript for handling logout button click
 document.getElementById('btn').addEventListener('click', function() {
   // Redirect to login page
