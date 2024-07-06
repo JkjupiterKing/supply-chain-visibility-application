@@ -13,7 +13,7 @@ body {
 }
 /* Add custom CSS styles here */
 header {
-  background-color: white;
+  background-color: #EEF7FF;
   padding: 1em;
   display: flex;
   align-items: center;
@@ -32,7 +32,7 @@ header {
   z-index: 1001;
   top: 0;
   left: 0;
-  background-color: white;
+  background-color: #EEF7FF;
   overflow-x: hidden;
   transition: 0.3s;
   padding-top: 1.2em;
@@ -45,10 +45,12 @@ header {
   color: black;
   display: block;
   transition: 0.3s;
+  font-weight: bold;
 }
 
 .sidenav a:hover {
-  background-color: #555555;
+  background-color: #E1AFD1;
+  color: black;
 }
 
 .closebtn {
@@ -93,7 +95,7 @@ p {
 /* Card styles */
 .card {
     z-index: 0;
-    background-color: #F6FAB9;
+    background-color: white;
     padding-bottom: 20px;
     margin: 1em 0;
     border-radius: 10px;

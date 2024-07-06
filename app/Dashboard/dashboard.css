@@ -3,13 +3,15 @@
   src: url('../../resources/fonts/Rubik-Regular.ttf') format('truetype');
 }
 body {
+    background-color: white;
     font-family: "Rubik", sans-serif;
     margin: 0;
     padding: 0;
 }
 /* Add custom CSS styles here */
 header {
-  background-color: white;
+  font-family: "Rubik", sans-serif;
+  background-color: #EEF7FF;
   padding: 1em;
   display: flex;
   align-items: center;
@@ -28,7 +30,7 @@ header {
   z-index: 1001;
   top: 0;
   left: 0;
-  background-color: white;
+  background-color: #EEF7FF;
   overflow-x: hidden;
   transition: 0.3s;
   padding-top: 1.2em;
@@ -41,10 +43,12 @@ header {
   color: black;
   display: block;
   transition: 0.3s;
+  font-weight: bold;
 }
 
 .sidenav a:hover {
-  background-color: #555555;
+  background-color: #E1AFD1;
+  color: black;
 }
 
 .closebtn {
@@ -69,8 +73,9 @@ header {
 }
 
 main {
+    background-color: white;
     font-family: "Rubik", sans-serif;
-    padding: 2em;
+    padding: 1.5em;
 }
 img {
   width: 1.2em;
@@ -85,7 +90,7 @@ section {
     margin-bottom: 1.5em;
     border: 1px solid white;
     border-radius: 10px;
-    padding: 1.2em;
+    padding: 1em;
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,1);
 }
 .row {
@@ -95,20 +100,20 @@ section {
   justify-content: center;
 }
 .card {
-  width: 20em;
+  width: 23em;
 }
 .card-title{
   text-align: center;
-  font-size: 1.5em;
+  font-size: 1.8em;
 }
 
 .card-text {
-  font-size: 1.5em;
+  font-size: 1.8em;
   font-weight: bold;
 }
 .overview {
-    background-color: #f0f0f0;
-    padding: 1em;
+    background-color: white;
+    padding: 0.7em;
 }
 
 .metrics {
@@ -120,7 +125,9 @@ section {
 .metric {
     text-align: center;
 }
-
+.actions {
+  background-color: white;
+}
 .actions button {
     margin-right: 10px;
     padding: 10px;

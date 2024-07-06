@@ -10,13 +10,13 @@
 </head>
 <body>
     <header>
-        <button class="openbtn btn btn-secondary" onclick="openNav()">&#9776;</button>
+        <button class="openbtn btn btn-secondary" onclick="openNav()"><b>&#9776;</b></button>
         <button id="logoutBtn" class="btn btn-secondary">
-            Logout <img src="../../resources/Images/logout.png" alt="icon" style="width: 1.1em;">
+           <b>Logout</b> <img src="../../resources/Images/logout.png" alt="icon" style="width: 1.1em;margin-bottom: 0.2em;">
         </button>
     </header>
     <div id="mySidenav" class="sidenav">
-        <h5 style="color: black;margin-left: 0.8em;"><img src="../../resources/Images/menu-icon.gif" alt="menu icon" style="width: 0.9em;margin-bottom: 0.2em;"> Menu</h5><a class="closebtn" onclick="closeNav()">&times;</a>
+        <h5 style="color: black;margin-left: 0.8em;font-weight: bold;"><img src="../../resources/Images/menu-icon.gif" alt="menu icon" style="width: 0.9em;margin-bottom: 0.2em;"> Menu</h5><a class="closebtn" onclick="closeNav()">&times;</a>
         <a href="../../app/Dashboard/dashboard.html"><img src="../../resources/Images/dashboard.png" alt="menu icon" style="width: 0.9em;margin-bottom: 0.2em;"> Dashboard</a>
         <a href="../../app/manage-purchase-orders/manage-purchase-orders.html"><img src="../../resources/Images/manage-purchase-orders.png" alt="menu icon" style="width: 0.9em;margin-bottom: 0.2em;"> manage-purchase-orders</a>
         <a href="../../app/create-purchase-order/create-purchase-order.html"><img src="../../resources/Images/create-purchase-orders.png" alt="menu icon" style="width: 0.9em;margin-bottom: 0.2em;"> create-purchase-order</a>
@@ -26,7 +26,7 @@
         <h1>Dashboard</h1>
         <br>
         <section class="overview">
-            <h2 style="margin-left: 0.3em;">Overview</h2>
+            <h2 style="margin-left: 0.9em;">Overview</h2>
             <div class="container">
                 <div class="col-md-4">
                     <div class="card">
@@ -65,9 +65,6 @@
             <button id="refreshData">Refresh Data</button>
         </section>
     </main>
-    <footer>
-        <p style="margin-left: 2.3em;">&copy; 2024 Supply Chain System</p>
-    </footer>
     <script src="dashboard.js"></script>
     <script src="../../resources/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
