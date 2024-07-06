@@ -8,40 +8,41 @@ body {
     color: black;
     overflow-x: hidden;
     height: 100%;
-    background-color: #C6DCBA;
+    background-color: white;
     background-repeat: no-repeat;
 }
 /* Add custom CSS styles here */
 header {
-  background-color: #333333;
-  padding: 10px;
+  background-color: white;
+  padding: 1em;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(1, 1, 1, 1);
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
 .sidenav {
+  font-family: "Rubik", sans-serif;
   height: 100%;
   width: 0;
   position: fixed;
   z-index: 1001;
   top: 0;
   left: 0;
-  background-color: #333333;
+  background-color: white;
   overflow-x: hidden;
   transition: 0.3s;
-  padding-top: 60px;
+  padding-top: 1.2em;
 }
 
 .sidenav a {
   padding: 10px 15px;
   text-decoration: none;
-  font-size: 18px;
-  color: white;
+  font-size: 1em;
+  color: black;
   display: block;
   transition: 0.3s;
 }
@@ -212,4 +213,19 @@ p {
 .btn.filter-button:hover {
   background-color: #91DDCF;
   color:black;
+}
+.pagination .page-item.active .page-link {
+  background-color: grey; /* Background color for active link */
+  color: white; /* Text color for active link */
+  border-color: grey; /* Border color for active link */
+}
+
+.pagination .page-item .page-link {
+  color: black; /* Default text color for pagination links */
+  border-color: #071952; /* Default border color for pagination links */
+}
+
+.pagination .page-item .page-link:hover {
+  background-color: grey; /* Background color on hover */
+  color: white; /* Text color on hover */
 }

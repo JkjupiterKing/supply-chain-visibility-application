@@ -54,7 +54,7 @@ function openNav() {
     document.getElementById("mySidenav").style.width = "0";
   }
 // JavaScript for handling logout button click
-document.getElementById('btn').addEventListener('click', function() {
+document.getElementById('logoutBtn').addEventListener('click', function() {
     // Redirect to login page
     window.location.href = '/app/Login/login.html'; // Replace with your actual login page URL
 });

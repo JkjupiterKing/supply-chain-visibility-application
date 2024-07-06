@@ -1,64 +1,79 @@
-// Function to perform search
-function performSearch() {
-    const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
-    
-    // Check if searchInput is empty
-    if (searchInput === '') {
-        alert('Please enter a search query.');
-        return;
-    }
-
-    const searchData = loadTableData(); // Replace with your function to fetch or load data
-    const searchResults = searchOrders(searchData, searchInput);
-    displayResults(searchResults);
-
-    // Preserve search input value after search
-    document.getElementById('searchInput').value = searchInput;
-}
-
-// Function to simulate loading or fetching data (replace with your actual data loading mechanism)
-function loadTableData() {
-    // Simulated data loading from existing table
-    const rows = Array.from(document.getElementById('ordersTableBody').querySelectorAll('tr'));
-    return rows.map(row => {
-        return {
-            orderId: row.children[0].textContent.trim(),
-            customerName: row.children[1].textContent.trim(),
-            productName: row.children[2].textContent.trim(),
-            status: row.children[3].textContent.trim()
-        };
-    });
-}
-
-// Function to search orders based on orderId or customerName
-function searchOrders(data, query) {
-    if (query === '') {
-        return []; // Return empty array if query is empty
-    }
-    return data.filter(order =>
-        order.orderId.includes(query) || order.customerName.toLowerCase().includes(query)
-    );
-}
-
-// Function to display search results in the specified <div>
-function displayResults(results) {
-    const displayDiv = document.getElementById('display');
-    // Clear previous results only if there are new results to display
-    if (results.length > 0) {
-        displayDiv.innerHTML = ''; // Clear previous results
-        results.forEach(order => {
-            const resultDiv = document.createElement('div');
-            resultDiv.classList.add('result-item');
-            resultDiv.innerHTML = `<p><strong>Order ID:</strong> ${order.orderId}</p>
-                                   <p><strong>Customer Name:</strong> ${order.customerName}</p>
-                                   <p><strong>Product Name:</strong> ${order.productName}</p>
-                                   <p><strong>Status:</strong> ${order.status}</p>`;
-            displayDiv.appendChild(resultDiv);
+document.addEventListener('DOMContentLoaded', function () {
+    // JavaScript for handling logout button click
+    var logoutButton = document.getElementById('logoutBtn');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', function() {
+            // Redirect to login page
+            window.location.href = '/app/Login/login.html'; // Replace with your actual login page URL
         });
     } else {
-        displayDiv.innerHTML = '<h1 id="result">Order not found!! Please provide a valid order ID or customer name.</h1>';
+        console.error('Logout button not found.');
     }
-}
+
+    // Your other code follows here...
+    // Function to perform search
+    function performSearch() {
+        const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
+        
+        // Check if searchInput is empty
+        if (searchInput === '') {
+            alert('Please enter a search query.');
+            return;
+        }
+    
+        const searchData = loadTableData(); // Replace with your function to fetch or load data
+        const searchResults = searchOrders(searchData, searchInput);
+        displayResults(searchResults);
+    
+        // Preserve search input value after search
+        document.getElementById('searchInput').value = searchInput;
+    }
+
+    // Function to simulate loading or fetching data (replace with your actual data loading mechanism)
+    function loadTableData() {
+        // Simulated data loading from existing table
+        const rows = Array.from(document.getElementById('ordersTableBody').querySelectorAll('tr'));
+        return rows.map(row => {
+            return {
+                orderId: row.children[0].textContent.trim(),
+                customerName: row.children[1].textContent.trim(),
+                productName: row.children[2].textContent.trim(),
+                status: row.children[3].textContent.trim()
+            };
+        });
+    }
+
+    // Function to search orders based on orderId or customerName
+    function searchOrders(data, query) {
+        if (query === '') {
+            return []; // Return empty array if query is empty
+        }
+        return data.filter(order =>
+            order.orderId.includes(query) || order.customerName.toLowerCase().includes(query)
+        );
+    }
+
+    // Function to display search results in the specified <div>
+    function displayResults(results) {
+        const displayDiv = document.getElementById('display');
+        // Clear previous results only if there are new results to display
+        if (results.length > 0) {
+            displayDiv.innerHTML = ''; // Clear previous results
+            results.forEach(order => {
+                const resultDiv = document.createElement('div');
+                resultDiv.classList.add('result-item');
+                resultDiv.innerHTML = `<p><strong>Order ID:</strong> ${order.orderId}</p>
+                                       <p><strong>Customer Name:</strong> ${order.customerName}</p>
+                                       <p><strong>Product Name:</strong> ${order.productName}</p>
+                                       <p><strong>Status:</strong> ${order.status}</p>`;
+                displayDiv.appendChild(resultDiv);
+            });
+        } else {
+            displayDiv.innerHTML = '<h1 id="result">Order not found!! Please provide a valid order ID or customer name.</h1>';
+        }
+    }
+});
+
 
 document.addEventListener('DOMContentLoaded', function () {
     const tableBody = document.getElementById('ordersTableBody');
@@ -299,11 +314,7 @@ function openNav() {
   function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
   }
-// JavaScript for handling logout button click
-document.getElementById('btn').addEventListener('click', function() {
-    // Redirect to login page
-    window.location.href = '/app/Login/login.html'; // Replace with your actual login page URL
-});
+
 
 // Javascript for filtering the table.
 document.addEventListener('DOMContentLoaded', function () {
