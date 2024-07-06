@@ -1,3 +1,7 @@
+//Load navBar
+$('#mySidenav').load('../common/sidenav.html');
+
+
 let purchaseOrders = []; // Global variable to hold purchase orders
 
 // Function to fetch purchase orders from JSON file
