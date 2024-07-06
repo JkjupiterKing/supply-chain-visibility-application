@@ -1,3 +1,6 @@
+
+$('#mySidenav').load('../common/sidenav.html');
+
 document.addEventListener('DOMContentLoaded', function () {
     // Simulated data (replace with actual data fetching and processing)
     var ordersProcessed = 125;
@@ -49,5 +52,3 @@ document.getElementById('logoutBtn').addEventListener('click', function () {
     // Redirect to login page
     window.location.href = '/app/Login/login.html'; // Replace with your actual login page URL
 });
-
-$('#mySidenav').load('../common/sidenav.html');

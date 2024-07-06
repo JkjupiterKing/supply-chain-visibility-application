@@ -1,4 +1,6 @@
 // Attach event listener to the dynamically generated form
+$('#mySidenav').load('../common/sidenav.html');
+
 document.getElementById('create-order-form').addEventListener('submit', function(event) {
     event.preventDefault();
     // Handle form submission (e.g., addPurchaseOrder function)

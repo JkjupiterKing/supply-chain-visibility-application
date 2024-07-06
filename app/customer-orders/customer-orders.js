@@ -1,3 +1,6 @@
+
+$('#mySidenav').load('../common/sidenav.html');
+
 document.addEventListener('DOMContentLoaded', function () {
     // JavaScript for handling logout button click
     var logoutButton = document.getElementById('logoutBtn');
