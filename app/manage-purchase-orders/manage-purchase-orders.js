@@ -3,7 +3,7 @@ let purchaseOrders = []; // Global variable to hold purchase orders
 // Function to fetch purchase orders from JSON file
 async function fetchPurchaseOrders() {
   try {
-    const response = await fetch('http://localhost:8080/getAllPurchaseOrders'); // Replace with your JSON file path
+    const response = await fetch('http://localhost:8080/getAllPurchaseOrders'); 
     if (!response.ok) {
       throw new Error('Failed to fetch data');
     }
@@ -45,64 +45,66 @@ function displayPurchaseOrders(pageNumber = 1, pageSize = 5) {
 // Call fetchPurchaseOrders to start fetching and displaying data
 fetchPurchaseOrders();
 
-// Function to perform search
+// Function to perform search as user types
 function performSearch() {
-  const searchInput = document.getElementById('searchInput').value.trim(); // Get input value
+  const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
+  const rows = document.querySelectorAll('#orders-table-body tr');
 
-  // Check if search input is empty
-  if (searchInput === '') {
-      alert('Please enter a search input.');
-      return;
-  }
+  rows.forEach(row => {
+    const itemName = row.children[0].textContent.trim().toLowerCase();
+    const supplierName = row.children[2].textContent.trim().toLowerCase();
 
-  // Perform API request here only if search input is not empty
-  fetch(`http://localhost:8080/getAllPurchaseOrders`)
-      .then(response => {
-          if (!response.ok) {
-              throw new Error('Network response was not ok');
-          }
-          return response.json(); // Parse JSON response
-      })
-      .then(data => {
-          // Filter data based on search input
-          const filteredData = data.filter(item => {
-              // Check if item name or supplier name contains the search input (case insensitive)
-              return item.item.toLowerCase().includes(searchInput.toLowerCase()) ||
-                     item.supplier.toLowerCase().includes(searchInput.toLowerCase());
-          });
-
-          if (filteredData.length === 0) {
-              alert('Order not found. Please enter valid item name or supplier name.');
-          } else {
-              // Handle received data and update the div
-              updateDiv(filteredData); // Update div with filtered search results
-          }
-      })
-      .catch(error => {
-          console.error('Error fetching data:', error);
-          // Optionally show an error message to the user
-      });
-}
-
-// Function to update the div with search results
-function updateDiv(data) {
-  const manageorders = document.getElementById('manage-orders');
-  manageorders.innerHTML = ''; // Clear existing content
-
-  // Iterate through data and create content for the div
-  data.forEach(item => {
-      const itemDiv = document.createElement('div');
-      itemDiv.classList.add('purchase-order'); // Optional: Add CSS class for styling
-      itemDiv.innerHTML = `
-          <h4>${item.item}</h4>
-          <p>Quantity: ${item.quantity}</p>
-          <p>Supplier: ${item.supplier}</p>
-          <p>Price: ${item.price}</p>
-          <br>
-      `;
-      manageorders.appendChild(itemDiv); // Append item div to manage-orders div
+    // Show or hide rows based on search input match
+    if (itemName.includes(searchInput) || supplierName.includes(searchInput)) {
+      row.style.display = '';
+    } else {
+      row.style.display = 'none';
+    }
   });
 }
+
+// Function to fetch and populate table initially
+function fetchAndPopulateTable() {
+  fetch(`http://localhost:8080/getAllPurchaseOrders`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json(); // Parse JSON response
+    })
+    .then(data => {
+      // Populate table with initial data
+      populateTable(data);
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+      // Optionally show an error message to the user
+    });
+}
+
+// Function to populate table with data
+function populateTable(data) {
+  const tableBody = document.getElementById('orders-table-body');
+  tableBody.innerHTML = ''; // Clear existing content
+
+  // Iterate through data and create rows for the table
+  data.forEach(item => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${item.item}</td>
+      <td>${item.quantity}</td>
+      <td>${item.supplier}</td>
+      <td>${item.price}</td>
+    `;
+    tableBody.appendChild(row); // Append row to table body
+  });
+}
+
+// Initial fetch and populate table
+document.addEventListener('DOMContentLoaded', function () {
+  fetchAndPopulateTable();
+});
+
 function openNav() {
   document.getElementById("mySidenav").style.width = "16em";
 }

@@ -82,25 +82,48 @@ p {
   .form-inline .form-control {
     margin-right: 5px; /* Adjust spacing between input and button */
   }
-  #searchButton {
-  background-color: #FF7F3E;
-  color: white;
-  font-size: 1.1em;
-  font-weight: bold;
-  }
-  #searchButton:hover {
-    background-color: #91DDCF;
-    color:black;
-  }
-/* Card styles */
-.card {
-    z-index: 0;
-    background-color: white;
-    padding-bottom: 20px;
-    margin: 1em 0;
-    border-radius: 10px;
+  #searchInput {
+    width: 23em;
+    height: 2.5em; /* Adjust width as needed */
+    padding: 0.375rem 0.75rem; /* Adjust padding for input */
+    font-size: 0.875rem; /* Adjust font size */
+    margin-bottom: 1em;
+    margin-left: 5em;
+}
+.table {
+  width: 90%;
+  margin-bottom: 1em;
+  margin-left: 3.5em; /* Optional: Adjust margin as per your design */
 }
 
+.table th, .table td {
+  padding: 0.5em;
+  vertical-align: middle;
+  width: 0.5em;
+}
+
+.table thead th {
+  vertical-align: middle;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive styles */
+@media (max-width: 576px) {
+  .table-responsive {
+      overflow-x: auto;
+  }
+}
+.card {
+  z-index: 0;
+  background-color: white;
+  padding-bottom: 20px;
+  margin: 1em 0;
+  border-radius: 10px;
+}
 /* Top section styles */
 .top {
     padding-top: 40px;
@@ -131,8 +154,6 @@ p {
     content: "\f10c";
     color: white;
 }
-
-
 #progressbar li:before {
     width: 40px;
     height: 40px;
@@ -205,7 +226,7 @@ p {
   margin-left: 0;
 }
 .btns {
-  gap: 1em;
+  gap: 0.3em;
 }
 .btn.filter-button {
   background-color: #FF7F3E; 
