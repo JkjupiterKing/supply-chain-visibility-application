@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Simulated data (replace with actual data fetching and processing)
     var ordersProcessed = 125;
     var inventoryLevels = 350;
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('shipmentStatus').textContent = shipmentStatus;
 
     // Event listener for refresh button
-    document.getElementById('refreshData').addEventListener('click', function() {
+    document.getElementById('refreshData').addEventListener('click', function () {
         // Simulated refresh action
         ordersProcessed += 10;
         inventoryLevels -= 5;
@@ -40,14 +40,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function openNav() {
     document.getElementById("mySidenav").style.width = "16em";
-  }
-  function closeNav() {
+}
+function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
-  }
-     // JavaScript for handling logout button click
-     document.getElementById('logoutBtn').addEventListener('click', function() {
-        // Redirect to login page
-        window.location.href = '/app/Login/login.html'; // Replace with your actual login page URL
-    });
+}
+// JavaScript for handling logout button click
+document.getElementById('logoutBtn').addEventListener('click', function () {
+    // Redirect to login page
+    window.location.href = '/app/Login/login.html'; // Replace with your actual login page URL
+});
 
-
+$('#mySidenav').load('../common/sidenav.html');
