@@ -124,7 +124,7 @@ function addSupplier() {
     xhr.open('POST', 'http://localhost:8080/addSupplier');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onload = function() {
-        if (xhr.status === 200) {
+        if (xhr.status === 201) {
             // Clear form fields
             document.getElementById('supplierName').value = '';
             document.getElementById('contactPerson').value = '';
@@ -134,6 +134,9 @@ function addSupplier() {
 
             // Refresh supplier table
             fetchSuppliers();
+
+            // Show success message
+            alert('Supplier added successfully!');
         } else {
             console.error('Error adding supplier. Status code: ' + xhr.status);
         }
@@ -143,6 +146,7 @@ function addSupplier() {
     };
     xhr.send(JSON.stringify(formData));
 }
+
 
 // Function to delete a supplier via API
 function deleteSupplier(supplierId) {
