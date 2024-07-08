@@ -8,10 +8,13 @@ body {
     margin: 0;
     padding: 0;
 }
+
 /* Add custom CSS styles here */
 header {
   font-family: "Rubik", sans-serif;
-  background-color: #EEF7FF;
+  /* background-color: #EEF7FF; */
+  /* background-color:  #337ab7; */
+  background-color:  #007fa2;
   padding: 1em;
   display: flex;
   align-items: center;
@@ -30,7 +33,8 @@ header {
   z-index: 1001;
   top: 0;
   left: 0;
-  background-color: #EEF7FF;
+  /* background-color: #EEF7FF; */
+  background-color: #007fa2;
   overflow-x: hidden;
   transition: 0.3s;
   padding-top: 1.2em;
@@ -40,15 +44,17 @@ header {
   padding: 10px 15px;
   text-decoration: none;
   font-size: 1em;
-  color: black;
+  /* color: black; */
+  color: white;
   display: block;
   transition: 0.3s;
   font-weight: bold;
 }
 
 .sidenav a:hover {
-  background-color: #E1AFD1;
-  color: black;
+  background-color:#193366;
+  /* color: black; */
+  color: white;
 }
 
 .closebtn {
@@ -131,7 +137,7 @@ section {
 .actions button {
     margin-right: 10px;
     padding: 10px;
-    background-color: grey;
+    background-color: #007fa2;
     color: #fff;
     border: none;
     cursor: pointer;
