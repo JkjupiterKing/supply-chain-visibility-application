@@ -30,7 +30,11 @@
                     <li><a class="dropdown-item" onclick="showAddSupplierForm()">Add New Supplier</a></li>
                 </ul>
             </div>            
-            <br>        
+            <br> 
+            <div class="input-group mb-3">
+              <input type="text" id="searchInput" class="form-control" placeholder="Search by ID or Contact Person">
+            </div>
+            <br>       
             <!-- Table for managing existing suppliers -->
             <table id="manageSuppliersTable" class="table table-striped" style="width: 70em;">
                 <thead class="thead-dark">

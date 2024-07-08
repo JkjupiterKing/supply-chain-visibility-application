@@ -83,6 +83,7 @@ function displaySuppliers(suppliers) {
     });
 }
 
+
 // Function to open update form with pre-filled data
 function openUpdateForm(supplierId) {
     var xhr = new XMLHttpRequest();
@@ -220,4 +221,89 @@ function closeNav() {
 document.getElementById('logoutBtn').addEventListener('click', function() {
     // Redirect to login page
     window.location.href = '/app/Login/login.html'; // Replace with your actual login page URL
+});
+document.addEventListener('DOMContentLoaded', function() {
+    // Fetch and display suppliers
+    fetchSuppliers();
+
+    // Event listener for handling search input changes
+    var searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            var searchText = searchInput.value.toLowerCase().trim();
+            filterSuppliers(searchText);
+        });
+    } else {
+        console.error('searchInput not found.');
+    }
+
+    // Function to fetch suppliers from API
+    function fetchSuppliers() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://localhost:8080/getAllSuppliers');
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var suppliers = JSON.parse(xhr.responseText);
+                displaySuppliers(suppliers);
+            } else {
+                console.error('Error fetching suppliers. Status code: ' + xhr.status);
+            }
+        };
+        xhr.onerror = function() {
+            console.error('Error fetching suppliers. Network error.');
+        };
+        xhr.send();
+    }
+
+    // Function to display suppliers in the table
+    function displaySuppliers(suppliers) {
+        var tableBody = document.getElementById('supplierTableBody');
+        if (!tableBody) {
+            console.error('supplierTableBody not found.');
+            return;
+        }
+        tableBody.innerHTML = '';
+
+        suppliers.forEach(function(supplier) {
+            var row = '<tr>' +
+                '<td>' + supplier.id + '</td>' +
+                '<td>' + supplier.name + '</td>' +
+                '<td>' + supplier.contactPerson + '</td>' +
+                '<td>' + supplier.email + '</td>' +
+                '<td>' + supplier.phone + '</td>' +
+                '<td>' + supplier.address + '</td>' +
+                '<td>' +
+                '<button type="button" class="btn btn-primary btn-sm btn-update" data-supplier-id="' + supplier.id + '">Update</button>' +
+                '<button type="button" class="btn btn-danger btn-sm btn-delete" data-supplier-id="' + supplier.id + '">Delete</button>' +
+                '</td>' +
+                '</tr>';
+            tableBody.insertAdjacentHTML('beforeend', row);
+        });
+    }
+
+    // Function to filter suppliers based on search text
+    function filterSuppliers(searchText) {
+        var tableRows = document.getElementById('supplierTableBody').getElementsByTagName('tr');
+        Array.from(tableRows).forEach(function(row) {
+            var id = row.cells[0].innerText.toLowerCase();
+            var name = row.cells[1].innerText.toLowerCase();
+            var contactPerson = row.cells[2].innerText.toLowerCase();
+            if (id.includes(searchText) || name.includes(searchText) || contactPerson.includes(searchText)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    // JavaScript for handling logout button click
+    var logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+            // Redirect to login page
+            window.location.href = '/app/Login/login.html'; // Replace with your actual login page URL
+        });
+    } else {
+        console.error('logoutBtn not found.');
+    }
 });
