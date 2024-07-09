@@ -21,15 +21,18 @@
         <div class="container-fluid supplier-management">
             <h2>Supplier Management</h2>
             <br>
-            <div class="dropdown mb-3">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="manageSupplierDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    Supplier Management Actions
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="manageSupplierDropdown">
-                    <li><a class="dropdown-item" onclick="showManageSuppliers()">Manage Suppliers</a></li>
-                    <li><a class="dropdown-item" onclick="showAddSupplierForm()">Add New Supplier</a></li>
-                </ul>
-            </div>            
+            <div class="row">
+              <div class="col-md-8">
+                  <div class="btn-toolbar mb-3" role="toolbar" aria-label="Supplier Management Actions">
+                      <div class="btn-group me-2" role="group" aria-label="Manage Suppliers">
+                          <button type="button" class="btn btn-secondary" id="manage-btn" onclick="showManageSuppliers()">Manage Suppliers</button>
+                      </div>
+                      <div class="btn-group me-2" role="group" aria-label="Add New Supplier">
+                          <button type="button" class="btn btn-secondary" id="add-btn" onclick="showAddSupplierForm()">Add New Supplier</button>
+                      </div>
+                  </div>
+              </div>
+          </div>          
             <br> 
             <div class="input-group mb-3">
               <input type="text" id="searchInput" class="form-control" placeholder="Search by ID or Contact Person">
@@ -84,7 +87,6 @@
                   </div>
                   <br>
                   <button type="submit" class="btn btn-primary" id="submit">Add Supplier</button>
-                  <br>
                 </form>
               </div>
             </div>

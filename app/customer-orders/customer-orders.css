@@ -78,6 +78,17 @@ header {
   color: white;
   text-decoration: none;
 }
+button.openbtn {
+  background-color: #007fa2; 
+  color: white; 
+  border: none; 
+  cursor: pointer; 
+  font-size: 16px; 
+}
+
+#logoutBtn{
+  background-color: #007fa2;
+}
 main {
     padding: 20px;
 }

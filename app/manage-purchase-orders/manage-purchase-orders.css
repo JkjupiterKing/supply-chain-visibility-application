@@ -74,18 +74,31 @@ header {
   color: white;
   text-decoration: none;
 }
+button.openbtn {
+  background-color: #007fa2; 
+  color: white; 
+  border: none; 
+  cursor: pointer; 
+  font-size: 16px; 
+}
+
+#logoutBtn{
+  background-color: #007fa2;
+}
 main {
     background-color: white;
     font-family: "Rubik", sans-serif;
     padding: 20px;
 }
 h2 {
-  margin-left: 0.4em;
+  margin-left:0;
 }
 .container {
   margin-left: 0em;
 }
-
+#pagetitle {
+ margin-left: 0.5em;
+}
 .form-inline {
   display: flex;
   flex-direction: row;
@@ -113,6 +126,15 @@ h2 {
     font-size: 0.875rem; /* Adjust font size */
     margin-bottom: 1em;
     margin-left: 1em;
+}
+#createOrderBtn{
+  background-color: #007fa2;
+  margin-left: 32em;
+  margin-bottom: 1em;
+}
+#createOrderBtn:hover{
+  background-color:grey;
+  color: white;
 }
 #table {
   width:90%;
@@ -145,4 +167,15 @@ h2 {
 .pagination .active a {
   background-color: grey; /* Changes background color for active item */
   color: white; /* Changes text color for active item */
+}
+#form-container{
+  display: none;
+  margin: 0 5em 0 1em;
+}
+#submitOrderBtn {
+  background-color: #007fa2;
+}
+#submitOrderBtn:hover{
+  background-color: grey;
+  color: white;
 }

@@ -11,14 +11,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Event listener for showing manage suppliers
-    var manageSupplierDropdown = document.getElementById('manageSupplierDropdown');
-    manageSupplierDropdown.addEventListener('click', function() {
+    var manageBtn = document.getElementById('manage-btn');
+    manageBtn.addEventListener('click', function() {
         showManageSuppliers();
     });
 
     // Event listener for showing add new supplier form
-    var addSupplierDropdown = document.querySelector('#manageSupplierDropdown + ul li:nth-child(2) a');
-    addSupplierDropdown.addEventListener('click', function() {
+    var addBtn = document.getElementById('add-btn');
+    addBtn.addEventListener('click', function() {
         showAddSupplierForm();
     });
 
@@ -82,7 +82,6 @@ function displaySuppliers(suppliers) {
         tableBody.insertAdjacentHTML('beforeend', row);
     });
 }
-
 
 // Function to open update form with pre-filled data
 function openUpdateForm(supplierId) {
@@ -148,7 +147,6 @@ function addSupplier() {
     xhr.send(JSON.stringify(formData));
 }
 
-
 // Function to delete a supplier via API
 function deleteSupplier(supplierId) {
     var xhr = new XMLHttpRequest();
@@ -211,17 +209,14 @@ function showAddSupplierForm() {
     document.getElementById('manageSuppliersTable').style.display = 'none';
     document.getElementById('addSupplierForm').style.display = 'block';
 }
+
 function openNav() {
     document.getElementById("mySidenav").style.width = "16em";
 }
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
 }
-// JavaScript for handling logout button click
-document.getElementById('logoutBtn').addEventListener('click', function() {
-    // Redirect to login page
-    window.location.href = '/app/Login/login.html'; // Replace with your actual login page URL
-});
+
 document.addEventListener('DOMContentLoaded', function() {
     // Fetch and display suppliers
     fetchSuppliers();

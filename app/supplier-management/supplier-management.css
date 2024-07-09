@@ -76,16 +76,16 @@
     color: white;
     text-decoration: none;
   }
-  .btn-secondary {
-    background-color: #6c757d;
-    color: #ffffff;
-    border-color: #6c757d;
-    margin-right: 10px; /* Adjust as needed */
+  button.openbtn {
+    background-color: #007fa2; 
+    color: white; 
+    border: none; 
+    cursor: pointer; 
+    font-size: 16px; 
   }
   
-  .btn-secondary:hover {
-    background-color: #5a6268;
-    border-color: #545b62;
+  #logoutBtn{
+    background-color: #007fa2;
   }
   .supplier-management {
     width: 70em;
@@ -97,26 +97,21 @@
     height: auto;           
     margin-right: 50em;           
 }
-  #manageSupplierDropdown.btn-secondary {
-    background-color: #007fa2; 
-    color: #ffffff; /* Example text color */
+#manage-btn {
+  font-family: "Rubik", sans-serif;
+  background-color: #007fa2; 
+  color: #fff; 
 }
-
-#manageSupplierDropdown.btn-secondary:hover {
-    background-color: #495057; /* Example background color */
-    color: #ffffff; /* Example text color */
-    /* Add more styles as needed */
+#add-btn {
+  font-family: "Rubik", sans-serif;
+  background-color: #007fa2; 
+  color: #fff; 
 }
-
-#manageSupplierDropdown.btn-secondary:focus {
-    /* Styles for when the button is focused */
-    box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.5); /* Example focus shadow */
-    /* Add more styles as needed */
+#manage-btn:hover{
+ background-color: grey;
 }
-
-/* Example: Changing the dropdown indicator color */
-#manageSupplierDropdown.btn-secondary::after {
-    border-top-color: #ffffff; /* Example color for the dropdown indicator */
+#add-btn:hover {
+ background-color: grey;
 }
 .btn-update {
   margin-right: 0.3em;
