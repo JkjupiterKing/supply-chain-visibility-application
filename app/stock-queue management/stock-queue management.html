@@ -18,8 +18,8 @@
     <div id="mySidenav" class="sidenav">
     </div>
     <main>
-        <div class="container-fluid supplier-management">
-            <h2>Stock-Queue Management</h2>
+        <div class="container-fluid stock-keeping-unit">
+            <h2>Stock-keeping unit</h2>
             <br>
             <div class="row">
                 <div class="col-md-8">
@@ -44,7 +44,6 @@
                     <tr>
                         <th>Stock Name</th>
                         <th>Description</th>
-                        <th>Supplier Name</th>
                         <th>Quantity</th>
                         <th>Price</th>
                         <th>Actions</th>
@@ -80,17 +79,10 @@
                         <input type="number" class="form-control" id="stockQuantity" name="stockQuantity" required>
                     </div>
                     <br>
-                    <div class="form-group">
-                        <label for="supplierId">Supplier Name</label>
-                        <select class="form-control" id="suppliername" name="supplierId" aria-placeholder="select the supplier" required>
-                            <!-- Options will be dynamically populated here -->
-                        </select>
-                    </div>
-                    <br>
                     <button type="submit" class="btn btn-primary" id="submitStock">Add Stock</button>
                 </form>
             </div>                   
-<!-- Modal for Update Supplier -->
+<!-- Modal for Update Stock -->
 <div id="updateStockModal" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
