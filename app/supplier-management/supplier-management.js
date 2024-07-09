@@ -29,13 +29,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Handle update button click
         if (target.classList.contains('btn-update')) {
-            var supplierId = target.closest('tr').getAttribute('data-supplier-id');
+            var supplierId = target.getAttribute('data-supplier-id');
             openUpdateForm(supplierId); // Call function to open update form with supplier data
         }
 
         // Handle delete button click
         if (target.classList.contains('btn-delete')) {
-            var supplierId = target.closest('tr').getAttribute('data-supplier-id');
+            var supplierId = target.getAttribute('data-supplier-id');
             if (confirm('Are you sure you want to delete this supplier?')) {
                 deleteSupplier(supplierId);
             }
