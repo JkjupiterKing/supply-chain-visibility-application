@@ -85,8 +85,13 @@ function displaySuppliers(suppliers) {
 
 // Function to open update form with pre-filled data
 function openUpdateForm(supplierId) {
+    if (!supplierId) {
+        console.error('Supplier ID is null or undefined.');
+        return;
+    }
+
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:8080/getSupplierById/' + supplierId);
+    xhr.open('GET', 'http://localhost:8080/getSupplierById/' + encodeURIComponent(supplierId));
     xhr.onload = function() {
         if (xhr.status === 200) {
             var supplier = JSON.parse(xhr.responseText);
@@ -109,6 +114,7 @@ function openUpdateForm(supplierId) {
     };
     xhr.send();
 }
+
 
 // Function to add a new supplier via API
 function addSupplier() {
