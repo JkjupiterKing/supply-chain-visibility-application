@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (logoutButton) {
         logoutButton.addEventListener('click', function() {
             // Redirect to login page
-            window.location.href = '/app/Login/login.html'; // Replace with your actual login page URL
+            window.location.href = '/app/Login/login.html'; 
         });
     } else {
         console.error('Logout button not found.');
@@ -214,6 +214,7 @@ function toggleDisabledState(pageNumber) {
         if (orderDetailsContainer) {
             orderDetailsContainer.innerHTML = orderDetailsHtml;
             updateProgressBar(status);
+            orderDetailsContainer.scrollIntoView({ behavior: 'instant', block: 'start' });
         } else {
             console.error('Order details container not found.');
         }
