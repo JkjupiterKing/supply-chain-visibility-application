@@ -68,54 +68,76 @@ function displaySuppliers(suppliers) {
 
     suppliers.forEach(function(supplier) {
         var row = '<tr data-supplier-id="' + supplier.id + '">' +
-                    '<td>' + supplier.id + '</td>' +
-                    '<td>' + supplier.name + '</td>' +
-                    '<td>' + supplier.contactPerson + '</td>' +
-                    '<td>' + supplier.email + '</td>' +
-                    '<td>' + supplier.phone + '</td>' +
-                    '<td>' + supplier.address + '</td>' +
-                    '<td>' +
-                        '<button type="button" class="btn btn-primary btn-sm btn-update">Update</button>' +
-                        '<button type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>' +
-                    '</td>' +
-                  '</tr>';
+          '<td>' + supplier.id + '</td>' +
+          '<td>' + supplier.name + '</td>' +
+          '<td>' + supplier.contactPerson + '</td>' +
+          '<td>' + supplier.email + '</td>' +
+          '<td>' + supplier.phone + '</td>' +
+          '<td>' + supplier.address + '</td>' +
+          '<td>' +
+            '<button type="button" class="btn btn-primary btn-sm btn-update">Update</button>' +
+            '<button type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>' +
+          '</td>' +
+        '</tr>';
         tableBody.insertAdjacentHTML('beforeend', row);
-    });
-}
+      });
+    }      
 
-// Function to open update form with pre-filled data
-function openUpdateForm(supplierId) {
-    if (!supplierId) {
-        console.error('Supplier ID is null or undefined.');
-        return;
-    }
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:8080/getSupplierById/' + encodeURIComponent(supplierId));
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            var supplier = JSON.parse(xhr.responseText);
-            // Fill the update form fields with supplier data
-            document.getElementById('updateSupplierId').value = supplier.id;
-            document.getElementById('updateSupplierName').value = supplier.name;
-            document.getElementById('updateContactPerson').value = supplier.contactPerson;
-            document.getElementById('updateEmail').value = supplier.email;
-            document.getElementById('updatePhone').value = supplier.phone;
-            document.getElementById('updateAddress').value = supplier.address;
-
-            // Show the update modal
-            $('#updateSupplierModal').modal('show');
-        } else {
-            console.error('Error fetching supplier for update. Status code: ' + xhr.status);
+    function openUpdateForm(event) {
+        // Check if event object is available and event.target exists
+        if (!event || !event.target) {
+            console.error('Error: Event object or event target not available.');
+            return;
         }
-    };
-    xhr.onerror = function() {
-        console.error('Error fetching supplier for update. Network error.');
-    };
-    xhr.send();
-}
-
-
+    
+        // Get the closest table row element
+        var clickedRow = event.target.closest('tr');
+        if (!clickedRow) {
+            console.error('Error: Update button not found within a table row.');
+            return;
+        }
+    
+        // Access the supplier ID from the data attribute
+        var supplierId = clickedRow.dataset.supplierId;
+        if (!supplierId) {
+            console.error('Error: Supplier ID not found in data attribute.');
+            return;
+        }
+    
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://localhost:8080/getSupplierById/' + encodeURIComponent(supplierId));
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var supplier = JSON.parse(xhr.responseText);
+                // Fill the update form fields with supplier data
+                document.getElementById('updateSupplierId').value = supplier.id;
+                document.getElementById('updateSupplierName').value = supplier.name;
+                document.getElementById('updateContactPerson').value = supplier.contactPerson;
+                document.getElementById('updateEmail').value = supplier.email;
+                document.getElementById('updatePhone').value = supplier.phone;
+                document.getElementById('updateAddress').value = supplier.address;
+    
+                // Show the update modal
+                $('#updateSupplierModal').modal('show');
+            } else {
+                console.error('Error fetching supplier for update. Status code: ' + xhr.status);
+            }
+        };
+        xhr.onerror = function() {
+            console.error('Error fetching supplier for update. Network error.');
+        };
+        xhr.send();
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        var tableBody = document.getElementById('yourTableBodyId'); // Replace with your actual table body ID
+        tableBody.addEventListener('click', function(event) {
+            if (event.target.matches('.yourUpdateButtonClass')) { // Replace with your actual update button class
+                openUpdateForm(event);
+            }
+        });
+    });
+        
+    
 // Function to add a new supplier via API
 function addSupplier() {
     var formData = {
