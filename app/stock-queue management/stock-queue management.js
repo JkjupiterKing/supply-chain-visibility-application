@@ -103,8 +103,6 @@ function addStock(event) {
     .then(data => {
       // Stock added successfully, update the table
       console.log('Stock added:', data);
-      displayStocks([data]); // Add the new stock object to an array and display
-  
       // Clear the form after successful submission (optional)
       document.getElementById("addStockFormElement").reset();
   
