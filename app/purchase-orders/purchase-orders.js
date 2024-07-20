@@ -3,6 +3,9 @@ $('#mySidenav').load('../common/sidenav.html');
 
 let purchaseOrders = []; // Global variable to hold purchase orders
 
+// Fetch and populate suppliers in the form
+fetchSuppliersAndPopulateSelect();
+
 async function fetchPurchaseOrders() {
   try {
       const response = await fetch('http://localhost:8080/getAllPurchaseOrders'); 
@@ -16,7 +19,6 @@ async function fetchPurchaseOrders() {
       console.error('Error fetching data:', error);
   }
 }
-
 
 // Function to display existing purchase orders in a table with pagination
 function displayPurchaseOrders(pageNumber = 1, pageSize = 5) {
@@ -148,7 +150,8 @@ async function postNewOrder(newOrder) {
       document.getElementById('table-container').style.display = 'block';
 
       // Show success message using Bootstrap modal or toast
-      showSuccessMessage();
+      alert("purchase order created successfully");
+      fetchPurchaseOrders();
 
   } catch (error) {
       console.error('Error creating new order:', error);
@@ -156,18 +159,32 @@ async function postNewOrder(newOrder) {
   }
 }
 
-// Function to show success message using Bootstrap toast
-function showSuccessMessage() {
-  // Get the toast element
-  const toastElement = document.getElementById('toast');
+// Function to fetch suppliers from API and populate the select element
+function fetchSuppliersAndPopulateSelect() {
+    fetch('http://localhost:8080/getAllSuppliers')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch suppliers');
+            }
+            return response.json();
+        })
+        .then(suppliers => {
+            // Populate the select element with fetched suppliers
+            const selectElement = document.getElementById('supplier');
+            selectElement.innerHTML = ''; // Clear existing options
 
-  // Initialize Bootstrap toast
-  const toast = new bootstrap.Toast(toastElement);
-
-  // Show the toast
-  toast.show();
+            suppliers.forEach(supplier => {
+                const option = document.createElement('option');
+                option.value = supplier.name; // Assuming supplier name is used as value
+                option.textContent = supplier.name;
+                selectElement.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching suppliers:', error);
+            // Optionally handle or display the error
+        });
 }
-
 
 // Initial fetch and populate table
 document.addEventListener('DOMContentLoaded', function () {

@@ -69,7 +69,10 @@
                     <br>
                     <div class="form-group">
                         <label for="supplier">Supplier name:</label>
-                        <input type="text" class="form-control" id="supplier" placeholder="Enter supplier name" required>
+                        <select class="form-control" id="supplier" required>
+                            <option value="">Select a supplier</option>
+                            <!-- Options will be dynamically populated here -->
+                        </select>
                     </div>
                     <br>
                     <div class="form-group">
@@ -82,17 +85,7 @@
                     <button type="button" class="btn btn-secondary ml-2" id="cancelOrderBtn">Cancel</button>
                 </form>
                 <br>
-            </div>
-        </div>
-    </div>
-    <div id="toast" class="toast align-items-center text-white bg-success" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                Purchase order created successfully!
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    </div>
+            </div>            
 </main>
 </body>
 <script src="../../resources/jquery/jquery-3.7.1.min.js"></script>
