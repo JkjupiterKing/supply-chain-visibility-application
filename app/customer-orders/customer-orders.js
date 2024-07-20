@@ -85,7 +85,7 @@ function showPage(pageNumber) {
     });
 
     // Show rows based on the selected page number
-    var rowsPerPage = 5; // Example number of rows per page
+    var rowsPerPage = 10; // Example number of rows per page
     var startIndex = (pageNumber - 1) * rowsPerPage;
     var endIndex = startIndex + rowsPerPage;
     for (var i = startIndex; i < endIndex && i < rows.length; i++) {
