@@ -179,11 +179,19 @@ function deleteStock(stockId) {
 function showManageStock() {
     document.getElementById('manageStockTable').style.display = 'block';
     document.getElementById('addStockForm').style.display = 'none';
+    document.getElementById('manage-btn').style.display = 'block';
+    document.getElementById('searchInput').style.display = 'block';
+    document.getElementById('title').style.display = 'block';
+    document.getElementById('add-btn').style.display = 'block';
 }
 
 function showAddStockForm() {
     document.getElementById('manageStockTable').style.display = 'none';
     document.getElementById('addStockForm').style.display = 'block';
+    document.getElementById('manage-btn').style.display = 'block';
+    document.getElementById('searchInput').style.display = 'none';
+    document.getElementById('title').style.display = 'none';
+    document.getElementById('add-btn').style.display = 'none';
 }
 function openNav() {
     document.getElementById("mySidenav").style.width = "16em";
