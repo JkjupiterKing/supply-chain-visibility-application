@@ -159,24 +159,23 @@ function toggleDisabledState(pageNumber) {
                             <li class="step0"></li>
                             <li class="step0"></li>
                             <li class="step0"></li>
-                            <li class="step0"></li>
                         </ul>
                     </div>
                 </div>
                 <div class="row justify-content-between top" id="icons">
                     <div class="col-md-8 col-lg-2" id="icon-1"> 
                             <div class="row d-flex icon-content">
-                                <img class="icon" src="/resources/Images/order-processed.png">
+                                <img class="icon" src="/resources/Images/order-designing.png">
                                 <div class="d-flex flex-column">
-                                    <p>Order<br>Processed</p>
+                                    <p>Order<br>Pending</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-8 col-lg-2" id="icon-2"> 
                             <div class="row d-flex icon-content">
-                                <img class="icon" src="/resources/Images/order-designing.png">
+                                <img class="icon" src="/resources/Images/order-processed.png">
                                 <div class="d-flex flex-column">
-                                    <p>Order<br>Designing</p>
+                                    <p>Order<br>Processed</p>
                                 </div>
                             </div>
                         </div>
@@ -188,19 +187,11 @@ function toggleDisabledState(pageNumber) {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-8 col-lg-2" id="icon-4"> 
-                            <div class="row d-flex icon-content">
-                                <img class="icon" src="/resources/Images/order-en-route.png">
-                                <div class="d-flex flex-column">
-                                    <p>Order<br>En Route</p>
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-md-8 col-lg-2" id="icon-5"> 
                             <div class="row d-flex icon-content">
                                 <img class="icon" src="/resources/Images/order-arrived.png">
                                 <div class="d-flex flex-column">
-                                    <p>Order<br>Arrived</p>
+                                    <p>Order<br>Delivered</p>
                                 </div>
                             </div>
                         </div>

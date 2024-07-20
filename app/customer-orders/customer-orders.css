@@ -127,6 +127,7 @@ p {
   padding: 0.5em;
   vertical-align: middle;
   width: 0.5em;
+  cursor: pointer;
 }
 
 .table thead th {
@@ -163,17 +164,19 @@ p {
     margin-bottom: 30px;
     overflow: hidden;
     color: #455a64;
+    width: 75em;
     padding-left: 0px;
     margin-top: 30px;
+    margin-left: 3em;
 }
 
 #progressbar li {
     list-style-type: none;
-    font-size: 13px;
+    font-size: 1em;
     width: 20%;
     float: left;
     position: relative;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 #progressbar .step0:before {
