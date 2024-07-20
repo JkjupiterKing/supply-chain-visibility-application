@@ -136,3 +136,9 @@
   background-color: #495057;
   color: white;
  }
+ #btn-update {
+  background-color: #007fa2;
+ }
+ #btn-update:hover {
+  color:black;
+ }

@@ -120,30 +120,74 @@ function addStock(event) {
   document.getElementById('addStockFormElement').addEventListener('submit', addStock);
   
   
-  function showUpdateStockModal(stockId) {
+  // Function to fetch stock details by stockId and show update modal
+function showUpdateStockModal(stockId) {
     fetch('http://localhost:8080/getStockById/' + stockId)
-      .then(response => {
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(stock => {
+            console.log('Stock details:', stock);
+            
+            // Populate modal form fields with stock details
+            document.getElementById('updateStockId').value = stock.stockId;
+            document.getElementById('updateStockName').value = stock.stockName;
+            document.getElementById('updateDescription').value = stock.description || '';
+            document.getElementById('updateStockQuantity').value = stock.stockQuantity;
+            document.getElementById('updatePrice').value = stock.price !== undefined ? stock.price : '';
+
+            // Show the modal using jQuery (assuming Bootstrap modal is used)
+            $('#updateStockModal').modal('show');
+        })
+        .catch(error => {
+            console.error('Error fetching stock details:', error);
+        });
+}
+
+// Function to handle form submission for updating stock data
+document.getElementById('updateStockForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // Collect updated data from form
+    let updatedStock = {
+        stockId: document.getElementById('updateStockId').value,
+        stockName: document.getElementById('updateStockName').value,
+        description: document.getElementById('updateDescription').value,
+        stockQuantity: parseInt(document.getElementById('updateStockQuantity').value, 10),
+        price: parseFloat(document.getElementById('updatePrice').value)
+    };
+
+    // Send updated data to server API for updating
+    updateStock(updatedStock.stockId, updatedStock);
+});
+
+// Function to update stock data via API
+function updateStock(stockId, updatedStock) {
+    fetch('http://localhost:8080/updateStockById/' + stockId, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedStock),
+    })
+    .then(response => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+            throw new Error('Failed to update stock');
         }
         return response.json();
-      })
-      .then(stock => {
-        console.log('Stock details:', stock);
-        
-        // Populate modal form fields with stock details
-        document.getElementById('updateStockId').value = stock.stockId;
-        document.getElementById('updateStockName').value = stock.stockName;
-        document.getElementById('updateDescription').value = stock.description ? stock.description : '';
-        document.getElementById('updateStockQuantity').value = stock.stockQuantity;
-        document.getElementById('updatePrice').value = stock.price !== undefined ? stock.price : '';
-  
-        // Show the modal using jQuery (assuming you're using Bootstrap modal)
-        $('#updateStockModal').modal('show');
-      })
-      .catch(error => {
-        console.error('Error fetching stock details:', error);
-      });
+    })
+    .then(responseData => {
+        console.log('Stock updated successfully:', responseData);
+        $('#updateStockModal').modal('hide'); // Hide the modal after successful update
+        fetchStocks();
+    })
+    .catch(error => {
+        console.error('Error updating stock:', error);
+        // Optionally show an error message to the user
+    });
 }
 
 // Function to delete stock by stockId
