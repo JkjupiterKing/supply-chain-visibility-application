@@ -234,11 +234,19 @@ document.getElementById('updateSupplierForm').addEventListener('submit', functio
 function showManageSuppliers() {
     document.getElementById('manageSuppliersTable').style.display = 'table';
     document.getElementById('addSupplierForm').style.display = 'none';
+    document.getElementById('manage-btn').style.display = 'block';
+    document.getElementById('searchInput').style.display = 'block';
+    document.getElementById('title').style.display = 'block';
+    document.getElementById('add-btn').style.display = 'block';
 }
 
 function showAddSupplierForm() {
     document.getElementById('manageSuppliersTable').style.display = 'none';
     document.getElementById('addSupplierForm').style.display = 'block';
+    document.getElementById('manage-btn').style.display = 'block';
+    document.getElementById('searchInput').style.display = 'none';
+    document.getElementById('title').style.display = 'none';
+    document.getElementById('add-btn').style.display = 'none';
 }
 
 function openNav() {
