@@ -50,6 +50,16 @@ function displayPurchaseOrders(pageNumber = 1, pageSize = 10) {
     document.getElementById('table-container').style.display = 'block';
     document.getElementById('form-container').style.display = 'none';
 }
+// Function to handle showing the create order form
+document.getElementById('createOrderBtn').addEventListener('click', function() {
+    // Hide manage purchase orders title, search bar, and table container
+    document.getElementById('pagetitle').style.display = 'none';
+    document.getElementById('searchInput').style.display = 'none';
+    document.getElementById('table-container').style.display = 'none';
+    document.getElementById('createOrderBtn').style.display = 'none';
+    // Display the form container for creating a new purchase order
+    document.getElementById('form-container').style.display = 'block';
+});
 
 // Function to perform search as user types
 function performSearch() {
@@ -115,10 +125,12 @@ document.getElementById('create-order-form').addEventListener('submit', function
 document.getElementById('cancelOrderBtn').addEventListener('click', function() {
     // Clear form fields
     document.getElementById('create-order-form').reset();
-
-    // Hide the form container and show table container
-    document.getElementById('form-container').style.display = 'none';
+    document.getElementById('pagetitle').style.display = 'block';
+    document.getElementById('searchInput').style.display = 'block';
     document.getElementById('table-container').style.display = 'block';
+    document.getElementById('createOrderBtn').style.display = 'block';
+    // Display the form container for creating a new purchase order
+    document.getElementById('form-container').style.display = 'none';
 });
 
 async function postNewOrder(newOrder) {
