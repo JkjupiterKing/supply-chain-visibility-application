@@ -21,7 +21,7 @@ async function fetchPurchaseOrders() {
 }
 
 // Function to display existing purchase orders in a table with pagination
-function displayPurchaseOrders(pageNumber = 1, pageSize = 5) {
+function displayPurchaseOrders(pageNumber = 1, pageSize = 10) {
     const startIndex = (pageNumber - 1) * pageSize;
     const endIndex = startIndex + pageSize;
     const paginatedOrders = purchaseOrders.slice(startIndex, endIndex);
