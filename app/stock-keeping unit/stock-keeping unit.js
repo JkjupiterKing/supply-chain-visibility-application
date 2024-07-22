@@ -9,11 +9,13 @@ function displayStocks(stocks) {
     tableBody.innerHTML = '';
 
     stocks.forEach(function(stock) {
+        var formattedPrice = stock.price !== null && stock.price !== undefined ? parseFloat(stock.price).toFixed(2) : '-';
+        
         var row = '<tr data-stock-id="' + stock.stockId + '">' +
                     '<td>' + stock.stockName + '</td>' +
                     '<td>' + (stock.description ? stock.description : '') + '</td>' +
                     '<td>' + stock.stockQuantity + '</td>' +
-                    '<td>' + (stock.price !== undefined ? parseFloat(stock.price).toFixed(2) : '-') + '</td>' + // Assuming price is lowercase 'price' in the API response
+                    '<td>' + formattedPrice + '</td>' + 
                     '<td>' +
                         '<button type="button" class="btn btn-primary btn-sm btn-update" onclick="showUpdateStockModal(' + stock.stockId + ')">Update</button>' +
                         '<button type="button" class="btn btn-danger btn-sm btn-delete" onclick="deleteStock(' + stock.stockId + ')">Delete</button>' +
