@@ -41,6 +41,7 @@
                             <th>Quantity</th>
                             <th>Supplier name</th>
                             <th>Price</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="orders-table-body">
@@ -85,10 +86,50 @@
                     <button type="button" class="btn btn-secondary ml-2" id="cancelOrderBtn">Cancel</button>
                 </form>
                 <br>
-            </div>            
+            </div>
+<!-- Modal for Update Order -->
+<div id="updateOrderModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Purchase Order</h5>
+            </div>
+            <div class="modal-body">
+                <form id="update-order-form">
+                    <input type="hidden" id="updateOrderId" name="updateOrderId">
+                    <div class="form-group">
+                        <label for="updateItem">Item name:</label>
+                        <input type="text" class="form-control" id="updateItem" placeholder="Enter item name">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="updateQuantity">Quantity:</label>
+                        <input type="number" class="form-control" id="updateQuantity" placeholder="Enter quantity">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="supplier">Supplier name:</label>
+                        <select class="form-control" id="updateSupplier" required>
+                            <option value="">Select a supplier</option>
+                            <!-- Options will be dynamically populated here -->
+                        </select>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="updatePrice">Price:</label>
+                        <input type="text" class="form-control" id="updatePrice" placeholder="Enter purchase price">
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary" id="updateOrderBtn">Update Purchase Order</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>               
 </main>
 </body>
 <script src="../../resources/jquery/jquery-3.7.1.min.js"></script>
 <script src="../../resources/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="../../app/purchase-orders/purchase-orders.js"></script>
 </html>
+

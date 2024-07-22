@@ -129,7 +129,7 @@ h2 {
 }
 #createOrderBtn{
   background-color: #007fa2;
-  margin-left: 32em;
+  margin-left: 31em;
   margin-bottom: 1em;
 }
 #createOrderBtn:hover{
@@ -178,4 +178,31 @@ h2 {
 #submitOrderBtn:hover{
   background-color: grey;
   color: white;
+}
+/* Style for Update button */
+#btn-update {
+  background-color:#007fa2; 
+  color: #fff; 
+  border-color: #007fa2; 
+  padding: 5px 10px; 
+}
+
+#btn-update:hover {
+  background-color: #007fa2; /* Darker shade of primary color on hover */
+  border-color: #007fa2;
+  color: black;
+}
+
+/* Style for Delete button */
+#btn-delete {
+  background-color: #dc3545; 
+  color: #fff; 
+  border-color: #dc3545; 
+  padding: 5px 10px; 
+}
+
+#btn-delete:hover {
+  background-color: #c82333; /* Darker shade of danger color on hover */
+  border-color: #bd2130;
+  color: #fff;
 }

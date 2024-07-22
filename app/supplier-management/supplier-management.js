@@ -114,7 +114,6 @@ function displaySuppliers(suppliers) {
 }
 
 function openUpdateForm(supplierId) {
-
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'http://localhost:8080/getSupplierById/' + encodeURIComponent(supplierId));
     xhr.onload = function () {
@@ -139,7 +138,6 @@ function openUpdateForm(supplierId) {
     };
     xhr.send();
 }
-
 
 function addSupplier() {
     var formData = {

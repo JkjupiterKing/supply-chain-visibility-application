@@ -72,11 +72,11 @@ function addStock(event) {
     // Get form data
     const stockName = document.getElementById("stockName").value;
     const description = document.getElementById("description").value;
-    const unitPrice = document.getElementById("unitPrice").value;
+    const price = document.getElementById("Price").value;
     const stockQuantity = document.getElementById("stockQuantity").value;
   
     // Basic validation (more can be added)
-    if (!stockName ||!description || !unitPrice || !stockQuantity) {
+    if (!stockName ||!description || !price || !stockQuantity) {
       alert("Please fill in all required fields.");
       return;
     }
@@ -92,7 +92,7 @@ function addStock(event) {
       body: JSON.stringify({
         stockName: stockName,
         description: description,
-        unitPrice: unitPrice, // Fixed typo from Price to unitPrice
+        price: price, // Fixed typo from Price to unitPrice
         stockQuantity: stockQuantity
       })
     })
