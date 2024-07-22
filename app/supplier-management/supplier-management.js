@@ -141,7 +141,6 @@ function openUpdateForm(supplierId) {
 }
 
 
-// Function to add a new supplier via API
 function addSupplier() {
     var formData = {
         name: document.getElementById('supplierName').value,
@@ -163,11 +162,12 @@ function addSupplier() {
             document.getElementById('phone').value = '';
             document.getElementById('address').value = '';
 
-            // Refresh supplier table
-            fetchSuppliers();
+            // Fetch suppliers and insert the new one at the beginning
+            fetchSuppliers(); // This will call displaySuppliers inside it, so no need to call it again here
 
             // Show success message
             alert('Supplier added successfully!');
+            showManageSuppliers();
         } else {
             console.error('Error adding supplier. Status code: ' + xhr.status);
         }

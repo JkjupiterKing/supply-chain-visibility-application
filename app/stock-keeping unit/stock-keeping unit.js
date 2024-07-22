@@ -105,9 +105,11 @@ function addStock(event) {
       console.log('Stock added:', data);
       // Clear the form after successful submission (optional)
       document.getElementById("addStockFormElement").reset();
-  
+      
       // Alert message for successful addition
       alert('Stock added successfully!');
+      fetchStocks();
+      showManageStock();
     })
     .catch(error => {
       console.error('Error adding stock:', error);
