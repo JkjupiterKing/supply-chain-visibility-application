@@ -179,30 +179,24 @@ h2 {
   background-color: grey;
   color: white;
 }
-/* Style for Update button */
-#btn-update {
-  background-color:#007fa2; 
+.btn-update {
+  background-color: #007fa2; 
   color: #fff; 
-  border-color: #007fa2; 
-  padding: 5px 10px; 
-}
-
-#btn-update:hover {
-  background-color: #007fa2; /* Darker shade of primary color on hover */
   border-color: #007fa2;
-  color: black;
+}
+.btn-update:hover {
+  background-color: #005e7c;
+  border-color: #005e7c; 
 }
 
-/* Style for Delete button */
-#btn-delete {
+.btn-delete {
   background-color: #dc3545; 
-  color: #fff; 
+  color: #fff;
   border-color: #dc3545; 
-  padding: 5px 10px; 
 }
 
-#btn-delete:hover {
-  background-color: #c82333; /* Darker shade of danger color on hover */
-  border-color: #bd2130;
-  color: #fff;
+.btn-delete:hover {
+  background-color: #c82333;
+  border-color: #c82333; 
 }
+

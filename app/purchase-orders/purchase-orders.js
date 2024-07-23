@@ -27,18 +27,18 @@ function displayPurchaseOrders(pageNumber = 1, pageSize = 10) {
     const paginatedOrders = purchaseOrders.slice(startIndex, endIndex);
 
     let tableBodyHtml = '';
-    paginatedOrders.forEach(order => {
-        tableBodyHtml += `<tr>
-                            <td>${order.item}</td>
-                            <td>${order.quantity}</td>
-                            <td>${order.supplier}</td>
-                            <td>${order.price}</td>
-                            <td>
-                                <button type="button" class="btn btn-primary btn-sm btn-update" data-order-id="${order.id} id="btn-update">Update</button>
-                                <button type="button" class="btn btn-danger btn-sm btn-delete" data-order-id="${order.id}" id="btn-delete">Delete</button>
-                            </td>
-                        </tr>`;
-    });
+paginatedOrders.forEach(order => {
+    tableBodyHtml += `<tr>
+                        <td>${order.item}</td>
+                        <td>${order.quantity}</td>
+                        <td>${order.supplier}</td>
+                        <td>${order.price}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm btn-update" data-order-id="${order.id}">Update</button>
+                            <button type="button" class="btn btn-danger btn-sm btn-delete" data-order-id="${order.id}">Delete</button>
+                        </td>
+                    </tr>`;
+});
 
     document.getElementById('orders-table-body').innerHTML = tableBodyHtml;
     
@@ -80,30 +80,48 @@ document.getElementById('createOrderBtn').addEventListener('click', function() {
     document.getElementById('form-container').style.display = 'block';
 });
 
-// Function to perform search as user types
 function performSearch() {
-  const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
+    const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
 
-  // Filter purchaseOrders based on search input
-  const filteredOrders = purchaseOrders.filter(order => {
-      const itemName = order.item.trim().toLowerCase();
-      const supplierName = order.supplier.trim().toLowerCase();
-      
-      return itemName.includes(searchInput) || supplierName.includes(searchInput);
-  });
+    // Filter purchaseOrders based on search input
+    const filteredOrders = purchaseOrders.filter(order => {
+        const itemName = order.item.trim().toLowerCase();
+        const supplierName = order.supplier.trim().toLowerCase();
 
-  // Update table display based on filtered results
-  let tableBodyHtml = '';
-  filteredOrders.forEach(order => {
-      tableBodyHtml += `<tr>
-                          <td>${order.item}</td>
-                          <td>${order.quantity}</td>
-                          <td>${order.supplier}</td>
-                          <td>${order.price}</td>
+        return itemName.includes(searchInput) || supplierName.includes(searchInput);
+    });
+
+    // Update table display based on filtered results
+    let tableBodyHtml = '';
+    filteredOrders.forEach(order => {
+        tableBodyHtml += `<tr>
+                            <td>${order.item}</td>
+                            <td>${order.quantity}</td>
+                            <td>${order.supplier}</td>
+                            <td>${order.price}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary btn-sm btn-update" data-order-id="${order.id}">Update</button>
+                                <button type="button" class="btn btn-danger btn-sm btn-delete" data-order-id="${order.id}">Delete</button>
+                            </td>
                         </tr>`;
-  });
+    });
 
-  document.getElementById('orders-table-body').innerHTML = tableBodyHtml;
+    document.getElementById('orders-table-body').innerHTML = tableBodyHtml;
+
+    // Add event listeners for update and delete buttons
+    document.querySelectorAll('.btn-update').forEach(button => {
+        button.addEventListener('click', function() {
+            const orderId = parseInt(button.dataset.orderId, 10);
+            openUpdateForm(orderId); 
+        });
+    });
+
+    document.querySelectorAll('.btn-delete').forEach(button => {
+        button.addEventListener('click', function() {
+            const orderId = parseInt(button.dataset.orderId, 10);
+            deletePurchaseOrder(orderId);
+        });
+    });
 }
 
 // Function to handle showing the create order form
@@ -182,6 +200,9 @@ async function postNewOrder(newOrder) {
       // Show success message using Bootstrap modal or toast
       alert("purchase order created successfully");
       fetchPurchaseOrders();
+      document.getElementById('pagetitle').style.display = 'block';
+      document.getElementById('searchInput').style.display = 'block';
+      document.getElementById('createOrderBtn').style.display = 'block';
 
   } catch (error) {
       console.error('Error creating new order:', error);
