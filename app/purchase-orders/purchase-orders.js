@@ -26,7 +26,7 @@ function displayPurchaseOrders(pageNumber = 1, pageSize = 10) {
     const endIndex = startIndex + pageSize;
     const paginatedOrders = purchaseOrders.slice(startIndex, endIndex);
 
-    let tableBodyHtml = '';
+let tableBodyHtml = '';
 paginatedOrders.forEach(order => {
     tableBodyHtml += `<tr>
                         <td>${order.item}</td>
@@ -239,7 +239,7 @@ function fetchSuppliersAndPopulateSelect() {
 
 // Function to fetch suppliers from API and populate the select element
 function fetchUpdateSuppliersAndPopulateSelect() {
-    fetch('http://localhost:8080/getAllSuppliers')
+    return fetch('http://localhost:8080/getAllSuppliers')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch suppliers');
@@ -283,11 +283,18 @@ function openUpdateForm(orderId) {
             document.getElementById('updateOrderId').value = order.id;
             document.getElementById('updateItem').value = order.item;
             document.getElementById('updateQuantity').value = order.quantity;
-            document.getElementById('updateSupplier').value = order.supplier;
             document.getElementById('updatePrice').value = order.price;
-            // Show the update modal
-            $('#updateOrderModal').modal('show');
-            fetchUpdateSuppliersAndPopulateSelect();
+
+            // Populate and preselect the supplier dropdown
+            fetchUpdateSuppliersAndPopulateSelect()
+                .then(() => {
+                    document.getElementById('updateSupplier').value = order.supplier;
+                    // Show the update modal
+                    $('#updateOrderModal').modal('show');
+                })
+                .catch(error => {
+                    console.error('Error populating update supplier dropdown:', error);
+                });
         })
         .catch(error => {
             console.error('Error fetching order details:', error);

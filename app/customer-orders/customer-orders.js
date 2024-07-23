@@ -1,17 +1,86 @@
-
 $('#mySidenav').load('../common/sidenav.html');
 
 document.addEventListener('DOMContentLoaded', function () {
-    // JavaScript for handling logout button click
-    var logoutButton = document.getElementById('logoutBtn');
-    if (logoutButton) {
-        logoutButton.addEventListener('click', function() {
-            // Redirect to login page
-            window.location.href = '/app/Login/login.html'; 
-        });
-    } else {
-        console.error('Logout button not found.');
+    
+    let customerOrders = []; // Array to hold customer orders data
+    const pageSize = 10; // Adjust as needed
+    let currentPage = 1; // Initialize current page
+    let totalPages = 0; // Variable to hold total pages
+
+    // Function to calculate total pages based on data length and page size
+    function calculateTotalPages() {
+        totalPages = Math.ceil(customerOrders.length / pageSize);
     }
+
+    function renderTableRows(pageNumber) {
+        const tableBody = document.getElementById('ordersTableBody');
+        tableBody.innerHTML = ''; // Clear existing rows
+    
+        // Calculate start and end index for current page
+        const startIndex = (pageNumber - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+        const pageOrders = customerOrders.slice(startIndex, endIndex);
+    
+        // Render rows for the current page
+        pageOrders.forEach(order => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${order.orderId}</td>
+                <td>${order.customerName}</td>
+                <td>${order.productName}</td>
+                <td>${order.status}</td>
+            `;
+            tableBody.appendChild(row);
+    
+            // Add click event listener to each row
+            row.addEventListener('click', function() {
+                updateOrderDetails(order.orderId, order.customerName, order.productName, order.status);
+            });
+        });
+    }
+    
+    // Function to display purchase orders for a specific page
+    window.displayPurchaseOrders = function(pageNumber, pageSize) {
+        currentPage = pageNumber; // Update current page
+        renderTableRows(pageNumber); // Render table rows for the selected page
+        updatePagination(); // Update pagination links
+    }
+
+    // Example function to fetch customer orders (replace with actual fetch logic)
+    function fetchCustomerOrders() {
+        fetch('http://localhost:8080/getAllCustomerOrders')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                customerOrders = data; // Assign fetched data to customerOrders array
+                calculateTotalPages(); // Calculate total pages based on fetched data
+                displayPurchaseOrders(1, pageSize); // Display first page of orders
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }
+
+    // Function to update pagination links based on current page and total pages
+    function updatePagination() {
+        const pagination = document.getElementById('pagination');
+        let paginationHtml = '';
+
+        // Generate pagination HTML dynamically
+        for (let i = 1; i <= totalPages; i++) {
+            paginationHtml += `<li class="page-item ${currentPage === i ? 'active' : ''}"><a class="page-link" href="#" onclick="window.displayPurchaseOrders(${i}, ${pageSize})">${i}</a></li>`;
+        }
+
+        // Update the pagination container with the generated HTML
+        pagination.innerHTML = paginationHtml;
+    }
+
+    // Initialize: Fetch data and set up pagination
+    fetchCustomerOrders();
 
     // Function to perform search
     function performSearch() {
@@ -45,100 +114,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Fetch data from JSON file and populate table
-    const tableBody = document.getElementById('ordersTableBody');
-    fetch('http://localhost:8080/getAllCustomerOrders')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            data.forEach(order => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${order.orderId}</td>
-                    <td>${order.customerName}</td>
-                    <td>${order.productName}</td>
-                    <td>${order.status}</td>
-                `;
-                tableBody.appendChild(row);
-
-                // Add click event listener to each row
-                row.addEventListener('click', function() {
-                    updateOrderDetails(order.orderId, order.customerName, order.productName, order.status);
-                });
-            });
-
-            // Initialize: Show page 1 by default
-            showPage(1);
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-        });
-// Function to show specific page of data
-function showPage(pageNumber) {
-    var rows = document.querySelectorAll('#ordersTableBody tr');
-    rows.forEach(function(row) {
-        row.style.display = 'none';
-    });
-
-    // Show rows based on the selected page number
-    var rowsPerPage = 10; // Example number of rows per page
-    var startIndex = (pageNumber - 1) * rowsPerPage;
-    var endIndex = startIndex + rowsPerPage;
-    for (var i = startIndex; i < endIndex && i < rows.length; i++) {
-        rows[i].style.display = '';
-    }
-
-    // Update active class in pagination
-    var pagination = document.getElementById('pagination').querySelectorAll('.page-item');
-    pagination.forEach(function(item) {
-        item.classList.remove('active');
-    });
-    pagination[pageNumber].classList.add('active');
-
-    // Toggle disabled state for Previous and Next buttons
-    toggleDisabledState(pageNumber);
-}
-
-// Function for showing next page
-function showNextPage() {
-    var activeItem = document.querySelector('.pagination .active');
-    var nextPage = activeItem.nextElementSibling;
-    if (nextPage && !nextPage.classList.contains('disabled')) {
-        var pageNumber = parseInt(activeItem.querySelector('a').innerText) + 1;
-        showPage(pageNumber);
-    }
-}
-
-// Function for showing previous page
-function showPreviousPage() {
-    var activeItem = document.querySelector('.pagination .active');
-    var previousPage = activeItem.previousElementSibling;
-    if (previousPage && !previousPage.classList.contains('disabled')) {
-        var pageNumber = parseInt(activeItem.querySelector('a').innerText) - 1;
-        showPage(pageNumber);
-    }
-}
-
-// Function to toggle disabled state of Previous and Next buttons
-function toggleDisabledState(pageNumber) {
-    var previousPage = document.getElementById('previousPage');
-    var nextPage = document.getElementById('nextPage');
-
-    if (pageNumber === 1) {
-        previousPage.classList.add('disabled');
-        nextPage.classList.remove('disabled');
-    } else if (pageNumber === 3) { // Example: Assuming 3 pages
-        previousPage.classList.remove('disabled');
-        nextPage.classList.add('disabled');
-    } else {
-        previousPage.classList.remove('disabled');
-        nextPage.classList.remove('disabled');
-    }
-}
     // Function to update order details container
     function updateOrderDetails(orderId, customerName, productName, status) {
         const orderDetailsHtml = `
@@ -312,23 +287,13 @@ function toggleDisabledState(pageNumber) {
                 console.error('Error fetching data:', error);
             });
     }
-
+ 
     // Event listener for search input
     const searchInput = document.getElementById('searchInput');
     if (searchInput) {
         searchInput.addEventListener('input', performSearch);
     } else {
         console.error('Search input not found.');
-    }
-
-    // Event listeners for pagination buttons
-    const previousPage = document.getElementById('previousPage');
-    const nextPage = document.getElementById('nextPage');
-    if (previousPage && nextPage) {
-        previousPage.addEventListener('click', showPreviousPage);
-        nextPage.addEventListener('click', showNextPage);
-    } else {
-        console.error('Pagination buttons not found.');
     }
 
     // Event listeners for filter buttons
@@ -347,5 +312,8 @@ function openNav() {
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
 }
-
-
+// JavaScript for handling logout button click
+document.getElementById('logoutBtn').addEventListener('click', function () {
+    // Redirect to login page
+    window.location.href = '/app/Login/login.html'; // Replace with your actual login page URL
+});

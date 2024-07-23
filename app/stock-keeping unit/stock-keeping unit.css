@@ -116,6 +116,7 @@
 }
 .btn-update {
   margin-bottom: 0.3em;
+  margin-right: 0.3em;
   background-color: #007fa2;
 }
 .btn-update:hover{
@@ -131,6 +132,7 @@
  }
  #updatestock {
   background-color: #007fa2;
+  margin-top: 0.4em;
  }
  #updatestock:hover {
   background-color: #495057;
