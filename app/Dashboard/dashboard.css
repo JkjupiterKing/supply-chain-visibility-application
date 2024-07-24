@@ -157,3 +157,6 @@ section {
     background-color: black;
     color: white;
 }
+#refreshData {
+  border-radius: 6px;
+}

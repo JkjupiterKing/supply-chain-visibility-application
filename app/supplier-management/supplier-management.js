@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Fetch and display suppliers
     fetchSuppliers();
+    document.getElementById('manage-btn').style.display = 'none';
 
     // Handle form submission for adding new supplier
     document.getElementById('addSupplierFormElement').addEventListener('submit', function (event) {
@@ -162,10 +163,13 @@ document.addEventListener('DOMContentLoaded', function () {
     window.showManageSuppliers = function() {
     document.getElementById('manageSuppliersTable').style.display = 'table';
     document.getElementById('addSupplierForm').style.display = 'none';
-    document.getElementById('manage-btn').style.display = 'block';
+    document.getElementById('manage-btn').style.display = 'none';
     document.getElementById('searchInput').style.display = 'block';
     document.getElementById('title').style.display = 'block';
     document.getElementById('add-btn').style.display = 'block';
+    document.getElementById('pagination').style.display = 'inline';
+    document.getElementById('pagination').style.justifyContent = 'center';
+    window.location.reload();
     }
 
     // Function to show add new supplier form
@@ -206,43 +210,56 @@ document.addEventListener('DOMContentLoaded', function () {
         xhr.send();
     }
 
-    // Function to add a new supplier via API
-    function addSupplier() {
-        var formData = {
-            name: document.getElementById('supplierName').value,
-            contactPerson: document.getElementById('contactPerson').value,
-            email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value,
-            address: document.getElementById('address').value
-        };
+// Function to add a new supplier via API
+function addSupplier() {
+    var formData = {
+        name: document.getElementById('supplierName').value,
+        contactPerson: document.getElementById('contactPerson').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        address: document.getElementById('address').value
+    };
 
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost:8080/addSupplier');
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.onload = function () {
-            if (xhr.status === 201) {
-                // Clear form fields
-                document.getElementById('supplierName').value = '';
-                document.getElementById('contactPerson').value = '';
-                document.getElementById('email').value = '';
-                document.getElementById('phone').value = '';
-                document.getElementById('address').value = '';
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost:8080/addSupplier');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function () {
+        if (xhr.status === 201) {
+            // Clear form fields
+            document.getElementById('supplierName').value = '';
+            document.getElementById('contactPerson').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('address').value = '';
 
-                // Fetch suppliers and insert the new one at the beginning
-                fetchSuppliers(); // This will call displaySuppliers inside it, so no need to call it again here
+            // Fetch suppliers and insert the new one at the beginning
+            fetchSuppliers(); // This will call calculateTotalPages and gotoPage, so no need to call them again here
 
-                // Show success message
-                alert('Supplier added successfully!');
-                showManageSuppliers();
+            // Check if current page is beyond the newly calculated total pages
+            if (currentPage > totalPages) {
+                currentPage = totalPages; // Adjust current page
+                renderTableRows(currentPage); // Render table rows for the current page
+                updatePagination(); // Update pagination links
             } else {
-                console.error('Error adding supplier. Status code: ' + xhr.status);
+                // Only update pagination if necessary (e.g., new page is added)
+                if (suppliers.length % pageSize === 1) {
+                    calculateTotalPages(); // Recalculate total pages
+                    updatePagination(); // Update pagination links
+                }
             }
-        };
-        xhr.onerror = function () {
-            console.error('Error adding supplier. Network error.');
-        };
-        xhr.send(JSON.stringify(formData));
-    }
+
+            // Show success message
+            alert('Supplier added successfully!');
+            showManageSuppliers(); // Show manage suppliers after adding
+        } else {
+            console.error('Error adding supplier. Status code: ' + xhr.status);
+        }
+    };
+    xhr.onerror = function () {
+        console.error('Error adding supplier. Network error.');
+    };
+    xhr.send(JSON.stringify(formData));
+}
 
     // Function to delete a supplier via API
     function deleteSupplier(supplierId) {

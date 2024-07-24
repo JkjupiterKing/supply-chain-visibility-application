@@ -2,6 +2,7 @@ $('#mySidenav').load('../common/sidenav.html');
 
 document.addEventListener("DOMContentLoaded", function() {
     fetchStocks(); // Initial fetch of stocks when the page loads
+    document.getElementById('manage-btn').style.display = 'none';
 });
 
 function displayStocks(stocks) {
@@ -227,7 +228,7 @@ function deleteStock(stockId) {
 function showManageStock() {
     document.getElementById('manageStockTable').style.display = 'block';
     document.getElementById('addStockForm').style.display = 'none';
-    document.getElementById('manage-btn').style.display = 'block';
+    document.getElementById('manage-btn').style.display = 'none';
     document.getElementById('searchInput').style.display = 'block';
     document.getElementById('title').style.display = 'block';
     document.getElementById('add-btn').style.display = 'block';
