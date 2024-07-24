@@ -144,3 +144,30 @@
  #btn-update:hover {
   color:black;
  }
+ .pagination {
+  justify-content: center; /* Centers the pagination items */
+  font-weight: bold; /* Makes the font bold */
+  margin-right: 5em;
+}
+
+.pagination li {
+  display: inline-block; /* Displays pagination items horizontally */
+  font-size: 1.2em; /* Adjusts the font size */
+}
+.pagination a {
+  color: black; /* Sets the text color */
+  text-decoration: none; /* Removes underline */
+  padding: 8px 12px; /* Adds padding inside the pagination items */
+  border: 1px solid #071952; /* Adds a border around pagination items */
+  border-radius: 1px; /* Rounds the corners */
+}
+
+.pagination a:hover {
+  background-color: grey; /* Changes background color on hover */
+  color: white; /* Changes text color on hover */
+}
+.pagination .active a {
+  background-color: grey; /* Changes background color for active item */
+  border-color: grey;
+  color: white; /* Changes text color for active item */
+}

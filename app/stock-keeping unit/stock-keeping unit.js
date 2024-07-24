@@ -5,11 +5,28 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('manage-btn').style.display = 'none';
 });
 
-function displayStocks(stocks) {
-    var tableBody = document.getElementById('stockTableBody');
-    tableBody.innerHTML = '';
+let stocks = []; // Array to hold stock data
+const pageSize = 10; // Number of stocks per page
+let currentPage = 1; // Initialize current page
+let totalPages = 0; // Variable to hold total pages
 
-    stocks.forEach(function(stock) {
+// Function to calculate total pages based on data length and page size
+function calculateTotalPages() {
+    totalPages = Math.ceil(stocks.length / pageSize);
+}
+
+// Function to render table rows for a given page number
+function renderTableRows(pageNumber) {
+    const tableBody = document.getElementById('stockTableBody');
+    tableBody.innerHTML = ''; // Clear existing rows
+
+    // Calculate start and end index for current page
+    const startIndex = (pageNumber - 1) * pageSize;
+    const endIndex = Math.min(startIndex + pageSize, stocks.length);
+    const pageStocks = stocks.slice(startIndex, endIndex);
+
+    // Render rows for the current page
+    pageStocks.forEach(stock => {
         var formattedPrice = stock.price !== null && stock.price !== undefined ? parseFloat(stock.price).toFixed(2) : '-';
         
         var row = '<tr data-stock-id="' + stock.stockId + '">' +
@@ -24,6 +41,8 @@ function displayStocks(stocks) {
                   '</tr>';
         tableBody.insertAdjacentHTML('beforeend', row);
     });
+
+    updatePagination(); // Update pagination links after displaying stocks
 }
 
 // Function to fetch stocks from API
@@ -33,8 +52,9 @@ function fetchStocks() {
     xhr.onload = function() {
         if (xhr.status === 200) {
             try {
-                var stocks = JSON.parse(xhr.responseText);
-                displayStocks(stocks);
+                stocks = JSON.parse(xhr.responseText);
+                calculateTotalPages(); // Calculate total pages based on fetched data
+                gotoPage(1); // Display first page of stocks
             } catch (error) {
                 console.error('Error parsing JSON:', error);
             }
@@ -47,6 +67,26 @@ function fetchStocks() {
     };
     xhr.send();
 }
+// Function to display pagination links
+function updatePagination() {
+    const pagination = document.getElementById('pagination');
+    let paginationHtml = '';
+
+    // Generate pagination HTML dynamically
+    for (let i = 1; i <= totalPages; i++) {
+        paginationHtml += `<li class="page-item ${currentPage === i ? 'active' : ''}"><a class="page-link" href="#" onclick="gotoPage(${i})">${i}</a></li>`;
+    }
+
+    // Update the pagination container with the generated HTML
+    pagination.innerHTML = paginationHtml;
+}
+
+// Function to navigate to a specific page
+window.gotoPage = function(pageNumber) {
+    currentPage = pageNumber; // Update current page
+    renderTableRows(pageNumber); // Render table rows for the selected page
+}
+
 // Filtering function
 function filterStocks() {
     var input = document.getElementById('searchInput');
@@ -232,6 +272,9 @@ function showManageStock() {
     document.getElementById('searchInput').style.display = 'block';
     document.getElementById('title').style.display = 'block';
     document.getElementById('add-btn').style.display = 'block';
+    document.getElementById('pagination').style.display = 'inline';
+    document.getElementById('pagination').style.justifyContent = 'center';
+    window.location.reload();
 }
 
 function showAddStockForm() {
@@ -241,6 +284,7 @@ function showAddStockForm() {
     document.getElementById('searchInput').style.display = 'none';
     document.getElementById('title').style.display = 'none';
     document.getElementById('add-btn').style.display = 'none';
+    document.getElementById('pagination').style.display = 'none';
 }
 function openNav() {
     document.getElementById("mySidenav").style.width = "16em";
