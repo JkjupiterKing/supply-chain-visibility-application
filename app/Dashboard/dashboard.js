@@ -1,34 +1,102 @@
 $('#mySidenav').load('../common/sidenav.html');
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Simulated data (replace with actual data fetching and processing)
-    var ordersProcessed = 125;
-    var inventoryLevels = 350;
-    var shipmentCount = 0; // Initial count for shipment
-    var shipmentStatuses = ['In transit', 'Out for delivery', 'Delivered'];
-    var currentStatusIndex = 0; // Index to track current shipment status
+    // Define API endpoints
+    const apiEndpoints = {
+        getCustomers: 'http://localhost:8080/getAllCustomerOrders' // Single endpoint for both fetching and refreshing
+    };
 
-    // Update dashboard metrics with simulated data
-    document.getElementById('ordersProcessed').textContent = ordersProcessed;
-    document.getElementById('inventoryLevels').textContent = inventoryLevels;
-    document.getElementById('shipmentCount').textContent = shipmentCount; // Initial count display
+    // Variables to store response data
+    let processedCount = 0;
+    let shippedCount = 0;
+    let pendingCount = 0;
+    let deliveredCount = 0;
+    let customers = []; // Variable to store customer data
+    let statusCycle = ['Processing', 'Shipped', 'Pending', 'Delivered']; // Cycle through statuses
+    let currentStatusIndex = 0; // Index to track the current status
+
+    // Function to fetch all customers from the API
+    function fetchCustomers() {
+        fetch(apiEndpoints.getCustomers)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Store the customer data
+                customers = data || []; // Directly assign data if not wrapped in an object
+
+                // Update counts and dashboard metrics
+                updateCounts();
+                updateDashboard();
+            })
+            .catch(error => {
+                console.error('Error fetching customers:', error);
+                // Handle error as needed
+            });
+    }
+
+    // Function to update counts based on customer statuses
+    function updateCounts() {
+        processedCount = customers.filter(c => c.status === 'Processing').length;
+        shippedCount = customers.filter(c => c.status === 'Shipped').length;
+        pendingCount = customers.filter(c => c.status === 'Pending').length;
+        deliveredCount = customers.filter(c => c.status === 'Delivered').length;
+    }
+
+    // Update dashboard display with stored data
+    function updateDashboard() {
+        const ordersProcessedElement = document.getElementById('ordersProcessed');
+        const shipmentStatusTitleElement = document.getElementById('shipmentStatusTitle');
+        const shipmentCountElement = document.getElementById('shipmentCount');
+
+        if (ordersProcessedElement) {
+            ordersProcessedElement.textContent = processedCount;
+        } else {
+            console.error('Element with ID "ordersProcessed" not found');
+        }
+
+        if (shipmentStatusTitleElement) {
+            const currentStatus = statusCycle[currentStatusIndex];
+            shipmentStatusTitleElement.textContent = currentStatus;
+            shipmentCountElement.textContent = getCountForStatus(currentStatus);
+        } else {
+            console.error('Element with ID "shipmentStatusTitle" not found');
+        }
+
+        if (shipmentCountElement) {
+            shipmentCountElement.textContent = getCountForStatus(statusCycle[currentStatusIndex]);
+        } else {
+            console.error('Element with ID "shipmentCount" not found');
+        }
+    }
+
+    // Get count for the given status
+    function getCountForStatus(status) {
+        switch (status) {
+            case 'Processing':
+                return processedCount;
+            case 'Shipped':
+                return shippedCount;
+            case 'Pending':
+                return pendingCount;
+            case 'Delivered':
+                return deliveredCount;
+            default:
+                return 0;
+        }
+    }
+
+    // Fetch customer data initially when the page loads
+    fetchCustomers();
 
     // Event listener for refresh button
     document.getElementById('refreshData').addEventListener('click', function () {
-        // Simulated refresh action
-        ordersProcessed += 10;
-        inventoryLevels -= 5;
-        shipmentCount += 1; // Increment shipment count
-
-        // Update shipment status
-        currentStatusIndex = (currentStatusIndex + 1) % shipmentStatuses.length; // Cycle through statuses
-        var currentStatus = shipmentStatuses[currentStatusIndex];
-        document.getElementById('shipmentStatusTitle').textContent = currentStatus;
-
-        // Update displayed data
-        document.getElementById('ordersProcessed').textContent = ordersProcessed;
-        document.getElementById('inventoryLevels').textContent = inventoryLevels;
-        document.getElementById('shipmentCount').textContent = shipmentCount; // Update shipment count
+        // Cycle to the next status
+        currentStatusIndex = (currentStatusIndex + 1) % statusCycle.length;
+        fetchCustomers(); // Reuse the same function for refreshing data
     });
 
     // JavaScript for handling logout button click
