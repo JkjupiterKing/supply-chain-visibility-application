@@ -15,15 +15,15 @@ function calculateTotalPages() {
     totalPages = Math.ceil(stocks.length / pageSize);
 }
 
-// Function to render table rows for a given page number
-function renderTableRows(pageNumber) {
+// Modify the renderTableRows function to accept filtered stocks
+function renderTableRows(pageNumber, stockList = stocks) {
     const tableBody = document.getElementById('stockTableBody');
     tableBody.innerHTML = ''; // Clear existing rows
 
     // Calculate start and end index for current page
     const startIndex = (pageNumber - 1) * pageSize;
-    const endIndex = Math.min(startIndex + pageSize, stocks.length);
-    const pageStocks = stocks.slice(startIndex, endIndex);
+    const endIndex = Math.min(startIndex + pageSize, stockList.length);
+    const pageStocks = stockList.slice(startIndex, endIndex);
 
     // Render rows for the current page
     pageStocks.forEach(stock => {
@@ -44,7 +44,6 @@ function renderTableRows(pageNumber) {
 
     updatePagination(); // Update pagination links after displaying stocks
 }
-
 // Function to fetch stocks from API
 function fetchStocks() {
     var xhr = new XMLHttpRequest();
@@ -87,20 +86,24 @@ window.gotoPage = function(pageNumber) {
     renderTableRows(pageNumber); // Render table rows for the selected page
 }
 
-// Filtering function
+// Function to filter stocks based on search text
 function filterStocks() {
-    var input = document.getElementById('searchInput');
-    var filter = input.value.toLowerCase();
-    var rows = document.querySelectorAll('#stockTableBody tr');
+    const searchText = document.getElementById('searchInput').value.toLowerCase();
 
-    rows.forEach(function(row) {
-        var stockName = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
-        if (stockName.includes(filter)) {
-            row.style.display = '';
-        } else {
-            row.style.display = 'none';
-        }
+    // Filter stocks based on stockId, stockName, and description
+    const filteredStocks = stocks.filter(stock => {
+        const idMatch = stock.stockId.toString().includes(searchText); // Convert id to string for comparison
+        const nameMatch = stock.stockName.toLowerCase().includes(searchText);
+        const descriptionMatch = stock.description ? stock.description.toLowerCase().includes(searchText) : false;
+
+        // Return true if any of the fields match
+        return idMatch || nameMatch || descriptionMatch;
     });
+
+    // Update total pages and display the first page of filtered stocks
+    totalPages = Math.ceil(filteredStocks.length / pageSize);
+    currentPage = 1; // Reset to first page of filtered results
+    renderTableRows(currentPage, filteredStocks); // Pass filtered stocks to render function
 }
 
 // Event listener for search input
@@ -250,6 +253,7 @@ function deleteStock(stockId) {
 
                 // Alert message for successful deletion
                 alert('Stock deleted successfully.');
+                window.location.reload();
             } else {
                 console.error('Error deleting stock:', response.statusText);
                 alert('Failed to delete stock. Please try again.');

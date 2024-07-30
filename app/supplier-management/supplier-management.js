@@ -1,14 +1,16 @@
+// Load the side navigation menu
 $('#mySidenav').load('../common/sidenav.html');
 
 document.addEventListener('DOMContentLoaded', function () {
     let suppliers = []; // Array to hold supplier data
+    let filteredSuppliers = []; // Array to hold filtered supplier data
     const pageSize = 10; // Number of suppliers per page
     let currentPage = 1; // Initialize current page
     let totalPages = 0; // Variable to hold total pages
 
-    // Function to calculate total pages based on data length and page size
+    // Function to calculate total pages based on filtered data
     function calculateTotalPages() {
-        totalPages = Math.ceil(suppliers.length / pageSize);
+        totalPages = Math.ceil(filteredSuppliers.length / pageSize);
     }
 
     // Function to render table rows for a given page number
@@ -19,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Calculate start and end index for current page
         const startIndex = (pageNumber - 1) * pageSize;
         const endIndex = startIndex + pageSize;
-        const pageSuppliers = suppliers.slice(startIndex, endIndex);
+        const pageSuppliers = filteredSuppliers.slice(startIndex, endIndex);
 
         // Render rows for the current page
         pageSuppliers.forEach(supplier => {
@@ -61,13 +63,14 @@ document.addEventListener('DOMContentLoaded', function () {
         updatePagination(); // Update pagination links
     }
 
-    // Example function to fetch supplier data (replace with actual fetch logic)
+    // Function to fetch supplier data
     function fetchSuppliers() {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', 'http://localhost:8080/getAllSuppliers');
         xhr.onload = function () {
             if (xhr.status === 200) {
                 suppliers = JSON.parse(xhr.responseText);
+                filteredSuppliers = suppliers; // Initialize filtered suppliers
                 calculateTotalPages(); // Calculate total pages based on fetched data
                 gotoPage(1); // Display first page of suppliers
             } else {
@@ -91,42 +94,34 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Event listener for showing manage suppliers
-    var manageBtn = document.getElementById('manage-btn');
-    manageBtn.addEventListener('click', function () {
+    document.getElementById('manage-btn').addEventListener('click', function () {
         showManageSuppliers();
     });
 
     // Event listener for showing add new supplier form
-    var addBtn = document.getElementById('add-btn');
-    addBtn.addEventListener('click', function () {
+    document.getElementById('add-btn').addEventListener('click', function () {
         showAddSupplierForm();
     });
 
     // Event listener for handling search input changes
-    var searchInput = document.getElementById('searchInput');
-    if (searchInput) {
-        searchInput.addEventListener('input', function () {
-            var searchText = searchInput.value.toLowerCase().trim();
-            filterSuppliers(searchText);
-        });
-    } else {
-        console.error('searchInput not found.');
-    }
+    document.getElementById('searchInput').addEventListener('input', function () {
+        const searchText = this.value.toLowerCase().trim();
+        filterSuppliers(searchText);
+    });
 
     // Event delegation for update and delete buttons
-    var tableBody = document.getElementById('supplierTableBody');
-    tableBody.addEventListener('click', function (event) {
-        var target = event.target;
+    document.getElementById('supplierTableBody').addEventListener('click', function (event) {
+        const target = event.target;
 
         // Handle update button click
         if (target.classList.contains('btn-update')) {
-            var supplierId = target.getAttribute('data-supplier-id');
+            const supplierId = target.getAttribute('data-supplier-id');
             openUpdateForm(supplierId); // Call function to open update form with supplier data
         }
 
         // Handle delete button click
         if (target.classList.contains('btn-delete')) {
-            var supplierId = target.getAttribute('data-supplier-id');
+            const supplierId = target.getAttribute('data-supplier-id');
             if (confirm('Are you sure you want to delete this supplier?')) {
                 deleteSupplier(supplierId);
             }
@@ -134,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // JavaScript for handling logout button click
-    var logoutBtn = document.getElementById('logoutBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', function () {
             // Redirect to login page
@@ -144,43 +139,45 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error('logoutBtn not found.');
     }
 
-    // Function to filter suppliers based on search text
-    function filterSuppliers(searchText) {
-        var tableRows = document.getElementById('supplierTableBody').getElementsByTagName('tr');
-        Array.from(tableRows).forEach(function (row) {
-            var id = row.cells[0].innerText.toLowerCase();
-            var name = row.cells[1].innerText.toLowerCase();
-            var contactPerson = row.cells[2].innerText.toLowerCase();
-            if (id.includes(searchText) || name.includes(searchText) || contactPerson.includes(searchText)) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
-        });
-    }
+// Function to filter suppliers based on search text
+function filterSuppliers(searchText) {
+    const searchLower = searchText.toLowerCase(); // Convert search text to lowercase once
+
+    filteredSuppliers = suppliers.filter(supplier => {
+        const idMatch = supplier.id.toString().includes(searchText); // Convert id to string for comparison
+        const nameMatch = supplier.name.toLowerCase().includes(searchLower);
+        const contactPersonMatch = supplier.contactPerson.toLowerCase().includes(searchLower);
+        
+        // Return true if any of the fields match
+        return idMatch || nameMatch || contactPersonMatch;
+    });
+
+    calculateTotalPages(); // Recalculate total pages for filtered data
+    gotoPage(1); // Display first page of filtered suppliers
+}
 
     // Function to show manage suppliers section
     window.showManageSuppliers = function() {
-    document.getElementById('manageSuppliersTable').style.display = 'table';
-    document.getElementById('addSupplierForm').style.display = 'none';
-    document.getElementById('manage-btn').style.display = 'none';
-    document.getElementById('searchInput').style.display = 'block';
-    document.getElementById('title').style.display = 'block';
-    document.getElementById('add-btn').style.display = 'block';
-    document.getElementById('pagination').style.display = 'inline';
-    document.getElementById('pagination').style.justifyContent = 'center';
-    window.location.reload();
+        document.getElementById('manageSuppliersTable').style.display = 'table';
+        document.getElementById('addSupplierForm').style.display = 'none';
+        document.getElementById('manage-btn').style.display = 'none';
+        document.getElementById('searchInput').style.display = 'block';
+        document.getElementById('title').style.display = 'block';
+        document.getElementById('add-btn').style.display = 'block';
+        document.getElementById('pagination').style.display = 'inline';
+        document.getElementById('pagination').style.justifyContent = 'center';
+        window.location.reload();
     }
 
     // Function to show add new supplier form
     window.showAddSupplierForm = function() {
-    document.getElementById('manageSuppliersTable').style.display = 'none';
-    document.getElementById('addSupplierForm').style.display = 'block';
-    document.getElementById('manage-btn').style.display = 'block';
-    document.getElementById('searchInput').style.display = 'none';
-    document.getElementById('title').style.display = 'none';
-    document.getElementById('add-btn').style.display = 'none';
-    document.getElementById('pagination').style.display = 'none';
+        document.getElementById('manageSuppliersTable').style.display = 'none';
+        document.getElementById('addSupplierForm').style.display = 'block';
+        document.getElementById('manage-btn').style.display = 'block';
+        document.getElementById('searchInput').style.display = 'none';
+        document.getElementById('title').style.display = 'none';
+        document.getElementById('add-btn').style.display = 'none';
+        document.getElementById('pagination').style.display = 'none';
     }
 
     // Function to open update form with supplier data
@@ -210,56 +207,56 @@ document.addEventListener('DOMContentLoaded', function () {
         xhr.send();
     }
 
-// Function to add a new supplier via API
-function addSupplier() {
-    var formData = {
-        name: document.getElementById('supplierName').value,
-        contactPerson: document.getElementById('contactPerson').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        address: document.getElementById('address').value
-    };
+    // Function to add a new supplier via API
+    function addSupplier() {
+        var formData = {
+            name: document.getElementById('supplierName').value,
+            contactPerson: document.getElementById('contactPerson').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            address: document.getElementById('address').value
+        };
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:8080/addSupplier');
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.onload = function () {
-        if (xhr.status === 201) {
-            // Clear form fields
-            document.getElementById('supplierName').value = '';
-            document.getElementById('contactPerson').value = '';
-            document.getElementById('email').value = '';
-            document.getElementById('phone').value = '';
-            document.getElementById('address').value = '';
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://localhost:8080/addSupplier');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = function () {
+            if (xhr.status === 201) {
+                // Clear form fields
+                document.getElementById('supplierName').value = '';
+                document.getElementById('contactPerson').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('phone').value = '';
+                document.getElementById('address').value = '';
 
-            // Fetch suppliers and insert the new one at the beginning
-            fetchSuppliers(); // This will call calculateTotalPages and gotoPage, so no need to call them again here
+                // Fetch suppliers and insert the new one
+                fetchSuppliers(); // This will call calculateTotalPages and gotoPage, so no need to call them again here
 
-            // Check if current page is beyond the newly calculated total pages
-            if (currentPage > totalPages) {
-                currentPage = totalPages; // Adjust current page
-                renderTableRows(currentPage); // Render table rows for the current page
-                updatePagination(); // Update pagination links
-            } else {
-                // Only update pagination if necessary (e.g., new page is added)
-                if (suppliers.length % pageSize === 1) {
-                    calculateTotalPages(); // Recalculate total pages
+                // Check if current page is beyond the newly calculated total pages
+                if (currentPage > totalPages) {
+                    currentPage = totalPages; // Adjust current page
+                    renderTableRows(currentPage); // Render table rows for the current page
                     updatePagination(); // Update pagination links
+                } else {
+                    // Only update pagination if necessary (e.g., new page is added)
+                    if (suppliers.length % pageSize === 1) {
+                        calculateTotalPages(); // Recalculate total pages
+                        updatePagination(); // Update pagination links
+                    }
                 }
-            }
 
-            // Show success message
-            alert('Supplier added successfully!');
-            showManageSuppliers(); // Show manage suppliers after adding
-        } else {
-            console.error('Error adding supplier. Status code: ' + xhr.status);
-        }
-    };
-    xhr.onerror = function () {
-        console.error('Error adding supplier. Network error.');
-    };
-    xhr.send(JSON.stringify(formData));
-}
+                // Show success message
+                alert('Supplier added successfully!');
+                showManageSuppliers(); // Show manage suppliers after adding
+            } else {
+                console.error('Error adding supplier. Status code: ' + xhr.status);
+            }
+        };
+        xhr.onerror = function () {
+            console.error('Error adding supplier. Network error.');
+        };
+        xhr.send(JSON.stringify(formData));
+    }
 
     // Function to delete a supplier via API
     function deleteSupplier(supplierId) {
@@ -270,6 +267,7 @@ function addSupplier() {
             if (xhr.status >= 200 && xhr.status < 400) {
                 alert('Supplier deleted successfully.');
                 fetchSuppliers(); // Refresh the supplier table
+                updatePagination();
             } else {
                 console.error('Error deleting supplier.');
             }
@@ -313,18 +311,14 @@ function addSupplier() {
         };
         xhr.send(JSON.stringify(formData));
     });
-});
- // Function to open navigation sidebar
- function openNav() {
-    document.getElementById("mySidenav").style.width = "16em";
-}
 
-// Function to close navigation sidebar
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-}
- // JavaScript for handling logout button click
- document.getElementById('logoutBtn').addEventListener('click', function () {
-    // Redirect to login page
-    window.location.href = '/app/Login/login.html'; // Replace with your actual login page URL
+    // Function to open navigation sidebar
+    window.openNav = function() {
+        document.getElementById("mySidenav").style.width = "16em";
+    }
+
+    // Function to close navigation sidebar
+    window.closeNav = function() {
+        document.getElementById("mySidenav").style.width = "0";
+    }
 });

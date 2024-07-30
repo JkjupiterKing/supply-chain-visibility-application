@@ -3,7 +3,8 @@ $('#mySidenav').load('../common/sidenav.html');
 document.addEventListener('DOMContentLoaded', function () {
     // Define API endpoints
     const apiEndpoints = {
-        getCustomers: 'http://localhost:8080/getAllCustomerOrders' // Single endpoint for both fetching and refreshing
+        getCustomers: 'http://localhost:8080/getAllCustomerOrders',
+        getInventorylevel: 'http://localhost:8080/getAllStocks'
     };
 
     // Variables to store response data
@@ -11,9 +12,12 @@ document.addEventListener('DOMContentLoaded', function () {
     let shippedCount = 0;
     let pendingCount = 0;
     let deliveredCount = 0;
-    let customers = []; // Variable to store customer data
-    let statusCycle = ['Processing', 'Shipped', 'Pending', 'Delivered']; // Cycle through statuses
-    let currentStatusIndex = 0; // Index to track the current status
+    let totalOrdersCount = 0;
+    let inventoryLevels = [];
+    let customers = [];
+    let statusCycle = ['Processing', 'Shipped', 'Pending', 'Delivered'];
+    let currentStatusIndex = 0;
+    let currentInventoryIndex = 0; // Index to track the current inventory item
 
     // Function to fetch all customers from the API
     function fetchCustomers() {
@@ -25,21 +29,36 @@ document.addEventListener('DOMContentLoaded', function () {
                 return response.json();
             })
             .then(data => {
-                // Store the customer data
-                customers = data || []; // Directly assign data if not wrapped in an object
-
-                // Update counts and dashboard metrics
+                customers = data || [];
                 updateCounts();
                 updateDashboard();
             })
             .catch(error => {
                 console.error('Error fetching customers:', error);
-                // Handle error as needed
+            });
+    }
+
+    // Function to fetch all inventory levels from the API
+    function fetchInventoryLevels() {
+        fetch(apiEndpoints.getInventorylevel)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                inventoryLevels = data || [];
+                renderInventoryLevels();
+            })
+            .catch(error => {
+                console.error('Error fetching inventory levels:', error);
             });
     }
 
     // Function to update counts based on customer statuses
     function updateCounts() {
+        totalOrdersCount = customers.length;
         processedCount = customers.filter(c => c.status === 'Processing').length;
         shippedCount = customers.filter(c => c.status === 'Shipped').length;
         pendingCount = customers.filter(c => c.status === 'Pending').length;
@@ -48,14 +67,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Update dashboard display with stored data
     function updateDashboard() {
-        const ordersProcessedElement = document.getElementById('ordersProcessed');
+        const TotalOrdersElement = document.getElementById('Totalorders');
         const shipmentStatusTitleElement = document.getElementById('shipmentStatusTitle');
         const shipmentCountElement = document.getElementById('shipmentCount');
 
-        if (ordersProcessedElement) {
-            ordersProcessedElement.textContent = processedCount;
+        if (TotalOrdersElement) {
+            TotalOrdersElement.textContent = totalOrdersCount;
         } else {
-            console.error('Element with ID "ordersProcessed" not found');
+            console.error('Element with ID "Totalorders" not found');
         }
 
         if (shipmentStatusTitleElement) {
@@ -89,20 +108,45 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Fetch customer data initially when the page loads
+    // Function to render the current inventory level in the UI
+    function renderInventoryLevels() {
+        const inventoryLevelsElement = document.getElementById('inventoryLevels');
+        const inventoryLevelsCount = document.getElementById('inventoryCount');
+        if (inventoryLevelsElement) {
+            if (inventoryLevels.length === 0) {
+                inventoryLevelsElement.textContent = 'No inventory data available';
+                inventoryLevelsCount.textContent = '0';
+            } else {
+                const currentItem = inventoryLevels[currentInventoryIndex];
+                if (currentItem) {
+                    inventoryLevelsElement.textContent = `${currentItem.stockName}`;
+                    inventoryLevelsCount.textContent = `${currentItem.stockQuantity}`;
+                }
+            }
+        } else {
+            console.error('Element with ID "inventoryLevels" not found');
+        }
+    }
+
+    // Fetch customer data and inventory data initially when the page loads
     fetchCustomers();
+    fetchInventoryLevels();
 
     // Event listener for refresh button
     document.getElementById('refreshData').addEventListener('click', function () {
-        // Cycle to the next status
         currentStatusIndex = (currentStatusIndex + 1) % statusCycle.length;
         fetchCustomers(); // Reuse the same function for refreshing data
+
+        // Cycle through inventory levels
+        if (inventoryLevels.length > 0) {
+            currentInventoryIndex = (currentInventoryIndex + 1) % inventoryLevels.length;
+            renderInventoryLevels(); // Refresh inventory data display
+        }
     });
 
     // JavaScript for handling logout button click
     document.getElementById('logoutBtn').addEventListener('click', function () {
-        // Redirect to login page
-        window.location.href = '/app/Login/login.html'; // Replace with your actual login page URL
+        window.location.href = '/app/Login/login.html';
     });
 });
 

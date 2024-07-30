@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
     // Function to display purchase orders for a specific page
-    window.displayPurchaseOrders = function(pageNumber, pageSize) {
+    window.displayCustomerOrders = function(pageNumber, pageSize) {
         currentPage = pageNumber; // Update current page
         renderTableRows(pageNumber); // Render table rows for the selected page
         updatePagination(); // Update pagination links
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 customerOrders = data; // Assign fetched data to customerOrders array
                 calculateTotalPages(); // Calculate total pages based on fetched data
-                displayPurchaseOrders(1, pageSize); // Display first page of orders
+                displayCustomerOrders(1, pageSize); // Display first page of orders
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Generate pagination HTML dynamically
         for (let i = 1; i <= totalPages; i++) {
-            paginationHtml += `<li class="page-item ${currentPage === i ? 'active' : ''}"><a class="page-link" href="#" onclick="window.displayPurchaseOrders(${i}, ${pageSize})">${i}</a></li>`;
+            paginationHtml += `<li class="page-item ${currentPage === i ? 'active' : ''}"><a class="page-link" href="#" onclick="window.displayCustomerOrders(${i}, ${pageSize})">${i}</a></li>`;
         }
 
         // Update the pagination container with the generated HTML
@@ -82,37 +82,47 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initialize: Fetch data and set up pagination
     fetchCustomerOrders();
 
-    // Function to perform search
-    function performSearch() {
-        const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
+// Function to perform search
+function performSearch() {
+    const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
 
-        // Fetch original data from the table
-        const tableBody = document.getElementById('ordersTableBody');
-        const rows = Array.from(tableBody.querySelectorAll('tr'));
+    // Filter customerOrders based on search input
+    const filteredOrders = customerOrders.filter(order => {
+        const orderId = String(order.orderId || '').trim().toLowerCase();
+        const customerName = String(order.customerName || '').trim().toLowerCase();
 
-        // Filter the rows based on searchInput
-        rows.forEach(row => {
-            const orderId = row.children[0].textContent.trim().toLowerCase();
-            const customerName = row.children[1].textContent.trim().toLowerCase();
+        return orderId.includes(searchInput) || customerName.includes(searchInput);
+    });
 
-            if (orderId.includes(searchInput) || customerName.includes(searchInput)) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
-        });
+    // Update table display based on filtered results
+    let tableBodyHtml = '';
+    filteredOrders.forEach(order => {
+        tableBodyHtml += `<tr>
+                            <td>${order.orderId}</td>
+                            <td>${order.customerName}</td>
+                            <td>${order.productName}</td>
+                            <td>${order.status}</td>
+                        </tr>`;
+    });
 
-        // Optionally show a message if no results found (not part of original code)
-        const noResultsMessage = document.getElementById('noResultsMessage');
-        if (noResultsMessage) {
-            const visibleRows = rows.filter(row => row.style.display !== 'none');
-            if (visibleRows.length === 0) {
-                noResultsMessage.style.display = 'block';
-            } else {
-                noResultsMessage.style.display = 'none';
-            }
+    // Update the table body
+    document.getElementById('ordersTableBody').innerHTML = tableBodyHtml;
+
+    // Show message if no results found
+    const noResultsMessage = document.getElementById('noResultsMessage');
+    if (noResultsMessage) {
+        if (filteredOrders.length === 0) {
+            noResultsMessage.style.display = 'block';
+        } else {
+            noResultsMessage.style.display = 'none';
         }
     }
+    
+    // Reset pagination and display the first page of filtered results
+    currentPage = 1;
+    calculateTotalPages(filteredOrders);
+    displayPurchaseOrders(currentPage, pageSize, filteredOrders);
+}
 
     // Function to update order details container
     function updateOrderDetails(orderId, customerName, productName, status) {
@@ -279,9 +289,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         updateOrderDetails(order.orderId, order.customerName, order.productName, order.status);
                     });
                 });
-
-                // Initialize: Show page 1 by default
-                showPage(1);
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
