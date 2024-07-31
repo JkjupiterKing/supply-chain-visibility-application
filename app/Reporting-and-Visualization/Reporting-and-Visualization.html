@@ -23,33 +23,47 @@
         <br>
         <h2 id="pagetitle" style="margin-left: 0.1em;">Reporting and Visualization</h2>
         <br>
-        <div class="charts-grid">
-            <div class="chart-container">
-                <h3>Customer Orders</h3>
-                <canvas id="customerOrdersChart"></canvas>
-                <br>
-                <button type="button" class="btn download-button" id="export-customer-orders">Export Customer Orders</button>
+        <!-- Parent container for charts -->
+        <div class="charts-container">
+            <!-- Container for Customer Orders and Purchase Orders in a row -->
+            <div class="row mb-4">
+                <!-- Customer Orders Chart -->
+                <div class="col-md-6">
+                    <div class="chart-container">
+                        <h3>Customer Orders</h3>
+                        <br>
+                        <canvas id="customerOrdersChart"></canvas>
+                        <br>
+                        <button type="button" class="btn download-button" id="export-customer-orders">Export Customer Orders</button>
+                    </div>
+                </div>
+
+                <!-- Purchase Orders Chart -->
+                <div class="col-md-6">
+                    <div class="chart-container">
+                        <h3>Purchase Orders</h3>
+                        <br>
+                        <canvas id="purchaseOrdersChart"></canvas>
+                        <br>
+                        <button type="button" class="btn download-button" id="export-purchase-orders">Export Purchase Orders</button>
+                    </div>
+                </div>
             </div>
-            <div class="chart-container">
-                <h3>Purchase Orders</h3>
-                <canvas id="purchaseOrdersChart"></canvas>
-                <br>
-                <button type="button" class="btn download-button" id="export-purchase-orders">Export Purchase Orders</button>
-            </div>
-            <div class="chart-container">
-                <h3>Stocks</h3>
-                <canvas id="stocksChart"></canvas>
-                <br>
-                <button type="button" class="btn download-button" id="export-stocks">Export Stocks</button>
-            </div>
-            <div class="chart-container">
-                <h3>Suppliers</h3>
-                <canvas id="suppliersChart"></canvas>
-                <br>
-                <button type="button" class="btn download-button" id="export-suppliers">Export Suppliers</button>
+
+            <!-- Container for Stocks chart in a full-width row -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="chart-container">
+                        <h3>Stocks</h3>
+                        <br>
+                        <canvas id="stocksChart"></canvas>
+                        <br>
+                        <button type="button" class="btn download-button" id="export-stocks">Export Stocks</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>      
+    </div>     
 </main>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>

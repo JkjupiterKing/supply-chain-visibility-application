@@ -174,8 +174,8 @@ main {
 }
 
 canvas {
-  width: 100% !important; /* Full width of the container */
-  height: 250px !important; /* Reduced height */
+  width: 100%; /* Full width of the container */
+  height: 250px; /* Reduced height */
 }
 
 .chart-container h3 {
