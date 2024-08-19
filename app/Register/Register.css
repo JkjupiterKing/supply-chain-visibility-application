@@ -1,0 +1,72 @@
+@font-face {
+    font-family: 'Rubik';
+    src: url('../../resources/fonts/Rubik-Regular.ttf') format('truetype');
+  }
+  
+  body {
+      background-image:url(../../resources/Images/login-background.jpg);
+      background-size: cover;
+      font-family: "Rubik", sans-serif;
+    }
+
+     header {
+      background-color: #ffffff; /* White background */
+      padding: 10px 20px; /* Adjust padding as needed */
+      display: flex; /* Use flexbox for layout */
+      align-items: left; /* Center align items vertically */
+      justify-content: left; /* Center align items horizontally */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow */
+  }
+  
+  header h1 {
+      margin-top: 1em;
+      font-size: 24px;
+      font-weight: bold;
+      color:#007fa2; /* Dark gray color */
+      margin-left: 10px; /* Adjust margin between image and text */
+  }
+  
+  header img {
+      height: 5em; 
+      width: 5em;
+  }
+    .registration-form {
+      opacity: 65%;
+      width: 30em;
+      margin: 7em auto;
+      font-size: 15px;
+    }
+    .registration-form form {
+      margin-bottom: 15px;
+      background: white;
+      padding: 30px;
+      border-radius: 26px;
+      box-shadow: 0px 0px 20px 0px rgba(0,0,0,1);
+    }
+    .registration-form h2 {
+      margin: 0 0 15px;
+      color:  #007fa2;
+    }
+    .form-control, .btn {
+      min-height: 1em;
+      border-radius: 1px;
+    }
+    .btn {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-left: 8.5em;
+      background-color:  #007fa2;
+      border-color:white;
+    }
+    .btn:hover {
+      background-color: #007fa2;
+      border-color:black;
+      color: black;
+    }
+    a {
+      text-decoration: none;
+      color: #007fa2;
+    }
+    a:hover {
+      color: black;
+    }
