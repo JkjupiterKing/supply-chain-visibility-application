@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var loginForm = document.getElementById('login-form');
     if (loginForm) {
         loginForm.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent form submission
+            event.preventDefault(); 
             
             // Retrieve username and password input values
             var usernameInput = document.getElementById('username');
@@ -14,10 +14,30 @@ document.addEventListener('DOMContentLoaded', function() {
             var password = passwordInput.value.trim();
             
             if (username !== '' && password !== '') {
-                // Redirect to dashboard.html (replace with your actual dashboard page)
-                window.location.href = '../../app/dashboard/dashboard.html';
+                // Fetch user data from backend
+                fetch(`http://localhost:8080/getUserByUsername/${username}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data && data.password) {
+                            var decodedPassword = atob(data.password);
+                            // Compare the decoded password with the input password
+                            if (decodedPassword === password) {
+                                // Redirect to dashboard.html
+                                window.location.href = '../../app/dashboard/dashboard.html';
+                            } else {
+                                // Display an alert if passwords do not match
+                                alert('Invalid username or password.');
+                            }
+                        } else {
+                            // Display an alert if user is not found
+                            alert('User not found.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching user data:', error);
+                        alert('An error occurred. Please try again later.');
+                    });
             } else {
-                // Display an alert if either username or password is empty
                 alert('Please enter both username and password.');
             }
         });
