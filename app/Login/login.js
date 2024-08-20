@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     })
                     .catch(error => {
                         console.error('Error fetching user data:', error);
-                        alert('An error occurred. Please try again later.');
+                        alert('Please enter valid username and password.');
                     });
             } else {
                 alert('Please enter both username and password.');
