@@ -1,5 +1,5 @@
-import { includeHeader } from "./components/header/header.js";
-includeHeader('./components/header/header.html');
+import { includeHeader } from "../header/header.js";
+includeHeader('../header/header.html');
 
 function scrollCards(direction, containerClass) {
     const container = document.querySelector(containerClass);

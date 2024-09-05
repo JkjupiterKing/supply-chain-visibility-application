@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => {
             // Handle the response from the server
             alert('User registered successfully!');
-            window.location.href = '../login/login.html'; // Redirect to login page
+            window.location.href = '../Customerlogin/Customerlogin.html'; // Redirect to login page
         })
         .catch(error => {
             // Handle any errors that occurred during the fetch operation
