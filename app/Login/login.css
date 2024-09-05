@@ -14,7 +14,6 @@ body {
     width: 100vw; 
     font-family: "Rubik", sans-serif;
   }
-   /* Additional styles for the header */
    header {
     font-family: "Rubik", sans-serif;
     background-color:transparent; 
@@ -40,6 +39,22 @@ header img {
     height: 13em; 
     width: 13em;
 }
+header {
+  position: relative;
+  padding: 20px;
+}
+
+.header-buttons {
+  font-family: "Rubik", sans-serif;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.header-buttons .btn {
+  margin: 0;
+}
+
   .login-form {
     font-family: "Rubik", sans-serif;
     opacity: 70%;
@@ -57,7 +72,6 @@ header img {
   .login-form h2 {
     margin: 0 0 15px;
     color:  #007fa2;
-    /* background-color:  #006699; */
   }
   .form-control, .btn {
     min-height: 1em;
@@ -85,9 +99,8 @@ header img {
   #register-link {
     margin-right: 0.5em;
   }
-  /* Basic Reset and Container Styling */
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Rubik", sans-serif;
   margin: 0;
   padding: 0;
   display: flex;
@@ -109,7 +122,7 @@ body {
 .logo-container {
   flex: 1;
   padding: 20px;
-  background-color: #f0f0f0; /* Light background color for the logo area */
+  background-color: #f0f0f0; 
 }
 
 .logo-container img {

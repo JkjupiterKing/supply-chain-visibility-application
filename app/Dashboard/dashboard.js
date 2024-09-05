@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // JavaScript for handling logout button click
     document.getElementById('logoutBtn').addEventListener('click', function () {
-        window.location.href = '/app/Login/login.html';
+        window.location.href = '/app/login/login.html';
     });
 });
 
