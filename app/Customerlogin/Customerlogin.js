@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(user => {
             const decodedPassword = atob(user.password); 
             if (password === decodedPassword) {
-                alert("login successfull!!");
                 localStorage.setItem("loginMessage", "login successfull!!");
                 localStorage.setItem("username", username);
                 window.location.href = '../index/index.html'; 

@@ -2,10 +2,10 @@ $('#mySidenav').load('../common/sidenav.html');
 
 document.addEventListener('DOMContentLoaded', function () {
     
-    let customerOrders = []; // Array to hold customer orders data
-    const pageSize = 10; // Adjust as needed
-    let currentPage = 1; // Initialize current page
-    let totalPages = 0; // Variable to hold total pages
+    let customerOrders = []; 
+    const pageSize = 10; 
+    let currentPage = 1; 
+    let totalPages = 0; 
 
     // Function to calculate total pages based on data length and page size
     function calculateTotalPages() {
@@ -14,39 +14,77 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function renderTableRows(pageNumber) {
         const tableBody = document.getElementById('ordersTableBody');
-        tableBody.innerHTML = ''; // Clear existing rows
+        tableBody.innerHTML = ''; 
     
-        // Calculate start and end index for current page
         const startIndex = (pageNumber - 1) * pageSize;
         const endIndex = startIndex + pageSize;
         const pageOrders = customerOrders.slice(startIndex, endIndex);
     
-        // Render rows for the current page
         pageOrders.forEach(order => {
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${order.orderId}</td>
                 <td>${order.customerName}</td>
                 <td>${order.productName}</td>
-                <td>${order.status}</td>
+                <td class="status-col">${order.status}</td>
+                <td>
+                    <button type="button" class="btn btn-primary btn-sm btn-update" data-order-id="${order.orderId}">Update</button>
+                    <button type="button" class="btn btn-danger btn-sm btn-delete" data-order-id="${order.orderId}">Delete</button>
+                </td>
             `;
             tableBody.appendChild(row);
-    
-            // Add click event listener to each row
-            row.addEventListener('click', function() {
+            
+            row.querySelector('.status-col').addEventListener('click', function () {
                 updateOrderDetails(order.orderId, order.customerName, order.productName, order.status);
+            });
+    
+            row.querySelector('.btn-update').addEventListener('click', function () {
+                const orderId = this.getAttribute('data-order-id');
+                const order = customerOrders.find(order => order.orderId == orderId);
+                if (order) {
+                    selectedOrderId = orderId;
+                    populateUpdateModal(order);
+                    new bootstrap.Modal(document.getElementById('updateOrderModal')).show();
+                }
+            });
+    
+            row.querySelector('.btn-delete').addEventListener('click', function () {
+                const orderId = this.getAttribute('data-order-id');
+                if (confirm('Are you sure you want to delete this order?')) {
+                    deleteOrder(orderId);
+                }
             });
         });
     }
     
-    // Function to display purchase orders for a specific page
-    window.displayCustomerOrders = function(pageNumber, pageSize) {
-        currentPage = pageNumber; // Update current page
-        renderTableRows(pageNumber); // Render table rows for the selected page
-        updatePagination(); // Update pagination links
+    function populateUpdateModal(order) {
+        document.getElementById('updateStatus').value = order.status.toLowerCase(); 
     }
 
-    // Example function to fetch customer orders (replace with actual fetch logic)
+    // Function to handle the update process
+    function handleUpdateOrder() {
+    const status = document.getElementById('updateStatus').value.toLowerCase();
+
+    if (!status) {
+        alert('Please provide the status!');
+        return;
+    }
+
+    const updatedOrder = {
+        status: status
+    };
+
+    updateOrder(updatedOrder);
+}
+
+// Attach event listener to the update button in the modal
+document.getElementById('updateOrderButton').addEventListener('click', handleUpdateOrder);
+    window.displayCustomerOrders = function(pageNumber, pageSize) {
+        currentPage = pageNumber; 
+        renderTableRows(pageNumber); 
+        updatePagination(); 
+    }
+
     function fetchCustomerOrders() {
         fetch('http://localhost:8080/getAllCustomerOrders')
             .then(response => {
@@ -56,9 +94,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 return response.json();
             })
             .then(data => {
-                customerOrders = data; // Assign fetched data to customerOrders array
-                calculateTotalPages(); // Calculate total pages based on fetched data
-                displayCustomerOrders(1, pageSize); // Display first page of orders
+                customerOrders = data; 
+                calculateTotalPages(); 
+                displayCustomerOrders(1, pageSize); 
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
@@ -70,19 +108,14 @@ document.addEventListener('DOMContentLoaded', function () {
         const pagination = document.getElementById('pagination');
         let paginationHtml = '';
 
-        // Generate pagination HTML dynamically
         for (let i = 1; i <= totalPages; i++) {
             paginationHtml += `<li class="page-item ${currentPage === i ? 'active' : ''}"><a class="page-link" href="#" onclick="window.displayCustomerOrders(${i}, ${pageSize})">${i}</a></li>`;
         }
-
-        // Update the pagination container with the generated HTML
         pagination.innerHTML = paginationHtml;
     }
-
-    // Initialize: Fetch data and set up pagination
     fetchCustomerOrders();
 
-// Function to perform search
+
 function performSearch() {
     const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
 
@@ -102,6 +135,10 @@ function performSearch() {
                             <td>${order.customerName}</td>
                             <td>${order.productName}</td>
                             <td>${order.status}</td>
+                            <td>
+                               <button type="button" class="btn btn-primary btn-sm btn-update" data-order-id="${order.orderId}">Update</button>
+                               <button type="button" class="btn btn-danger btn-sm btn-delete" data-order-id="${order.orderId}">Delete</button>
+                            </td>
                         </tr>`;
     });
 
@@ -281,6 +318,10 @@ function performSearch() {
                         <td>${order.customerName}</td>
                         <td>${order.productName}</td>
                         <td>${order.status}</td>
+                        <td>
+                           <button type="button" class="btn btn-primary btn-sm btn-update" data-order-id="${order.orderId}">Update</button>
+                           <button type="button" class="btn btn-danger btn-sm btn-delete" data-order-id="${order.orderId}">Delete</button>
+                        </td>
                     `;
                     tableBody.appendChild(row);
 
@@ -313,14 +354,57 @@ function performSearch() {
     });
 });
 
+// Modified updateOrder function to fetch customer orders
+function updateOrder(updatedOrder) {
+    fetch(`http://localhost:8080/updateCustomerOrderById/${order.orderId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedOrder),
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Failed to update order');
+        }
+    })
+    .then(data => {
+        alert('Order updated successfully');
+        $('#updateOrderModal').modal('hide'); 
+        fetchCustomerOrders(); 
+    })
+    .catch(error => {
+        console.error('Error updating order:', error);
+        alert('Error updating order');
+    });
+}
+
+function deleteOrder(orderId) {
+    fetch(`http://localhost:8080/deleteCustomerOrderById/${orderId}`, {
+        method: 'DELETE',
+    })
+    .then(response => {
+        if (response.status === 204) {
+            alert('Order deleted successfully');
+            window.location.reload();
+        } else {
+            throw new Error('Failed to delete order');
+        }
+    })
+    .catch(error => {
+        console.error('Error deleting order:', error);
+    });
+}
+
 function openNav() {
     document.getElementById("mySidenav").style.width = "16em";
 }
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
 }
-// JavaScript for handling logout button click
+
 document.getElementById('logoutBtn').addEventListener('click', function () {
-    // Redirect to login page
-    window.location.href = '/app/login/login.html'; // Replace with your actual login page URL
+    window.location.href = '/app/login/login.html'; 
 });
