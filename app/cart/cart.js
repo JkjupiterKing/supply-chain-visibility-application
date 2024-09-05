@@ -15,11 +15,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (cartItems.length === 0) {
             cartItemsContainer.innerHTML = '<p>Cart is empty.</p>';
-            disableCheckoutButton();
             hidePlaceOrderButton();
             return;
         } else {
-            enableCheckoutButton();
             checkLoginStatus();
         }
 
@@ -53,44 +51,6 @@ document.addEventListener('DOMContentLoaded', function () {
         addInstantRemoveListeners();
     }
 
-    function disableCheckoutButton() {
-        const proceedToCheckoutBtn = document.getElementById('proceed-to-checkout');
-        if (proceedToCheckoutBtn) {
-            proceedToCheckoutBtn.setAttribute('disabled', 'disabled');
-            proceedToCheckoutBtn.classList.add('disabled');
-        } else {
-            console.error('Proceed to Checkout button not found');
-        }
-    }
-
-    function enableCheckoutButton() {
-        const proceedToCheckoutBtn = document.getElementById('proceed-to-checkout');
-        if (proceedToCheckoutBtn) {
-            proceedToCheckoutBtn.removeAttribute('disabled');
-            proceedToCheckoutBtn.classList.remove('disabled');
-        } else {
-            console.error('Proceed to Checkout button not found');
-        }
-    }
-
-    function showCheckoutButton() {
-        const CheckoutBtn = document.getElementById('proceed-to-checkout');
-        if (CheckoutBtn) {
-            CheckoutBtn.style.display = 'inline';
-        } else {
-            console.error('Proceed to Checkout button not found');
-        }
-    }
-
-    function hideProceedToCheckoutButton() {
-        const proceedToCheckoutBtn = document.getElementById('proceed-to-checkout');
-        if (proceedToCheckoutBtn) {
-            proceedToCheckoutBtn.style.display = 'none';
-        } else {
-            console.error('Proceed to Checkout button not found');
-        }
-    }
-
     function hidePlaceOrderButton() {
         const placeOrderBtn = document.getElementById('place-order');
         if (placeOrderBtn) {
@@ -113,7 +73,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const loginMessage = localStorage.getItem('loginMessage');
         if (loginMessage === 'login successfull!!') { 
             showPlaceOrderButton();
-            hideProceedToCheckoutButton();
         } else {
             hidePlaceOrderButton();
         }
@@ -136,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     localStorage.setItem('cartItems', JSON.stringify(cartItems));
                     renderCartItems();
                     if (cartItems.length === 0) {
-                        disableCheckoutButton();
+                        hidePlaceOrderButton();
                     }
                     alert(`${productTitle} removed from cart.`);
                 } else {
@@ -146,35 +105,54 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function placeOrder() {
-        localStorage.removeItem('cartItems'); 
-        localStorage.removeItem('loginMessage'); 
-        renderCartItems(); 
+    async function placeOrder() {
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const customerName = localStorage.getItem('username');
+        let orderPlaced = true;
 
-        const toastEl = document.getElementById('order-toast');
-        if (toastEl) {
-            const toast = new bootstrap.Toast(toastEl);
-            toast.show(); 
-            showCheckoutButton();
-            disableCheckoutButton();
+        for (const item of cartItems) {
+            try {
+                const response = await fetch('http://localhost:8080/addCustomerOrder', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        productName: item.title,
+                        customerName: customerName,
+                        status: 'Pending'
+                    }),
+                });
+
+                if (!response.ok) {
+                console.error(`Failed to place order for product ${item.title}. Response: ${response.statusText}`);
+                orderPlaced = false;
+                }
+            } catch (error) {
+                console.error(`Error placing order for product ${item.title}:`, error);
+                orderPlaced = false;
+            }
+        }
+
+        if (orderPlaced) {
+            localStorage.removeItem('cartItems'); 
+            localStorage.removeItem('loginMessage'); 
+            localStorage.removeItem('username');
+            renderCartItems(); 
+
+            const toastEl = document.getElementById('order-toast');
+            if (toastEl) {
+                const toast = new bootstrap.Toast(toastEl);
+                toast.show(); 
+            } else {
+                console.error('Toast element not found');
+            }
         } else {
-            console.error('Toast element not found');
+            alert('Failed to place some orders. Please try again.');
         }
     }
 
     renderCartItems();
-
-    const proceedToCheckoutBtn = document.getElementById('proceed-to-checkout');
-    if (proceedToCheckoutBtn) {
-        proceedToCheckoutBtn.addEventListener('click', function (event) {
-            if (proceedToCheckoutBtn.classList.contains('disabled')) {
-                event.preventDefault();
-                alert('Your cart is empty. Please add items to proceed to checkout.');
-            } else {
-                console.log('Proceeding to checkout...');
-            }
-        });
-    }
 
     const placeOrderBtn = document.getElementById('place-order');
     if (placeOrderBtn) {

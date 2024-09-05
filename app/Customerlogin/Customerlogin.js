@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (password === decodedPassword) {
                 alert("login successfull!!");
                 localStorage.setItem("loginMessage", "login successfull!!");
+                localStorage.setItem("username", username);
                 window.location.href = '../index/index.html'; 
             } else {
                 alert('Invalid username or password.');
