@@ -17,17 +17,9 @@ body {
     font-weight: bold;
     font-size: 1em;
 }
-#proceed-to-checkout {
-    background-color: #577B8D;
-    margin-left: 5em;
-    border-color: #577B8D;
-}
 .btn:hover {
     background-color: #ddd;
     color: black;
-}
-#proceed-to-checkout:hover {
-    background-color: #ddd;
 }
 h2 {
 color: black;

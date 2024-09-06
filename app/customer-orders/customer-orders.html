@@ -22,7 +22,7 @@
     <main>
         <div>
             <h1 style="margin-left: 1.3em;">Manage Customer Orders</h1>
-            <p style="margin-left: 3.3em; padding: 1em 0 0 0;">Track your orders here.</p>
+            <p style="margin-left: 3.3em; padding: 1em 0 0 0;">Track customer orders here.</p>
         </div>
         <div class="container" id="display">
             <div class="btns d-flex align-items-center" role="group" aria-label="Order Filters">
@@ -64,11 +64,11 @@
     <div class="container px-1 px-md-4 py-5 mx-auto" id="orderDetailsContainer">
         <!-- Content will be generated dynamically -->
     </div>
-    <!-- Bootstrap Modal for Updating Order -->
-<div class="modal fade" id="updateOrderModal" tabindex="-1" aria-labelledby="updateOrderModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
+    <!-- Bootstrap Modal for Updating Order status -->
+   <div class="modal fade" id="updateOrderModal" tabindex="-1" aria-labelledby="updateOrderModalLabel" aria-hidden="true">
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <div class="modal-header">
           <h5 class="modal-title" id="updateOrderModalLabel">Update Order Status</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -77,13 +77,13 @@
             <div class="mb-3">
               <label for="updateStatus" class="form-label">Status</label>
               <select class="form-control" id="updateStatus">
-                <option value="pending">Pending</option>
-                <option value="processing">Processing</option>
-                <option value="shipped">Shipped</option>
-                <option value="delivered">Delivered</option>
+                <option value="Pending">Pending</option>
+                <option value="Processing">Processing</option>
+                <option value="Shipped">Shipped</option>
+                <option value="Delivered">Delivered</option>
               </select>
             </div>
-            <button type="submit" class="btn btn-primary" id="updateOrderButton">Update Order</button>
+            <button type="submit" class="btn btn-primary" id="updateOrderButton">Update Status</button>
           </form>
         </div>
       </div>

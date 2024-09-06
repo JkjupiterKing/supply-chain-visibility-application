@@ -137,7 +137,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (orderPlaced) {
             localStorage.removeItem('cartItems'); 
             localStorage.removeItem('loginMessage'); 
-            localStorage.removeItem('username');
             renderCartItems(); 
 
             const toastEl = document.getElementById('order-toast');

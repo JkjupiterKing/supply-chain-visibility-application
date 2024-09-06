@@ -3,6 +3,7 @@ $('#mySidenav').load('../common/sidenav.html');
 document.addEventListener('DOMContentLoaded', function () {
     
     let customerOrders = []; 
+    let selectedOrderId = null;
     const pageSize = 10; 
     let currentPage = 1; 
     let totalPages = 0; 
@@ -43,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const order = customerOrders.find(order => order.orderId == orderId);
                 if (order) {
                     selectedOrderId = orderId;
-                    populateUpdateModal(order);
+                    populateUpdateModal(order,selectedOrderId);
                     new bootstrap.Modal(document.getElementById('updateOrderModal')).show();
                 }
             });
@@ -57,26 +58,28 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
     
-    function populateUpdateModal(order) {
-        document.getElementById('updateStatus').value = order.status.toLowerCase(); 
+    function populateUpdateModal(order,selectedOrderId) {
+        document.getElementById('updateStatus').value = order.status; 
+        let orderid = selectedOrderId;
     }
 
     // Function to handle the update process
     function handleUpdateOrder() {
-    const status = document.getElementById('updateStatus').value.toLowerCase();
-
-    if (!status) {
-        alert('Please provide the status!');
-        return;
+        const status = document.getElementById('updateStatus').value;
+    
+        if (!status) {
+            alert('Please provide the status!');
+            return;
+        }
+    
+        const order = {
+            orderId: selectedOrderId, 
+            status: status
+        };
+    
+        updateOrder(order);
     }
-
-    const updatedOrder = {
-        status: status
-    };
-
-    updateOrder(updatedOrder);
-}
-
+    
 // Attach event listener to the update button in the modal
 document.getElementById('updateOrderButton').addEventListener('click', handleUpdateOrder);
     window.displayCustomerOrders = function(pageNumber, pageSize) {
@@ -354,32 +357,30 @@ function performSearch() {
     });
 });
 
-// Modified updateOrder function to fetch customer orders
-function updateOrder(updatedOrder) {
-    fetch(`http://localhost:8080/updateCustomerOrderById/${order.orderId}`, {
+function updateOrder(order) {
+    console.log(order);
+    fetch(`http://localhost:8080/updateCustomerOrderById/${order.orderId}`, { 
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(updatedOrder),
+        body: JSON.stringify(order),
     })
     .then(response => {
         if (response.ok) {
-            return response.json();
+            alert('Order updated successfully');
+            $('#updateOrderModal').modal('hide'); 
+            window.location.reload();
         } else {
             throw new Error('Failed to update order');
         }
-    })
-    .then(data => {
-        alert('Order updated successfully');
-        $('#updateOrderModal').modal('hide'); 
-        fetchCustomerOrders(); 
     })
     .catch(error => {
         console.error('Error updating order:', error);
         alert('Error updating order');
     });
 }
+
 
 function deleteOrder(orderId) {
     fetch(`http://localhost:8080/deleteCustomerOrderById/${orderId}`, {
