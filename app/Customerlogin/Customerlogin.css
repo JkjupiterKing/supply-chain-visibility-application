@@ -1,62 +1,66 @@
 @font-face {
-    font-family: 'Poppins';
-    src: url('/resources/fonts/Poppins-Medium.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "Poppins";
+  src: url("/resources/fonts/Poppins-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 body {
-    font-family: "Poppins", sans-serif;
-    background-color: #D8EFD3;
+  font-family: "Poppins", sans-serif;
+  background-color: #d8efd3;
 }
 .header-buttons {
-    font-family: "Poppins", sans-serif;
-    position: absolute;
-    top: 20px;
-    right: 20px;
+  font-family: "Poppins", sans-serif;
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 .header-buttons .btn {
-    margin: 0;
+  margin: 0;
 }
-#h1{
-    font-size: larger;
-    color: white;
+#h1 {
+  font-size: larger;
+  color: white;
 }
-#uname{
-    font-size: large;
+#uname {
+  font-size: large;
 }
-#passwd{
-    font-size: large;
+#passwd {
+  font-size: large;
 }
-#Forgot password{
-    font-size: large;
+#sign-up {
+  position: fixed;
+  text-decoration: none;
+  margin-left: 21.5em;
+  font-size: 1.2em;
+  color: #577b8d;
 }
-a {
-text-decoration: none;
-margin-left: 17em;
-font-size: 1.2em;
-color: #577B8D;
+#sign-up:hover {
+  color: black;
 }
-a:hover {
-    color: black;
+#forgot-link {
+  position: fixed;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
 }
 #logo {
   width: 4.5em;
 }
 #card {
-  padding: 1em;  
+  padding: 1em;
 }
 #header {
-    display: flex;
-    flex-direction: row;
-    gap: 1em;
-    margin-left: 21em; 
-    margin-top: 5em; 
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  margin-left: 26em;
+  margin-top: 5em;
 }
 .btn {
-    background-color: #577B8D;
-    border-color: #577B8D;
+  background-color: #577b8d;
+  border-color: #577b8d;
 }
 .btn:hover {
-    background-color: #ddd;
-    color: black;
+  background-color: #ddd;
+  color: black;
 }
