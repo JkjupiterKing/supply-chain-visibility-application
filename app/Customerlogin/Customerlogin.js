@@ -27,7 +27,8 @@ document.addEventListener("DOMContentLoaded", function () {
           if (password === decodedPassword) {
             localStorage.setItem("loginMessage", "Login successful!");
             localStorage.setItem("username", username);
-            window.location.href = "../index/index.html";
+            localStorage.setItem("userDetails", JSON.stringify(user));
+            window.location.href = "../../app/index/index.html";
           } else {
             alert("Invalid username or password.");
           }
@@ -84,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
             alert(
               "Password has been reset. Please log in using the new password."
             );
-            modal.hide(); // Close modal on success
+            modal.hide();
           } else {
             alert("Failed to reset password. Please try again.");
             modal.hide();

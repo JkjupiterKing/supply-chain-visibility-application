@@ -4,13 +4,23 @@ var allProducts;
 var cartItems = [];
 
 //Add Header
-includeHeader('../header/header.html');
+includeHeader("../header/header.html");
 
 //Add event listners for filter buttons
-document.getElementById('btnShowAll').addEventListener('click', function () { filterSelection('all', allProducts) });
-document.getElementById('btnJewelery').addEventListener('click', function () { filterSelection('jewelery', allProducts) });
-document.getElementById('btnElectronics').addEventListener('click', function () { filterSelection('Electronics', allProducts) });
-document.getElementById('btnFashion').addEventListener('click', function () { filterSelection('Fashion', allProducts) });
+document.getElementById("btnShowAll").addEventListener("click", function () {
+  filterSelection("all", allProducts);
+});
+document.getElementById("btnJewelery").addEventListener("click", function () {
+  filterSelection("jewelery", allProducts);
+});
+document
+  .getElementById("btnElectronics")
+  .addEventListener("click", function () {
+    filterSelection("Electronics", allProducts);
+  });
+document.getElementById("btnFashion").addEventListener("click", function () {
+  filterSelection("Fashion", allProducts);
+});
 
 // Add active class to the current button (highlight it)
 var btnContainer = document.getElementById("myBtnContainer");
@@ -34,10 +44,9 @@ for (var i = 0; i < btns.length; i++) {
   });
 }
 
-
-fetch('http://localhost:8080/products/all') // Replace with your API endpoint
-  .then(res => res.json())
-  .then(products => {
+fetch("http://localhost:8080/products/all") // Replace with your API endpoint
+  .then((res) => res.json())
+  .then((products) => {
     allProducts = products;
     console.log(allProducts);
     if (products) {
@@ -47,16 +56,16 @@ fetch('http://localhost:8080/products/all') // Replace with your API endpoint
       console.log("No products fetched");
     }
   })
-  .catch(error => {
-    console.error('Error fetching products:', error);
+  .catch((error) => {
+    console.error("Error fetching products:", error);
   });
 
 // FUNCTIONS
 function buildProductPage(products) {
   console.log(products);
-  let productList = document.getElementById('row');
+  let productList = document.getElementById("row");
   productList.innerHTML = "";
-  products.forEach(product => {
+  products.forEach((product) => {
     const cardHTML = `
       <div class="column">
         <div class="card">
@@ -65,7 +74,6 @@ function buildProductPage(products) {
             <h4 class="card-title" id="Product_name_${product.id}">${product.title}</h4>
             <p class="card-text1" id="Product_description_${product.id}">${product.description}</p>
             <p class="card-text" id="Product_price_${product.id}">Price: ${product.price}</p>
-            <p class="card-text" id="Product_rating_${product.id}">Rating: ${product.rating}/5</p>
             <button type="button" class="btn btn-primary addToCartButton" id="${product.id}">Add to cart</button>
           </div>
         </div>
@@ -78,60 +86,56 @@ function buildProductPage(products) {
 
 // Event listener to Add-to-cart
 function addAddToCartListeners() {
-  const addToCartButtons = document.querySelectorAll('.addToCartButton');
-  
-  addToCartButtons.forEach(button => {
-    button.addEventListener('click', () => {
+  const addToCartButtons = document.querySelectorAll(".addToCartButton");
+
+  addToCartButtons.forEach((button) => {
+    button.addEventListener("click", () => {
       const productId = button.id;
-      
+
       // Find the product in allProducts array
-      const product = allProducts.find(p => p.id == productId);
+      const product = allProducts.find((p) => p.id == productId);
       if (product) {
         // Retrieve existing cart items from localStorage or initialize an empty array
-        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-        
+        let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+
         // Add the selected product details to cartItems array
         cartItems.push({
           id: product.id,
           title: product.title,
           description: product.description,
           price: product.price,
-          rating: product.rating, 
-          image: product.imageURL 
+          rating: product.rating,
+          image: product.imageURL,
         });
-        
+
         // Store the updated cartItems back into localStorage
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
-        
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
         // Alert message with product title added to cart
         alert(`${product.title} added to cart!`);
-        
+
         // Log product details including image URL to console
-        console.log('Product added to cart:', {
+        console.log("Product added to cart:", {
           id: product.id,
           title: product.title,
           description: product.description,
           price: product.price,
           rating: product.rating.rate,
-          image: product.image
+          image: product.image,
         });
-        
       } else {
-        console.error('Product not found');
+        console.error("Product not found");
         // Optionally, inform the user that the product couldn't be added
-        alert('Product not found. Please try again.');
+        alert("Product not found. Please try again.");
       }
     });
   });
 }
 
-
-
 // Call the function to add event listeners when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function () {
   addAddToCartListeners();
 });
-
 
 function filterSelection(filterText, products) {
   console.log(filterText);
@@ -140,7 +144,12 @@ function filterSelection(filterText, products) {
       buildProductPage(products);
       break;
     default:
-      buildProductPage(products.filter(product => product.category.toLowerCase() == filterText.toLowerCase()));
+      buildProductPage(
+        products.filter(
+          (product) =>
+            product.category.toLowerCase() == filterText.toLowerCase()
+        )
+      );
   }
 }
 
@@ -149,7 +158,9 @@ function AddClass(element, name) {
   arr1 = element.className.split(" ");
   arr2 = name.split(" ");
   for (i = 0; i < arr2.length; i++) {
-    if (arr1.indexOf(arr2[i]) == -1) { element.className += " " + arr2[i]; }
+    if (arr1.indexOf(arr2[i]) == -1) {
+      element.className += " " + arr2[i];
+    }
   }
 }
 
@@ -164,13 +175,3 @@ function RemoveClass(element, name) {
   }
   element.className = arr1.join(" ");
 }
-
-
-
-
-
-
-
-
-
-
