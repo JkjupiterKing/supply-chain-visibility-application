@@ -48,6 +48,7 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Address</th>
+                    <th>Password</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -60,80 +61,89 @@
              <!-- Pagination links will be dynamically inserted here -->
             </ul>
               <br>
-              <!-- Form for adding new supplier -->
-              <div id="addSupplierForm" style="display: none;width: 100%;">
-                <h3>Add New Supplier</h3>
-                <br>
-                <form id="addSupplierFormElement">
-                  <div class="form-group">
-                    <label for="supplierName">Name</label>
-                    <input type="text" class="form-control" id="supplierName" name="supplierName" required>
-                  </div>
-                  <br>
-                  <div class="form-group">
-                    <label for="contactPerson">Contact Person</label>
-                    <input type="text" class="form-control" id="contactPerson" name="contactPerson" required>
-                  </div>
-                  <br>
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
-                  </div>
-                  <br>
-                  <div class="form-group">
-                    <label for="phone">Phone</label>
-                    <input type="text" class="form-control" id="phone" name="phone" required>
-                  </div>
-                  <br>
-                  <div class="form-group">
-                    <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" name="address" required>
-                  </div>
-                  <br>
-                  <button type="submit" class="btn btn-primary" id="submit">Add Supplier</button>
-                </form>
-              </div>
-            </div>
+              <!-- Add New Supplier Form -->
+<div id="addSupplierForm" style="display: none;width: 100%;">
+  <h3>Add New Supplier</h3>
+  <br>
+  <form id="addSupplierFormElement">
+      <div class="form-group">
+          <label for="supplierName">Name</label>
+          <input type="text" class="form-control" id="supplierName" name="supplierName" required>
+      </div>
+      <br>
+      <div class="form-group">
+          <label for="contactPerson">Contact Person</label>
+          <input type="text" class="form-control" id="contactPerson" name="contactPerson" required>
+      </div>
+      <br>
+      <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+      </div>
+      <br>
+      <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="text" class="form-control" id="phone" name="phone" required>
+      </div>
+      <br>
+      <div class="form-group">
+          <label for="address">Address</label>
+          <input type="text" class="form-control" id="address" name="address" required>
+      </div>
+      <br>
+      <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" name="password" required>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-primary" id="submit">Add Supplier</button>
+  </form>
+</div>
 <!-- Modal for Update Supplier -->
 <div id="updateSupplierModal" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Update Supplier</h5>
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Update Supplier</h5>
+          </div>
+          <div class="modal-body">
+              <form id="updateSupplierForm">
+                  <input type="hidden" id="updateSupplierId" name="updateSupplierId">
+                  <div class="form-group">
+                      <label for="updateSupplierName">Name</label>
+                      <input type="text" class="form-control" id="updateSupplierName" name="updateSupplierName" required>
+                  </div>
+                  <br>
+                  <div class="form-group">
+                      <label for="updateContactPerson">Contact Person</label>
+                      <input type="text" class="form-control" id="updateContactPerson" name="updateContactPerson" required>
+                  </div>
+                  <br>
+                  <div class="form-group">
+                      <label for="updateEmail">Email</label>
+                      <input type="email" class="form-control" id="updateEmail" name="updateEmail" required>
+                  </div>
+                  <br>
+                  <div class="form-group">
+                      <label for="updatePhone">Phone</label>
+                      <input type="text" class="form-control" id="updatePhone" name="updatePhone" required>
+                  </div>
+                  <br>
+                  <div class="form-group">
+                      <label for="updateAddress">Address</label>
+                      <input type="text" class="form-control" id="updateAddress" name="updateAddress" required>
+                  </div>
+                  <br>
+                  <div class="form-group">
+                      <label for="updatePassword">Password</label>
+                      <input type="password" class="form-control" id="updatePassword" name="updatePassword" required>
+                  </div>
+                  <br>
+                  <button type="submit" class="btn btn-primary" id="updatesupplier">Update Supplier</button>
+                  <br>
+              </form>
+          </div>
       </div>
-      <div class="modal-body">
-        <form id="updateSupplierForm">
-          <input type="hidden" id="updateSupplierId" name="updateSupplierId">
-          <div class="form-group">
-            <label for="updateSupplierName">Name</label>
-            <input type="text" class="form-control" id="updateSupplierName" name="updateSupplierName" required>
-          </div>
-          <br>
-          <div class="form-group">
-            <label for="updateContactPerson">Contact Person</label>
-            <input type="text" class="form-control" id="updateContactPerson" name="updateContactPerson" required>
-          </div>
-          <br>
-          <div class="form-group">
-            <label for="updateEmail">Email</label>
-            <input type="email" class="form-control" id="updateEmail" name="updateEmail" required>
-          </div>
-          <br>
-          <div class="form-group">
-            <label for="updatePhone">Phone</label>
-            <input type="text" class="form-control" id="updatePhone" name="updatePhone" required>
-          </div>
-          <br>
-          <div class="form-group">
-            <label for="updateAddress">Address</label>
-            <input type="text" class="form-control" id="updateAddress" name="updateAddress" required>
-          </div>
-          <br>
-          <button type="submit" class="btn btn-primary" id="updatesupplier">Update Supplier</button>
-          <br>
-        </form>
-      </div>
-    </div>
   </div>
 </div>
     </main>
